@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSCS Study Hub - Jamal's Exam Prep</title>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --surface2: #232734;
+            --border: #2e3345;
+            --text: #e4e6ed;
+            --text-dim: #8b8fa3;
+            --accent: #4f8cff;
+            --accent-dim: #2a4a8a;
+            --green: #34d399;
+            --green-dim: #064e3b;
+            --yellow: #fbbf24;
+            --yellow-dim: #78350f;
+            --red: #f87171;
+            --red-dim: #7f1d1d;
+            --orange: #fb923c;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* NAV */
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 24px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+        .nav-brand {
+            font-size: 20px;
+            font-weight: 700;
+            margin-right: 24px;
+            color: var(--accent);
+        }
+        .nav-brand span { color: var(--text-dim); font-weight: 400; font-size: 14px; }
+        .nav-tab {
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dim);
+            transition: all 0.2s;
+            border: none;
+            background: none;
+        }
+        .nav-tab:hover { color: var(--text); background: var(--surface2); }
+        .nav-tab.active { color: var(--accent); background: var(--accent-dim); }
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .countdown {
+            font-size: 13px;
+            color: var(--yellow);
+            font-weight: 600;
+        }
+
+        /* MAIN */
+        .main { max-width: 1200px; margin: 0 auto; padding: 24px; }
+        .section { display: none; }
+        .section.active { display: block; }
+
+        /* CARDS */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card h3 { font-size: 15px; margin-bottom: 12px; color: var(--text-dim); }
+
+        /* STATS ROW */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-card .number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .stat-card .label {
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-top: 4px;
+        }
+
+        /* PROGRESS BAR */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--surface2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        /* CALENDAR */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .cal-header {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-dim);
+            padding: 8px 4px;
+        }
+        .cal-day {
+            min-height: 90px;
+            background: var(--surface2);
+            border-radius: 8px;
+            padding: 6px 8px;
+            font-size: 11px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .cal-day:hover { border-color: var(--accent); }
+        .cal-day.today { border-color: var(--accent); }
+        .cal-day.completed { border-color: var(--green); }
+        .cal-day.empty { background: transparent; cursor: default; border: none; }
+        .cal-day .day-num {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+        .cal-day .day-tag {
+            display: inline-block;
+            font-size: 9px;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .tag-science { background: #1e3a5f; color: #60a5fa; }
+        .tag-practical { background: #3b1f0b; color: #fb923c; }
+        .tag-review { background: #1a3a1a; color: #4ade80; }
+        .tag-quiz { background: #3b1d4e; color: #c084fc; }
+        .tag-rest { background: #2a2a2a; color: #999; }
+        .tag-admin { background: #78350f; color: #fbbf24; }
+        .tag-exam { background: #7f1d1d; color: #f87171; }
+        .cal-day .day-topic {
+            font-size: 10px;
+            color: var(--text-dim);
+            line-height: 1.3;
+        }
+        .cal-check {
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            font-size: 14px;
+        }
+
+        /* MONTH NAV */
+        .month-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .month-nav h2 { margin: 0; }
+        .month-btn {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .month-btn:hover { background: var(--accent-dim); }
+
+        /* DAY DETAIL MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal h2 { margin-bottom: 16px; }
+        .modal-close {
+            float: right;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* CHECKLIST */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .checklist-item:last-child { border: none; }
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--green);
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .checklist-item.done .cl-text { text-decoration: line-through; color: var(--text-dim); }
+        .cl-text { flex: 1; }
+        .cl-text .cl-title { font-weight: 600; font-size: 14px; }
+        .cl-text .cl-desc { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+        .cl-text .cl-deadline { font-size: 11px; color: var(--yellow); margin-top: 2px; }
+
+        /* QUIZ */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .quiz-domain-select {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .quiz-question {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 14px 16px;
+            margin-bottom: 8px;
+            background: var(--surface2);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .quiz-option:hover { border-color: var(--accent); }
+        .quiz-option.selected { border-color: var(--accent); background: var(--accent-dim); }
+        .quiz-option.correct { border-color: var(--green); background: var(--green-dim); }
+        .quiz-option.incorrect { border-color: var(--red); background: var(--red-dim); }
+        .quiz-explanation {
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--surface2);
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.6;
+            display: none;
+        }
+        .quiz-explanation.show { display: block; }
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover { background: #3d7ae6; }
+        .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: var(--border); }
+
+        /* RESOURCES */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        .resource-card {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .resource-card h4 { font-size: 14px; margin-bottom: 6px; }
+        .resource-card .resource-type {
+            font-size: 11px;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .resource-card p { font-size: 12px; color: var(--text-dim); }
+        .resource-card .resource-cost {
+            font-size: 12px;
+            color: var(--green);
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        /* PRINT */
+        @media print {
+            .nav, .nav-tab, .modal-overlay { display: none !important; }
+            .section { display: block !important; }
+            .main { max-width: 100%; padding: 0; }
+            .card { break-inside: avoid; border: 1px solid #ccc; }
+            body { background: white; color: black; }
+            .cal-day { border: 1px solid #ddd; }
+            .stat-card { border: 1px solid #ccc; }
+            .stat-card .number { color: #333; }
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-brand">CSCS Study Hub <span>| Pass by June 26</span></div>
+    <button class="nav-tab active" data-tab="dashboard">Dashboard</button>
+    <button class="nav-tab" data-tab="calendar">Calendar</button>
+    <button class="nav-tab" data-tab="quiz">Practice Quiz</button>
+    <button class="nav-tab" data-tab="checklist">Admin Checklist</button>
+    <button class="nav-tab" data-tab="resources">Resources</button>
+    <div class="nav-right">
+        <div class="countdown" id="countdown"></div>
+    </div>
+</nav>
+
+<div class="main">
+    <!-- DASHBOARD -->
+    <div class="section active" id="sec-dashboard">
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="number" id="stat-days"></div>
+                <div class="label">Days Until Exam</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="stat-chapters">0/69</div>
+                <div class="label">Study Days Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="stat-quizzes">0</div>
+                <div class="label">Quiz Questions Done</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="stat-score">--%</div>
+                <div class="label">Average Quiz Score</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Overall Progress</h2>
+            <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--text-dim);">
+                <span>Study Progress</span>
+                <span id="progress-pct">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Today's Plan</h2>
+            <div id="today-plan">Loading...</div>
+        </div>
+
+        <div class="card">
+            <h2>This Week Overview</h2>
+            <div id="week-overview">Loading...</div>
+        </div>
+
+        <div class="card">
+            <h2>Quick Actions</h2>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="switchTab('quiz')">Start Quiz</button>
+                <button class="btn btn-secondary" onclick="switchTab('calendar')">View Calendar</button>
+                <button class="btn btn-secondary" onclick="switchTab('checklist')">Admin Checklist</button>
+                <button class="btn btn-secondary" onclick="window.open('CSCS-Printable-Calendar.html','_blank')">Printable Calendar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="section" id="sec-calendar">
+        <div class="card">
+            <div class="month-nav">
+                <button class="month-btn" onclick="changeMonth(-1)">&larr; Prev</button>
+                <h2 id="month-title"></h2>
+                <button class="month-btn" onclick="changeMonth(1)">Next &rarr;</button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
+        </div>
+
+        <div class="card">
+            <h2>Phase Overview</h2>
+            <div style="font-size: 13px; line-height: 2;">
+                <div><span class="day-tag tag-rest">LIGHT</span> Apr 20 - May 1 &mdash; Light study (busy weeks)</div>
+                <div><span class="day-tag tag-science">SCIENCE</span> May 2 - May 23 &mdash; Scientific Foundations deep dive</div>
+                <div><span class="day-tag tag-practical">APPLIED</span> May 24 - Jun 8 &mdash; Practical/Applied domains</div>
+                <div><span class="day-tag tag-review">REVIEW</span> Jun 9 - Jun 22 &mdash; Review + practice exams</div>
+                <div><span class="day-tag tag-exam">EXAM</span> Jun 23 - Jun 26 &mdash; Exam week</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="section" id="sec-quiz">
+        <div class="card">
+            <div class="quiz-header">
+                <h2>Practice Quiz</h2>
+                <select class="quiz-domain-select" id="quiz-domain" onchange="loadQuiz()">
+                    <option value="all">All Chapters</option>
+                    <optgroup label="Scientific Foundations (5th Ed)">
+                        <option value="ch1">Ch 1 - Structure & Function of Body Systems</option>
+                        <option value="ch2">Ch 2 - Biomechanics of Resistance Exercise</option>
+                        <option value="ch3">Ch 3 - Bioenergetics of Exercise & Training</option>
+                        <option value="ch4">Ch 4 - Endocrine Responses</option>
+                        <option value="ch5">Ch 5 - Adaptations to Anaerobic Training</option>
+                        <option value="ch6">Ch 6 - Adaptations to Aerobic Training</option>
+                        <option value="ch7">Ch 7 - Age-Related Differences</option>
+                        <option value="ch8">Ch 8 - Sex-Related Differences</option>
+                        <option value="ch9">Ch 9 - Psychological Foundations</option>
+                        <option value="ch10">Ch 10 - Basic Nutritional Factors</option>
+                        <option value="ch11">Ch 11 - Nutrition Strategies for Performance</option>
+                        <option value="ch12">Ch 12 - Performance-Enhancing Substances</option>
+                    </optgroup>
+                    <optgroup label="Practical / Applied (5th Ed)">
+                        <option value="ch13">Ch 13-14 - Test Selection, Admin & Interpretation</option>
+                        <option value="ch14">Ch 15 - Performance Prep, Mobility & Flexibility</option>
+                        <option value="ch16">Ch 16-17 - Exercise Technique (Free Weight, Machine, Alt)</option>
+                        <option value="ch17">Ch 19 - Plyometric Training</option>
+                        <option value="ch18">Ch 20 - Speed & Agility Training</option>
+                        <option value="ch19">Ch 18 & 22 - Program Design & Periodization</option>
+                        <option value="ch21">Ch 21 - Aerobic Endurance & Metabolic Training</option>
+                        <option value="ch22">Ch 23 - Rehab, Reconditioning & Medical</option>
+                        <option value="ch24">Ch 24 - Overreaching, Overtraining & Recovery</option>
+                        <option value="ch25">Ch 25-26 - Facility Design & Legal Issues</option>
+                    </optgroup>
+                    <optgroup label="By Exam Section">
+                        <option value="dom-sf">All Scientific Foundations</option>
+                        <option value="dom-pa">All Practical/Applied</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div id="quiz-chapter-progress" style="margin-bottom: 16px;"></div>
+            <div id="quiz-area">
+                <div class="quiz-question" id="quiz-q"></div>
+                <div id="quiz-options"></div>
+                <div class="quiz-explanation" id="quiz-explain"></div>
+                <div class="quiz-nav">
+                    <span id="quiz-count" style="font-size: 13px; color: var(--text-dim);"></span>
+                    <button class="btn btn-primary" id="quiz-next-btn" onclick="nextQuestion()">Next Question</button>
+                </div>
+            </div>
+            <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 13px; color: var(--text-dim);">Score: <strong id="session-score">0/0</strong></span>
+                <button class="btn btn-secondary" onclick="startOver()">Start Over</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Chapter Quiz Scores</h2>
+            <div id="chapter-scores" style="font-size: 13px;"></div>
+        </div>
+    </div>
+
+    <!-- CHECKLIST -->
+    <div class="section" id="sec-checklist">
+        <div class="card">
+            <h2>Administrative Requirements</h2>
+            <h3>Complete these to be eligible for the exam</h3>
+            <div id="admin-checklist"></div>
+        </div>
+        <div class="card">
+            <h2>Study Milestones</h2>
+            <div id="study-checklist"></div>
+        </div>
+    </div>
+
+    <!-- RESOURCES -->
+    <div class="section" id="sec-resources">
+        <div class="card">
+            <h2>Video & Audio Resources</h2>
+            <h3>Since you learn best by watching and listening</h3>
+            <div class="resource-grid" id="resource-grid"></div>
+        </div>
+    </div>
+</div>
+
+<!-- DAY DETAIL MODAL -->
+<div class="modal-overlay" id="day-modal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <h2 id="modal-date"></h2>
+        <div id="modal-content"></div>
+        <div style="margin-top: 16px;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <input type="checkbox" id="modal-complete" onchange="toggleDayComplete()" style="width: 18px; height: 18px; accent-color: var(--green);">
+                <span style="font-size: 14px; font-weight: 600;">Mark day as completed</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const EXAM_DATE = new Date(2026, 5, 26); // June 26, 2026
+const START_DATE = new Date(2026, 3, 19); // April 19, 2026
+
+// Study plan data - each day from Apr 19 to Jun 26
+const studyPlan = generateStudyPlan();
+
+function generateStudyPlan() {
+    const plan = {};
+
+    const days = [
+        // WEEK 0 - Apr 19 (today, Saturday) - Getting started
+        { d: '2026-04-19', tag: 'rest', label: 'Setup Day (DONE)', topic: 'Reviewed DCO, explored Study Hub, took Ch 1 quiz, watched YouTube videos', phase: 'Orientation', sessions: ['Reviewed the Detailed Content Outline (DCO) ✓', 'Explored study hub app ✓', 'Took Ch 1 quiz ✓', 'Watched YouTube overview videos ✓', 'Pocket Prep — will download later', 'HKPropel — will redeem when hitting Ch 16'] },
+
+        // WEEK 1 - Apr 20-25 (LIGHT WEEK)
+        { d: '2026-04-20', tag: 'rest', label: 'Light Day', topic: 'Watch overview videos on CSCS exam structure, review study plan', phase: 'Light Week 1', sessions: ['Watch CSCS exam overview videos (1 hr)', 'Review study calendar and admin checklist'] },
+        { d: '2026-04-21', tag: 'science', label: 'Ch 1 Intro', topic: 'Muscle anatomy - watch video lectures, review major muscle groups', phase: 'Light Week 1', sessions: ['Watch: Muscle Anatomy video lecture (45 min)', 'Review muscle group names and locations', 'Pocket Prep: 10 questions'] },
+        { d: '2026-04-22', tag: 'science', label: 'Ch 1', topic: 'Muscle fiber types, sliding filament theory, muscle actions', phase: 'Light Week 1', sessions: ['Watch: Muscle Physiology video (45 min)', 'Key concepts: Type I vs Type II fibers, concentric/eccentric/isometric', 'Pocket Prep: 10 questions'] },
+        { d: '2026-04-23', tag: 'rest', label: 'Light Day', topic: 'Review Ch 1, Pocket Prep questions only', phase: 'Light Week 1', sessions: ['Pocket Prep: 20 questions on Exercise Science', 'Review any missed questions'] },
+        { d: '2026-04-24', tag: 'science', label: 'Ch 2 Intro', topic: 'Neuromuscular anatomy - motor units, proprioceptors', phase: 'Light Week 1', sessions: ['Watch: Neuromuscular Physiology video (45 min)', 'Key concepts: motor unit recruitment, muscle spindles, GTOs', 'Pocket Prep: 10 questions'] },
+        { d: '2026-04-25', tag: 'rest', label: 'Light Day', topic: 'Week 1 review, catch up on any missed content', phase: 'Light Week 1', sessions: ['Review Ch 1-2 notes', 'Pocket Prep: 15 questions', 'Claude session: Ch 1-2 quiz and review'] },
+
+        // WEEK 2 - Apr 26 - May 2 (LIGHT WEEK)
+        { d: '2026-04-26', tag: 'science', label: 'Ch 3', topic: 'Biomechanics - levers, torque, force-velocity, planes of movement', phase: 'Light Week 2', sessions: ['Watch: Biomechanics video lecture (60 min)', 'Key concepts: anatomical planes, lever systems, force-velocity curve', 'Practice: identify planes of movement for common exercises'] },
+        { d: '2026-04-27', tag: 'rest', label: 'Light Day', topic: 'Rest or catch-up, light Pocket Prep', phase: 'Light Week 2', sessions: ['Pocket Prep: 15 questions', 'Review any weak areas from Ch 1-3'] },
+        { d: '2026-04-28', tag: 'science', label: 'Ch 4', topic: 'Bone & connective tissue anatomy, responses to training', phase: 'Light Week 2', sessions: ['Watch: Bone & Connective Tissue video (45 min)', 'Key concepts: Wolff\'s law, bone remodeling, tendon/ligament adaptations'] },
+        { d: '2026-04-29', tag: 'science', label: 'Ch 5 Intro', topic: 'Bioenergetics - the three energy systems', phase: 'Light Week 2', sessions: ['Watch: Bioenergetics video lecture (45 min)', 'Key concepts: phosphagen, glycolytic, oxidative systems', 'Memorize: substrate, duration, intensity for each system'] },
+        { d: '2026-04-30', tag: 'rest', label: 'Light Day', topic: 'Pocket Prep + review', phase: 'Light Week 2', sessions: ['Pocket Prep: 20 questions', 'Review energy systems chart'] },
+        { d: '2026-05-01', tag: 'science', label: 'Ch 5 Deep', topic: 'Bioenergetics continued - work:rest ratios, energy system interplay', phase: 'Light Week 2', sessions: ['Watch: Energy Systems applied video (30 min)', 'Practice: match sports to primary energy systems', 'Claude session: bioenergetics quiz'] },
+        { d: '2026-05-02', tag: 'review', label: 'Week Review', topic: 'Review Ch 1-5, consolidate notes, identify weak areas', phase: 'Light Week 2', sessions: ['Review all notes from Ch 1-5', 'Pocket Prep: 25 questions (Exercise Science)', 'Claude session: comprehensive Ch 1-5 review quiz', 'Identify top 3 weak areas for next week'] },
+
+        // WEEK 3 - May 3-9 (TRANSITION - surgery May 6, ramp up after)
+        { d: '2026-05-03', tag: 'science', label: 'Ch 6', topic: 'Neuroendocrine physiology - hormones and exercise', phase: 'Deep Study Begins', sessions: ['Watch: Endocrine System & Exercise video (60 min)', 'Key concepts: testosterone, GH, cortisol, insulin responses to training', 'Key concepts: acute vs chronic hormonal responses', 'Textbook Ch 6 reading (skim for details videos missed)'] },
+        { d: '2026-05-04', tag: 'science', label: 'Ch 7', topic: 'Cardiopulmonary anatomy & physiology', phase: 'Deep Study Begins', sessions: ['Watch: Cardiovascular Physiology video (60 min)', 'Key concepts: cardiac output, stroke volume, a-vO2 difference', 'Key concepts: blood pressure responses, ventilatory threshold', 'Textbook Ch 7 reading'] },
+        { d: '2026-05-05', tag: 'science', label: 'Ch 6-7 Review', topic: 'Review endocrine + cardiopulmonary, practice questions', phase: 'Deep Study Begins', sessions: ['Pocket Prep: 25 questions', 'Claude session: Ch 6-7 deep dive quiz', 'Review hormonal response charts'] },
+        { d: '2026-05-06', tag: 'admin', label: 'Dad Surgery', topic: 'Dad\'s knee surgery. Light study only if time allows.', phase: 'Surgery Day', sessions: ['Be with family', 'If time: Pocket Prep 10-15 questions on phone'] },
+        { d: '2026-05-07', tag: 'science', label: 'Ch 8', topic: 'Age & sex differences in training responses', phase: 'Full Time Study', sessions: ['Watch: Age/Sex Differences video (45 min)', 'Key concepts: youth training considerations, older adult adaptations', 'Key concepts: sex-based differences in strength, power, endurance', 'Textbook Ch 8'] },
+        { d: '2026-05-08', tag: 'science', label: 'Ch 9', topic: 'Physiological adaptations to training', phase: 'Full Time Study', sessions: ['Watch: Training Adaptations video (60 min)', 'Key concepts: neural vs hypertrophic adaptations timeline', 'Key concepts: resistance training vs endurance adaptations', 'Textbook Ch 9', 'Pocket Prep: 20 questions'] },
+        { d: '2026-05-09', tag: 'review', label: 'Week Review', topic: 'Review Ch 6-9, comprehensive exercise science review', phase: 'Full Time Study', sessions: ['Review all exercise science notes (Ch 1-9)', 'Pocket Prep: 30 questions (Exercise Science)', 'Claude session: full Exercise Science domain quiz', 'Create summary sheets for weak areas'] },
+
+        // WEEK 4 - May 10-16 (FULL TIME - Sport Psych, Nutrition, Research)
+        { d: '2026-05-10', tag: 'science', label: 'Ch 10', topic: 'Sport Psychology - motivation, mental skills, arousal', phase: 'Full Time Study', sessions: ['Watch: Sport Psychology video lectures (60 min)', 'Key concepts: self-determination theory, goal orientation', 'Key concepts: arousal regulation, imagery, self-talk', 'Key concepts: coach-athlete relationships, team cohesion', 'Textbook Ch 10'] },
+        { d: '2026-05-11', tag: 'science', label: 'Ch 10b', topic: 'Sport Psychology - mental health, eating disorders, when to refer', phase: 'Full Time Study', sessions: ['Watch: Athlete Mental Health video (45 min)', 'Key concepts: psychological impact of injury, identity transitions', 'Key concepts: signs/symptoms of anxiety, depression, eating disorders', 'Key concepts: scope of practice - when to refer', 'Pocket Prep: 20 questions (Sport Psych)'] },
+        { d: '2026-05-12', tag: 'science', label: 'Ch 11', topic: 'Nutrition - macros, hydration, energy balance, body comp', phase: 'Full Time Study', sessions: ['Watch: Sports Nutrition video (60 min)', 'Key concepts: protein/carb/fat recommendations for athletes', 'Key concepts: hydration guidelines, pre/during/post nutrition', 'Key concepts: energy balance, caloric calculations', 'Practice: macronutrient calculations', 'Textbook Ch 11'] },
+        { d: '2026-05-13', tag: 'science', label: 'Ch 11b', topic: 'Nutrition - supplements, ergogenic aids, scope of practice', phase: 'Full Time Study', sessions: ['Watch: Supplements & Ergogenic Aids video (45 min)', 'Key concepts: evidence-based vs unsupported supplements', 'Key concepts: third-party testing, lack of FDA regulation', 'Key concepts: creatine, caffeine, protein, beta-alanine', 'Pocket Prep: 15 questions (Nutrition)'] },
+        { d: '2026-05-14', tag: 'science', label: 'Ch 12', topic: 'Research & Statistics - study design, reliability, validity', phase: 'Full Time Study', sessions: ['Watch: Research Methods video (45 min)', 'Key concepts: PICOT framework, research design types', 'Key concepts: reliability vs validity, practical significance', 'Key concepts: basic statistics (mean, SD, effect size)', 'Textbook Ch 12'] },
+        { d: '2026-05-15', tag: 'review', label: 'SF Review', topic: 'Full Scientific Foundations review day', phase: 'Full Time Study', sessions: ['Review all Scientific Foundations notes', 'Pocket Prep: 40 questions (all SF domains)', 'Claude session: full Scientific Foundations practice exam', 'Identify top 5 weak areas'] },
+        { d: '2026-05-16', tag: 'quiz', label: 'Practice Exam', topic: 'Timed Scientific Foundations practice exam (95 questions, 90 min)', phase: 'Full Time Study', sessions: ['Take full timed practice exam - Scientific Foundations', 'Review all incorrect answers', 'Score analysis by domain', 'Create targeted review plan for weak domains'] },
+
+        // WEEK 5 - May 17-23 (Testing, Warm-up, Exercise Technique)
+        { d: '2026-05-17', tag: 'practical', label: 'Ch 13', topic: 'Testing & evaluation - test selection, administration', phase: 'Practical Deep Dive', sessions: ['Watch: Testing & Evaluation videos (60 min)', 'Key concepts: test selection criteria (validity, reliability, specificity)', 'Key concepts: common tests - 1RM, Wingate, VO2max, T-test, pro agility', 'Key concepts: body composition assessment methods', 'Textbook Ch 13'] },
+        { d: '2026-05-18', tag: 'practical', label: 'Ch 13b', topic: 'Testing protocols - specific procedures, norms, interpretation', phase: 'Practical Deep Dive', sessions: ['Watch: Fitness Testing Protocols videos (60 min)', 'Memorize: specific test protocols and administration procedures', 'Practice: interpreting test results for different athletes', 'Pocket Prep: 20 questions (Testing)', 'Claude session: testing scenarios quiz'] },
+        { d: '2026-05-19', tag: 'practical', label: 'Ch 14-15', topic: 'Warm-up, mobility, flexibility, movement preparation', phase: 'Practical Deep Dive', sessions: ['Watch: Warm-Up & Flexibility videos (45 min)', 'Key concepts: dynamic vs static stretching, PNF techniques', 'Key concepts: CNS activation, movement preparation protocols', 'Key concepts: when to use each stretching modality', 'Textbook Ch 14-15'] },
+        { d: '2026-05-20', tag: 'practical', label: 'Ch 16', topic: 'Resistance training technique - free weights (USE HKPropel VIDEOS)', phase: 'Practical Deep Dive', sessions: ['Watch HKPropel exercise technique videos: Squat, Bench Press, Deadlift, Overhead Press', 'Read 5th Ed Ch 16: Fundamentals of Exercise Technique, Spotting', 'Key concepts: proper form, common errors, coaching cues for each lift', 'Key concepts: spotting positions — 1 vs 2 vs 3 spotters, NEVER spot Olympic lifts', 'Key concepts: grip types (pronated, supinated, hook, alternated, false), breathing, Valsalva', 'Claude session: exercise technique identification practice'] },
+        { d: '2026-05-21', tag: 'practical', label: 'Ch 16-17', topic: 'Olympic lifts, machines, alt equipment (USE HKPropel VIDEOS)', phase: 'Practical Deep Dive', sessions: ['Watch HKPropel videos: Power Clean, Power Snatch, Push Jerk, machine exercises', 'Read 5th Ed Ch 16 (continued) + Ch 17: Alternative Modes & Nontraditional Implements', 'Key concepts: clean/snatch phases (1st pull, transition, 2nd pull, catch) and common errors', 'Key concepts: power exercises NEVER spotted, max 5 reps per set', 'Key concepts: machine vs free weight considerations, bodyweight training, kettlebells', 'Pocket Prep: 20 questions (Exercise Technique)'] },
+        { d: '2026-05-22', tag: 'practical', label: 'Ch 17-18', topic: 'Plyometrics, speed, agility training techniques', phase: 'Practical Deep Dive', sessions: ['Watch: Plyometrics & Speed/Agility videos (60 min)', 'Key concepts: stretch-shortening cycle, amortization phase', 'Key concepts: depth jumps, bounding, landing mechanics', 'Key concepts: acceleration vs max velocity mechanics', 'Key concepts: change of direction vs agility', 'Textbook Ch 17-18'] },
+        { d: '2026-05-23', tag: 'review', label: 'Week Review', topic: 'Review testing, technique, plyos, speed/agility', phase: 'Practical Deep Dive', sessions: ['Review all practical notes from this week', 'Watch exercise technique videos for weak areas', 'Pocket Prep: 30 questions (Practical domains)', 'Claude session: exercise technique identification quiz'] },
+
+        // WEEK 6 - May 24-30 (Program Design - THE BIG ONE)
+        { d: '2026-05-24', tag: 'practical', label: 'Ch 19', topic: 'Program Design - needs analysis, exercise selection', phase: 'Program Design', sessions: ['Watch: Program Design Part 1 videos (90 min)', 'Key concepts: needs analysis process (sport, athlete, goals)', 'Key concepts: exercise selection principles', 'Key concepts: structural vs power vs assistance exercises', 'Textbook Ch 19'] },
+        { d: '2026-05-25', tag: 'practical', label: 'Ch 19b', topic: 'Program Design - order, intensity, volume, rest periods', phase: 'Program Design', sessions: ['Watch: Program Design Part 2 videos (60 min)', 'Key concepts: exercise order rules', 'Key concepts: %1RM tables, rep ranges for each goal', 'Key concepts: volume calculations (sets x reps)', 'Key concepts: rest period guidelines by training goal', 'Practice: design a training session from scratch'] },
+        { d: '2026-05-26', tag: 'practical', label: 'Ch 20', topic: 'Periodization - linear, undulating, block', phase: 'Program Design', sessions: ['Watch: Periodization videos (60 min)', 'Key concepts: macrocycle, mesocycle, microcycle', 'Key concepts: linear vs undulating vs block periodization', 'Key concepts: off-season, preseason, in-season planning', 'Textbook Ch 20', 'Practice: design a periodized annual plan'] },
+        { d: '2026-05-27', tag: 'practical', label: 'Program Practice', topic: 'Practice designing full programs for various athletes', phase: 'Program Design', sessions: ['Claude session: program design scenarios', 'Design programs for: football lineman, soccer midfielder, swimmer', 'Practice needs analysis for each sport', 'Pocket Prep: 25 questions (Program Design)'] },
+        { d: '2026-05-28', tag: 'practical', label: 'Ch 21', topic: 'Aerobic endurance training program design', phase: 'Program Design', sessions: ['Watch: Endurance Training Design video (45 min)', 'Key concepts: Karvonen method, heart rate zones', 'Key concepts: interval training, fartlek, tempo runs', 'Key concepts: conditioning for field/court sports', 'Textbook Ch 21'] },
+        { d: '2026-05-29', tag: 'practical', label: 'Ch 22-23', topic: 'Rehab/reconditioning, age-specific program design', phase: 'Program Design', sessions: ['Watch: Return to Play & Youth Training videos (60 min)', 'Key concepts: rehab progressions, interdisciplinary team', 'Key concepts: youth training guidelines and considerations', 'Key concepts: older adult training modifications', 'Textbook Ch 22-23'] },
+        { d: '2026-05-30', tag: 'review', label: 'PD Review', topic: 'Program Design comprehensive review', phase: 'Program Design', sessions: ['Review all program design notes', 'Practice: 3 more program design scenarios with Claude', 'Pocket Prep: 30 questions (Program Design)', 'Create cheat sheets for rep ranges, rest periods, % 1RM'] },
+
+        // WEEK 7 - May 31 - Jun 6 (Remaining chapters + Practice Exam)
+        { d: '2026-05-31', tag: 'practical', label: 'Ch 24', topic: 'Overreaching, overtraining, and recovery (NEW chapter)', phase: 'Final Chapters', sessions: ['Watch: Overtraining & Recovery videos (45 min)', 'Key concepts: functional vs nonfunctional overreaching', 'Key concepts: overtraining syndrome signs/symptoms', 'Key concepts: recovery strategies, sleep, deload protocols', 'Textbook Ch 24 (this is new in 5th edition!)'] },
+        { d: '2026-06-01', tag: 'practical', label: 'Ch 25-26', topic: 'Facility design, organization, administration, legal', phase: 'Final Chapters', sessions: ['Watch: Facility & Admin videos (45 min)', 'Key concepts: facility layout, equipment spacing standards', 'Key concepts: emergency procedures, safety protocols', 'Key concepts: scope of practice, liability, when to refer', 'Key concepts: NSCA Code of Ethics', 'Textbook Ch 25-26'] },
+        { d: '2026-06-02', tag: 'admin', label: 'Admin', topic: 'Organization & Admin deep review + Claude quiz', phase: 'Final Chapters', sessions: ['Pocket Prep: 20 questions (Org & Admin)', 'Claude session: Org & Admin scenario quiz', 'Review: legal concepts, standard of care, negligence'] },
+        { d: '2026-06-03', tag: 'review', label: 'Full Review', topic: 'Complete Practical/Applied section review', phase: 'Final Chapters', sessions: ['Review all Practical/Applied notes', 'Focus on: program design tables, exercise technique cues', 'Pocket Prep: 40 questions (all Practical domains)', 'Claude session: comprehensive Practical review'] },
+        { d: '2026-06-04', tag: 'quiz', label: 'Practice Exam', topic: 'Full timed Practical/Applied practice exam (125 Qs, 150 min)', phase: 'Final Chapters', sessions: ['Take full timed practice exam - Practical/Applied', 'Review all incorrect answers', 'Score analysis by domain', 'Identify weak areas for final review phase'] },
+        { d: '2026-06-05', tag: 'review', label: 'Weak Areas', topic: 'Target weak areas identified from practice exam', phase: 'Final Chapters', sessions: ['Deep review of weakest 2-3 domains', 'Re-watch relevant video lectures', 'Claude session: targeted weak area drilling', 'Pocket Prep: 25 focused questions'] },
+        { d: '2026-06-06', tag: 'quiz', label: 'Full Exam', topic: 'Complete timed practice exam (both sections)', phase: 'Final Chapters', sessions: ['Take FULL timed practice exam (both sections with break)', 'SF: 95 questions in 90 minutes', 'Break: 15 minutes', 'PA: 125 questions in 150 minutes', 'Review all results'] },
+
+        // WEEK 8 - Jun 7-13 (REVIEW & DRILL)
+        { d: '2026-06-07', tag: 'review', label: 'Exam Review', topic: 'Analyze full practice exam results, create final review plan', phase: 'Exam Prep', sessions: ['Detailed analysis of practice exam by domain', 'Create priority list of topics to review', 'Re-read relevant textbook sections', 'Claude session: targeted review of missed concepts'] },
+        { d: '2026-06-08', tag: 'science', label: 'SF Drill', topic: 'Scientific Foundations intensive review', phase: 'Exam Prep', sessions: ['Exercise Science rapid review (energy systems, anatomy, physiology)', 'Sport Psychology rapid review', 'Nutrition calculations practice', 'Pocket Prep: 40 SF questions'] },
+        { d: '2026-06-09', tag: 'practical', label: 'PA Drill', topic: 'Practical/Applied intensive review', phase: 'Exam Prep', sessions: ['Program Design scenario practice', 'Exercise technique video review', 'Testing protocols memorization', 'Pocket Prep: 40 PA questions'] },
+        { d: '2026-06-10', tag: 'review', label: 'Video Prep', topic: 'Video/image question prep — RE-WATCH HKPropel videos', phase: 'Exam Prep', sessions: ['Re-watch ALL HKPropel exercise technique videos (focus on identifying errors)', 'Practice identifying common form errors for: squat, deadlift, bench, clean, snatch', 'Review spotting positions for all major lifts (squat: 1 or 2, bench: 1 or 2, OH press: 1, Olympic: NEVER)', 'Review Olympic lift phases: 1st pull, transition/scoop, 2nd pull, catch', 'Claude session: describe exercise errors and identify corrections'] },
+        { d: '2026-06-11', tag: 'quiz', label: 'Practice Exam', topic: 'Final full practice exam under test conditions', phase: 'Exam Prep', sessions: ['Take final full practice exam (both sections)', 'Simulate test center conditions (no phone, timed, no notes)', 'Score and review'] },
+        { d: '2026-06-12', tag: 'review', label: 'Final Review', topic: 'Review final practice exam, address remaining gaps', phase: 'Exam Prep', sessions: ['Review all missed questions from final practice exam', 'Claude session: rapid-fire Q&A on weak areas', 'Create 1-page cheat sheet per domain for final review'] },
+        { d: '2026-06-13', tag: 'review', label: 'Consolidate', topic: 'Consolidate all notes, light review, confidence building', phase: 'Exam Prep', sessions: ['Review cheat sheets', 'Light Pocket Prep: 20 questions', 'Review DCO one more time', 'Plan exam day logistics'] },
+
+        // WEEK 9 - Jun 14-20 (FINAL REVIEW + TAPER)
+        { d: '2026-06-14', tag: 'review', label: 'Domain Review', topic: 'Exercise Science + Sport Psych final review', phase: 'Final Review', sessions: ['Rapid review of Exercise Science key concepts', 'Rapid review of Sport Psychology theories', 'Pocket Prep: 30 questions', 'Claude session: final SF quiz'] },
+        { d: '2026-06-15', tag: 'review', label: 'Domain Review', topic: 'Nutrition + Research final review', phase: 'Final Review', sessions: ['Nutrition calculations practice', 'Research/statistics key concepts review', 'Pocket Prep: 20 questions'] },
+        { d: '2026-06-16', tag: 'review', label: 'Domain Review', topic: 'Program Design + Periodization final review', phase: 'Final Review', sessions: ['Review all rep/set/rest/intensity tables', 'Practice 2 program design scenarios', 'Pocket Prep: 20 questions'] },
+        { d: '2026-06-17', tag: 'review', label: 'Domain Review', topic: 'Exercise Technique + Testing final review', phase: 'Final Review', sessions: ['Watch key exercise technique videos one more time', 'Review all testing protocols', 'Pocket Prep: 20 questions'] },
+        { d: '2026-06-18', tag: 'review', label: 'Light Review', topic: 'Admin + remaining topics, light review', phase: 'Final Review', sessions: ['Review Org & Admin', 'Review overtraining/recovery chapter', 'Light Pocket Prep: 15 questions'] },
+        { d: '2026-06-19', tag: 'rest', label: 'Taper', topic: 'Light review only. Trust your preparation.', phase: 'Taper', sessions: ['Skim cheat sheets', 'No new material', 'Prepare for exam day: ID, directions, food/water'] },
+        { d: '2026-06-20', tag: 'rest', label: 'Rest', topic: 'Rest day. Maybe light cheat sheet review. Get good sleep.', phase: 'Taper', sessions: ['Rest', 'Optional: skim cheat sheets', 'Early bedtime'] },
+
+        // EXAM WEEK - Jun 21-26
+        { d: '2026-06-21', tag: 'rest', label: 'Rest', topic: 'Day off. Relax. You\'re ready.', phase: 'Exam Week', sessions: ['Rest and relax', 'Confirm exam appointment details', 'Lay out ID and materials'] },
+        { d: '2026-06-22', tag: 'exam', label: 'EXAM OPTION', topic: 'Earliest exam day option (Mon). Or continue resting.', phase: 'Exam Week', sessions: ['Take the exam OR rest one more day', 'If taking exam: arrive 15 min early with valid ID'] },
+        { d: '2026-06-23', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option (Tue)', phase: 'Exam Week', sessions: ['Take the exam if not taken Monday'] },
+        { d: '2026-06-24', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option (Wed)', phase: 'Exam Week', sessions: ['Backup exam day'] },
+        { d: '2026-06-25', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option (Thu)', phase: 'Exam Week', sessions: ['Backup exam day'] },
+        { d: '2026-06-26', tag: 'exam', label: 'BIRTHDAY!', topic: 'Happy Birthday Jamal! Last chance exam day. You got this.', phase: 'Exam Week', sessions: ['PASS THE EXAM', 'CELEBRATE YOUR BIRTHDAY'] },
+    ];
+
+    days.forEach(d => { plan[d.d] = d; });
+    return plan;
+}
+
+// Admin checklist items
+const adminItems = [
+    { id: 'nsca-account', title: 'Create NSCA account', desc: 'Go to NSCA.com/User-Registration. Make sure first and last name EXACTLY match your government-issued photo ID.', deadline: 'By April 25' },
+    { id: 'nsca-membership', title: 'Purchase NSCA Professional Membership ($130/yr)', desc: 'Saves $135 on exam fees ($340 vs $475 = net $5 savings). BUT if you need to retake a section: $250 member vs $385 non-member = $135 savings. Also gives access to JSCR journal and study resources. Worth it.', deadline: 'By May 1' },
+    { id: 'transcripts', title: 'Order official transcripts', desc: 'Either your bachelor\'s or MPA works (NSCA requires bachelor\'s or higher). E-transcripts accepted via Parchment, National Student Clearinghouse, etc. University sends directly to Exams@NSCA.com. Cost: ~$10-25. You have 1 year after passing to submit, but do it early.', deadline: 'By May 9' },
+    { id: 'cpraed', title: 'Get CPR/AED certification (REQUIRED)', desc: 'MUST include hands-on skills assessment (not fully online). Blended learning (online + in-person skills check) is OK. NYC options: CPR Certification NYC (cprclassesnyc.org, ~$70, multiple weekly classes in Manhattan) | American Red Cross (redcross.org, ~$80-100, blended option) | AHA BLS course. Takes 3-4 hours total.', deadline: 'By May 8' },
+    { id: 'register-exam', title: 'Register for CSCS exam on NSCA.com ($340 member)', desc: 'Upload CPR/AED cert during registration. Pay $340 (member) or $475 (non-member). You get 120 days to schedule and take the exam. Registering May 15 gives you until Sep 12 — plenty of buffer.', deadline: 'May 10-15' },
+    { id: 'schedule-pearson', title: 'Schedule exam at Pearson VUE (NYC)', desc: 'You\'ll get an email from Pearson within 15 minutes of NSCA registration. Schedule for week of June 22-26. NYC centers: 100 William St (FiDi) | 18 W 21st St (Flatiron) | One WTC | 45 Main St (DUMBO) | 340 Flatbush Ave Ext (Downtown BK). Book 2-4 weeks ahead. Can take both sections same day.', deadline: 'Immediately after registration' },
+    { id: 'pocket-prep', title: 'Download Pocket Prep CSCS app ($20.99/mo)', desc: '1,000-1,500 practice questions. Use AFTER watching video lectures, not before. Great for daily drilling on phone.', deadline: 'April 19-20' },
+    { id: 'movement-system', title: 'Watch Movement System FREE YouTube videos', desc: 'Free chapter-by-chapter breakdowns and exercise technique videos on YouTube. Skip the $250 paid course — Claude + NotebookLM + Pocket Prep covers everything.', deadline: 'Start with Ch 1 video this week' },
+    { id: 'hkpropel', title: 'Redeem HKPropel access code for 5th edition digital content', desc: 'Go to HKPropel.HumanKinetics.com. Code: LBAN-JL76-A2D4-GG9H. Includes 21 exercise technique videos and lab activities. Great for video/image question prep. License lasts 7 years.', deadline: 'This week!' },
+    { id: 'practice-exam', title: 'Purchase NSCA official practice exam', desc: 'Available through NSCA.com. Most realistic exam simulation. Take in Week 7-8 as benchmark.', deadline: 'By mid-May' },
+];
+
+const studyMilestones = [
+    { id: 'ch1-5', title: 'Complete Chapters 1-5 (Exercise Science foundations)', desc: 'Muscle, neuro, biomechanics, bone, bioenergetics', deadline: 'May 2' },
+    { id: 'ch6-9', title: 'Complete Chapters 6-9 (Exercise Science advanced)', desc: 'Endocrine, cardiopulmonary, adaptations, age/sex differences', deadline: 'May 9' },
+    { id: 'ch10-12', title: 'Complete Chapters 10-12 (Psych, Nutrition, Research)', desc: 'Finishing Scientific Foundations content', deadline: 'May 15' },
+    { id: 'sf-practice', title: 'Score 70%+ on Scientific Foundations practice exam', desc: 'Full timed practice exam', deadline: 'May 16' },
+    { id: 'ch13-18', title: 'Complete Chapters 13-18 (Testing, Technique, Plyo, Speed)', desc: 'Exercise technique and testing domains', deadline: 'May 23' },
+    { id: 'ch19-23', title: 'Complete Chapters 19-23 (Program Design, Periodization)', desc: 'The biggest domain on the exam', deadline: 'May 30' },
+    { id: 'ch24-26', title: 'Complete Chapters 24-26 (Recovery, Facility, Admin)', desc: 'Finishing all textbook content', deadline: 'June 2' },
+    { id: 'pa-practice', title: 'Score 70%+ on Practical/Applied practice exam', desc: 'Full timed practice exam', deadline: 'June 4' },
+    { id: 'full-practice', title: 'Score 70%+ on full combined practice exam', desc: 'Both sections, test conditions', deadline: 'June 11' },
+    { id: 'pass-exam', title: 'PASS THE CSCS EXAM', desc: 'Happy Birthday!', deadline: 'June 26' },
+];
+
+// Quiz questions bank - organized by chapter (~20 per chapter)
+const quizQuestions = [
+    // ===== CH 1: MUSCLE ANATOMY & PHYSIOLOGY =====
+    { ch: 'ch1', q: 'Which muscle fiber type has the highest resistance to fatigue?', options: ['Type I', 'Type IIa', 'Type IIx'], correct: 0, explain: 'Type I (slow-twitch) fibers have the highest oxidative capacity and resistance to fatigue. They are recruited first during low-intensity activities and can sustain contractions for long periods.' },
+    { ch: 'ch1', q: 'The sliding filament theory describes:', options: ['How muscles grow in size', 'How actin and myosin interact to produce muscle contraction', 'How motor neurons communicate with muscle fibers'], correct: 1, explain: 'The sliding filament theory explains how muscle contraction occurs through the interaction of actin (thin) and myosin (thick) filaments. Myosin cross-bridges attach to actin and pull the filaments past each other, shortening the sarcomere.' },
+    { ch: 'ch1', q: 'An untrained individual begins resistance training. After 3 weeks, strength increases significantly. This is primarily due to:', options: ['Muscle hypertrophy', 'Improved neuromuscular efficiency', 'Increased number of muscle fibers'], correct: 1, explain: 'Early strength gains (first 4-8 weeks) are primarily neural — improved motor unit recruitment, firing rate, and synchronization. Hypertrophy becomes dominant after 6-8 weeks.' },
+    { ch: 'ch1', q: 'During an eccentric muscle action:', options: ['The muscle shortens while producing force', 'The muscle lengthens while producing force', 'The muscle stays the same length while producing force'], correct: 1, explain: 'Eccentric action = muscle lengthens under tension (e.g., lowering phase of a bicep curl). Concentric = shortens. Isometric = no length change. Eccentric actions can produce the greatest force of the three types.' },
+    { ch: 'ch1', q: 'The smallest functional unit of muscle contraction is the:', options: ['Myofibril', 'Sarcomere', 'Motor unit'], correct: 1, explain: 'The sarcomere is the smallest functional unit of contraction, bounded by Z-lines. It contains overlapping actin and myosin filaments that slide past each other during contraction.' },
+    { ch: 'ch1', q: 'Type IIx muscle fibers are characterized by:', options: ['High oxidative capacity and slow contraction speed', 'High glycolytic capacity and fast contraction speed', 'Moderate oxidative and glycolytic capacity'], correct: 1, explain: 'Type IIx (fast-twitch glycolytic) fibers have the highest force production and contraction speed but fatigue quickly. They are recruited last (size principle) during high-intensity efforts. Type IIa are the "intermediate" fibers.' },
+    { ch: 'ch1', q: 'Which protein forms the cross-bridges during muscle contraction?', options: ['Actin', 'Myosin', 'Troponin'], correct: 1, explain: 'Myosin (thick filament) heads form cross-bridges that attach to binding sites on actin (thin filament). Troponin and tropomyosin regulate access to these binding sites — calcium binding to troponin shifts tropomyosin to expose the actin binding sites.' },
+    { ch: 'ch1', q: 'The all-or-none principle states that:', options: ['All muscles in a group contract together', 'A motor unit either contracts fully or not at all', 'Maximum force requires all fiber types to activate'], correct: 1, explain: 'When a motor neuron fires, ALL muscle fibers in that motor unit contract maximally. Force is graded not by partial contraction of individual motor units, but by recruiting more motor units and increasing firing rate.' },
+    { ch: 'ch1', q: 'The epimysium is the connective tissue layer that surrounds:', options: ['Individual muscle fibers', 'Bundles of muscle fibers (fascicles)', 'The entire muscle'], correct: 2, explain: 'Epimysium = entire muscle. Perimysium = fascicle (bundle of fibers). Endomysium = individual fiber. Remember: Epi = outside/upon (like epidermis), Peri = around, Endo = within.' },
+    { ch: 'ch1', q: 'Which type of muscle action typically produces the GREATEST force?', options: ['Concentric', 'Isometric', 'Eccentric'], correct: 2, explain: 'Eccentric actions produce the most force because the muscle can resist more load while lengthening than it can produce while shortening. Force hierarchy: eccentric > isometric > concentric. This is why you can lower more weight than you can lift.' },
+    { ch: 'ch1', q: 'The sarcoplasmic reticulum\'s primary role in muscle contraction is to:', options: ['Provide ATP for cross-bridge cycling', 'Store and release calcium ions', 'Transmit the action potential along the fiber'], correct: 1, explain: 'The sarcoplasmic reticulum (SR) stores calcium ions. When stimulated by an action potential (via T-tubules), the SR releases Ca2+ into the sarcoplasm, which binds to troponin and initiates contraction. When stimulation stops, Ca2+ is pumped back into the SR and the muscle relaxes.' },
+    { ch: 'ch1', q: 'A pennate muscle fiber arrangement (e.g., rectus femoris) compared to a parallel arrangement (e.g., biceps brachii) produces:', options: ['Greater range of motion but less force', 'Greater force but less range of motion', 'Equal force and range of motion'], correct: 1, explain: 'Pennate muscles have fibers arranged at an angle to the tendon, allowing more fibers to pack into a given area (greater physiological cross-sectional area = more force). However, the angled arrangement reduces the range of shortening. Parallel muscles have longer fibers and greater range of motion.' },
+    { ch: 'ch1', q: 'During the excitation-contraction coupling process, the role of calcium is to:', options: ['Break down ATP for energy', 'Bind to troponin, exposing actin binding sites for myosin', 'Depolarize the muscle cell membrane'], correct: 1, explain: 'Calcium binds to troponin C, which causes a conformational change that moves tropomyosin off the actin binding sites. This allows myosin heads to attach to actin and begin the power stroke. Without calcium, the binding sites remain blocked.' },
+    { ch: 'ch1', q: 'Compared to Type I fibers, Type II fibers have:', options: ['More mitochondria and capillaries', 'Larger motor neurons and higher activation thresholds', 'Greater resistance to fatigue'], correct: 1, explain: 'Type II fibers are innervated by larger motor neurons with higher activation thresholds (size principle). They also have fewer mitochondria, fewer capillaries, less myoglobin (hence "white" muscle), and lower fatigue resistance than Type I fibers.' },
+    { ch: 'ch1', q: 'Muscle hypertrophy primarily results from an increase in:', options: ['The number of muscle fibers (hyperplasia)', 'The size of existing muscle fibers', 'The number of motor units'], correct: 1, explain: 'Hypertrophy = increase in the cross-sectional area of existing fibers, primarily through increased myofibrillar protein (actin and myosin). Hyperplasia (new fiber formation) may occur but is not considered a primary mechanism in humans.' },
+    { ch: 'ch1', q: 'The size principle of motor unit recruitment states that:', options: ['Larger motor units are always recruited first', 'Motor units are recruited from smallest to largest as force demand increases', 'Fast-twitch fibers are recruited before slow-twitch fibers'], correct: 1, explain: 'The size principle (Henneman\'s): motor units are recruited in order of size — small (Type I) first, then larger (Type IIa, then IIx) as force demands increase. This is why low-intensity activities primarily use Type I fibers, and heavy/explosive efforts recruit Type II.' },
+    { ch: 'ch1', q: 'Which of the following muscles is a hip flexor?', options: ['Gluteus maximus', 'Iliopsoas', 'Biceps femoris'], correct: 1, explain: 'The iliopsoas (iliacus + psoas major) is the primary hip flexor. Gluteus maximus is the primary hip extensor. Biceps femoris is a hamstring muscle that extends the hip and flexes the knee.' },
+    { ch: 'ch1', q: 'The antagonist muscle during a bicep curl is the:', options: ['Brachialis', 'Brachioradialis', 'Triceps brachii'], correct: 2, explain: 'The antagonist opposes the primary movement. During elbow flexion (bicep curl), the triceps brachii (elbow extensor) is the antagonist. The brachialis and brachioradialis are synergists that assist the biceps brachii (agonist).' },
+
+    // ===== CH 2: NEUROMUSCULAR ANATOMY & PHYSIOLOGY =====
+    { ch: 'ch2', q: 'The Golgi tendon organ (GTO) responds to:', options: ['Changes in muscle length', 'Changes in muscle tension', 'Changes in joint angle'], correct: 1, explain: 'GTOs are located at the musculotendinous junction and detect changes in tension. When tension is excessive, they trigger autogenic inhibition — causing the muscle to relax to prevent injury. This is the basis for PNF stretching (contract-relax).' },
+    { ch: 'ch2', q: 'Muscle spindles detect changes in:', options: ['Muscle tension', 'Muscle length and rate of length change', 'Blood flow to the muscle'], correct: 1, explain: 'Muscle spindles are intrafusal fibers that detect changes in muscle length and the rate of change. When stretched quickly, they trigger the stretch reflex (myotatic reflex) — a rapid contraction to protect the muscle from overstretching.' },
+    { ch: 'ch2', q: 'Rate coding refers to:', options: ['The speed at which motor units are recruited', 'The frequency at which a motor neuron fires action potentials', 'The rate at which muscle fibers grow'], correct: 1, explain: 'Rate coding = increasing the firing frequency of motor neurons to increase force production. Higher firing rates cause more frequent stimulation of muscle fibers, leading to greater force through temporal summation (eventually tetanus).' },
+    { ch: 'ch2', q: 'The stretch reflex (myotatic reflex) is initiated by:', options: ['Golgi tendon organs detecting high tension', 'Muscle spindles detecting rapid stretch', 'Free nerve endings detecting pain'], correct: 1, explain: 'When a muscle is rapidly stretched, muscle spindles send afferent signals to the spinal cord, which triggers a reflexive contraction of the same muscle (and inhibition of the antagonist). This is a monosynaptic reflex — one synapse in the spinal cord.' },
+    { ch: 'ch2', q: 'A motor unit consists of:', options: ['A single muscle fiber and its nerve supply', 'A motor neuron and ALL the muscle fibers it innervates', 'A bundle of fascicles within a muscle'], correct: 1, explain: 'A motor unit = one motor neuron + all the muscle fibers it innervates. Small motor units (few fibers) allow fine control (e.g., eye muscles). Large motor units (many fibers) produce large forces (e.g., quadriceps).' },
+    { ch: 'ch2', q: 'Proprioceptive neuromuscular facilitation (PNF) stretching works primarily by taking advantage of:', options: ['The stretch reflex to increase contraction', 'Autogenic inhibition from the Golgi tendon organ', 'Reciprocal inhibition from muscle spindles'], correct: 1, explain: 'PNF contract-relax technique works through autogenic inhibition: contracting the target muscle strongly stimulates the GTO, which then causes reflexive relaxation of that muscle, allowing a greater range of motion during the subsequent stretch.' },
+    { ch: 'ch2', q: 'Reciprocal inhibition refers to:', options: ['The relaxation of the antagonist muscle when the agonist contracts', 'The inhibition of both agonist and antagonist simultaneously', 'The gradual fatigue of motor units during sustained contraction'], correct: 0, explain: 'Reciprocal inhibition: when an agonist contracts, the antagonist is reflexively inhibited (relaxed) to allow smooth movement. For example, when the quadriceps contract to extend the knee, the hamstrings are inhibited.' },
+    { ch: 'ch2', q: 'Post-activation potentiation (PAP) refers to:', options: ['Decreased force production after heavy loading', 'Enhanced force production following a high-intensity contraction', 'The warm-up effect of repeated submaximal contractions'], correct: 1, explain: 'PAP = a temporary increase in muscle force/power output following a near-maximal contraction. For example, performing heavy back squats before vertical jumps may enhance jump performance. It works through increased motor unit recruitment and phosphorylation of myosin light chains.' },
+    { ch: 'ch2', q: 'The neuromuscular junction is the site where:', options: ['Sensory neurons connect to the spinal cord', 'A motor neuron communicates with a muscle fiber via acetylcholine', 'Muscle spindles attach to intrafusal fibers'], correct: 1, explain: 'The neuromuscular junction (NMJ) is the synapse between a motor neuron and a muscle fiber. The motor neuron releases acetylcholine (ACh) into the synaptic cleft, which binds to receptors on the muscle fiber membrane, initiating an action potential and contraction.' },
+    { ch: 'ch2', q: 'Spatial summation in motor unit recruitment means:', options: ['Increasing the firing rate of a single motor unit', 'Recruiting additional motor units to increase force', 'Alternating between different motor units to reduce fatigue'], correct: 1, explain: 'Spatial summation = recruiting more motor units to produce more force. Temporal summation (rate coding) = increasing the firing frequency of already-recruited motor units. Both mechanisms work together to grade muscle force.' },
+
+    // ===== CH 3: BIOMECHANICS =====
+    { ch: 'ch3', q: 'The frontal (coronal) plane divides the body into:', options: ['Left and right halves', 'Front and back halves', 'Upper and lower halves'], correct: 1, explain: 'Frontal/coronal plane = front and back (movements: abduction/adduction, lateral flexion). Sagittal plane = left and right (movements: flexion/extension). Transverse/horizontal plane = upper and lower (movements: rotation, horizontal adduction/abduction).' },
+    { ch: 'ch3', q: 'A lateral shoulder raise occurs primarily in the:', options: ['Sagittal plane', 'Frontal plane', 'Transverse plane'], correct: 1, explain: 'Shoulder abduction (lateral raise) occurs in the frontal plane around an anteroposterior (front-to-back) axis. The movement takes the arm away from the midline of the body.' },
+    { ch: 'ch3', q: 'Which of the following is an example of a third-class lever?', options: ['Triceps extending the elbow', 'Biceps flexing the elbow', 'Gastrocnemius plantar flexing the ankle'], correct: 1, explain: 'Third-class lever: effort is between the fulcrum and the resistance. Biceps curl: fulcrum = elbow joint, effort = biceps insertion (middle), resistance = weight in hand. Most body joints are third-class levers — they favor speed and ROM over force.' },
+    { ch: 'ch3', q: 'The force-velocity relationship states that as concentric contraction velocity increases:', options: ['Force production increases proportionally', 'Force production decreases', 'Force production remains constant'], correct: 1, explain: 'Inverse relationship for concentric contractions: fewer cross-bridges can form at higher speeds, so force decreases. This is why you can lift more weight slowly than explosively. For eccentric contractions, force increases with velocity.' },
+    { ch: 'ch3', q: 'Mechanical advantage is GREATEST in which type of lever?', options: ['First-class lever', 'Second-class lever', 'Third-class lever'], correct: 1, explain: 'Second-class levers (e.g., wheelbarrow, calf raise) have the resistance between the fulcrum and the effort, providing the greatest mechanical advantage. Third-class levers (most body joints) have the least mechanical advantage but greatest speed advantage.' },
+    { ch: 'ch3', q: 'A muscle acting as a stabilizer:', options: ['Produces the primary movement', 'Assists the agonist in producing movement', 'Contracts to stabilize a body part so another can move effectively'], correct: 2, explain: 'Stabilizers contract isometrically to anchor or support a body segment, allowing the agonist to produce movement effectively. Example: the rotator cuff stabilizes the humeral head in the glenoid during a bench press while the pec major produces the pressing motion.' },
+    { ch: 'ch3', q: 'Torque is calculated as:', options: ['Force divided by distance', 'Force multiplied by the moment arm (perpendicular distance)', 'Mass multiplied by acceleration'], correct: 1, explain: 'Torque (moment of force) = Force x Moment Arm (perpendicular distance from the line of force to the axis of rotation). Greater moment arm = greater torque. This is why sticking points in lifts occur where the moment arm is longest.' },
+    { ch: 'ch3', q: 'The bench press is performed primarily in the:', options: ['Sagittal plane', 'Frontal plane', 'Transverse plane'], correct: 2, explain: 'The bench press involves horizontal adduction of the shoulder and elbow extension. The primary shoulder movement (horizontal adduction) occurs in the transverse plane. The elbow extension component occurs in the sagittal plane.' },
+    { ch: 'ch3', q: 'Power is defined as:', options: ['Force multiplied by distance', 'Work divided by time', 'Mass multiplied by velocity'], correct: 1, explain: 'Power = Work / Time, or equivalently, Force x Velocity. Power is the rate of doing work. This is why explosive exercises (Olympic lifts, jumps) develop power — they involve moving loads quickly.' },
+    { ch: 'ch3', q: 'A neutralizer muscle functions to:', options: ['Cancel out an unwanted action produced by the agonist', 'Produce the primary movement pattern', 'Slow down movement during eccentric actions'], correct: 0, explain: 'A neutralizer counteracts an unwanted secondary action of an agonist. Example: during pure elbow flexion, the biceps would also supinate the forearm, but the pronator teres acts as a neutralizer to prevent unwanted supination.' },
+
+    // ===== CH 4: BONE & CONNECTIVE TISSUE =====
+    { ch: 'ch4', q: 'Wolff\'s law states that bone:', options: ['Loses density after age 30 regardless of activity', 'Adapts to the loads placed upon it by remodeling', 'Requires calcium supplementation to maintain density'], correct: 1, explain: 'Wolff\'s law: bone remodels in response to mechanical stress. When loaded, osteoblasts lay down new bone (making it stronger/denser). When unloaded, osteoclasts resorb bone (making it weaker). Weight-bearing exercise is critical for bone health.' },
+    { ch: 'ch4', q: 'Osteoblasts are cells that:', options: ['Break down bone tissue', 'Build new bone tissue', 'Maintain existing bone tissue'], correct: 1, explain: 'Osteoblasts = bone builders (build). Osteoclasts = bone crushers (resorb/break down). Osteocytes = mature bone cells that maintain bone tissue. Mnemonic: blasts Build, clasts Crush.' },
+    { ch: 'ch4', q: 'Which of the following components of mechanical load is LEAST important for stimulating new bone formation?', options: ['Rest period', 'Magnitude of load', 'Rate of loading'], correct: 0, explain: 'The key factors for bone formation are magnitude (how much load), rate (how quickly load is applied), and direction. Rest periods between loading bouts are least important for the stimulus itself, though recovery is needed for adaptation.' },
+    { ch: 'ch4', q: 'Tendons connect:', options: ['Bone to bone', 'Muscle to bone', 'Muscle to muscle'], correct: 1, explain: 'Tendons connect muscle to bone and transmit the force of contraction. Ligaments connect bone to bone and stabilize joints. Both are composed primarily of collagen and adapt to training, but more slowly than muscle tissue.' },
+    { ch: 'ch4', q: 'The epiphyseal plate (growth plate) in youth athletes is vulnerable because:', options: ['It is the weakest point in the bone-tendon unit', 'It has excessive blood supply', 'It is made entirely of compact bone'], correct: 0, explain: 'The epiphyseal plate (growth plate) is composed of cartilage and is the weakest link in the bone-tendon-muscle unit in youth athletes. It is 2-5x weaker than surrounding bone/ligaments. This is why youth training must avoid excessive loading and prioritize proper technique.' },
+    { ch: 'ch4', q: 'Compared to tendons, ligaments:', options: ['Have more elastin and are slightly more flexible', 'Are stiffer and contain more collagen', 'Heal faster after injury'], correct: 0, explain: 'Ligaments contain more elastin than tendons, making them slightly more flexible (which makes sense since they need to allow joint movement while stabilizing). Both have poor blood supply and heal slowly, but ligaments generally heal even more slowly than tendons.' },
+    { ch: 'ch4', q: 'Which type of bone is primarily found in the vertebrae and the ends of long bones?', options: ['Cortical (compact) bone', 'Trabecular (spongy/cancellous) bone', 'Periosteum'], correct: 1, explain: 'Trabecular (spongy/cancellous) bone has a honeycomb structure and is found in vertebrae, pelvis, and the epiphyses (ends) of long bones. Cortical (compact) bone is the dense outer shell. Trabecular bone is more metabolically active and responds faster to loading but is also more susceptible to osteoporosis.' },
+    { ch: 'ch4', q: 'The connective tissue response to resistance training includes:', options: ['Immediate increases in tendon stiffness after one session', 'Gradual increases in tendon cross-sectional area and stiffness over weeks/months', 'Decreased collagen synthesis in tendons'], correct: 1, explain: 'Tendons and ligaments adapt to resistance training by increasing collagen synthesis, cross-sectional area, and stiffness — but these adaptations occur much more slowly than muscle adaptations (months vs. weeks). This mismatch can increase injury risk if training volume increases too rapidly.' },
+
+    // ===== CH 5: BIOENERGETICS & METABOLISM =====
+    { ch: 'ch5', q: 'The phosphagen (ATP-PC) system primarily fuels activities lasting:', options: ['Up to ~30 seconds', 'Up to ~2 minutes', 'Greater than 3 minutes'], correct: 0, explain: 'The phosphagen system provides immediate energy for short, intense efforts (0-30 seconds) using stored ATP and phosphocreatine. No oxygen needed. Limited supply. Think: 100m sprint, one heavy set of 3 reps, a single max jump.' },
+    { ch: 'ch5', q: 'Which energy system produces lactate as a byproduct?', options: ['Phosphagen system', 'Glycolytic system', 'Oxidative system'], correct: 1, explain: 'Anaerobic glycolysis breaks down glucose/glycogen rapidly without oxygen, producing pyruvate which is converted to lactate (and H+ ions that contribute to fatigue). Dominates during high-intensity efforts lasting ~30 seconds to 2 minutes.' },
+    { ch: 'ch5', q: 'A 400-meter sprint primarily relies on the:', options: ['Phosphagen system', 'Glycolytic system', 'Oxidative system'], correct: 1, explain: 'A 400m sprint (~45-60 seconds) is primarily glycolytic. The phosphagen system contributes early, and the oxidative system contributes minimally. The glycolytic system is the dominant energy source for high-intensity efforts lasting 30 sec to ~2 min.' },
+    { ch: 'ch5', q: 'The oxidative (aerobic) system uses which substrates for energy?', options: ['Only carbohydrates', 'Only fats', 'Carbohydrates, fats, and (minimally) proteins'], correct: 2, explain: 'The oxidative system can use all three macronutrients. At lower intensities, fats are the primary fuel. As intensity increases, carbohydrates become more dominant. Proteins contribute minimally (~5-10%) except during prolonged exercise or caloric deficit.' },
+    { ch: 'ch5', q: 'EPOC (excess post-exercise oxygen consumption) is greatest after:', options: ['Low-intensity, long-duration exercise', 'High-intensity, interval-type exercise', 'Moderate-intensity, steady-state exercise'], correct: 1, explain: 'EPOC ("afterburn") is proportional to exercise intensity. High-intensity interval training (HIIT) and heavy resistance training produce the greatest EPOC because of greater metabolic disturbance (PCr replenishment, lactate clearance, elevated body temperature, hormone levels).' },
+    { ch: 'ch5', q: 'The appropriate work-to-rest ratio for training the phosphagen system is approximately:', options: ['1:12 to 1:20', '1:3 to 1:5', '1:1 to 1:3'], correct: 0, explain: 'Phosphagen system: work:rest = 1:12 to 1:20 (e.g., 5 sec sprint, 60-100 sec rest). Glycolytic: 1:3 to 1:5. Oxidative: 1:1 to 1:3. Longer rest allows PCr replenishment for maximal intensity on subsequent efforts.' },
+    { ch: 'ch5', q: 'ATP is resynthesized from ADP and phosphocreatine by the enzyme:', options: ['Myosin ATPase', 'Creatine kinase', 'Phosphofructokinase (PFK)'], correct: 1, explain: 'Creatine kinase catalyzes the transfer of a phosphate group from phosphocreatine (PCr) to ADP, forming ATP. This is the fastest way to regenerate ATP but is limited by PCr stores. PFK is the rate-limiting enzyme of glycolysis. Myosin ATPase breaks down ATP during cross-bridge cycling.' },
+    { ch: 'ch5', q: 'Which energy system has the greatest capacity (total ATP production) but slowest rate?', options: ['Phosphagen', 'Glycolytic', 'Oxidative'], correct: 2, explain: 'The oxidative system produces the most total ATP (36-38 ATP per glucose molecule vs. 2 from glycolysis) but is the slowest to ramp up. The phosphagen system has the fastest rate but smallest capacity (limited PCr stores). The glycolytic system is intermediate in both rate and capacity.' },
+    { ch: 'ch5', q: 'During steady-state exercise at moderate intensity, the primary fuel source is:', options: ['Phosphocreatine', 'Blood glucose and muscle glycogen', 'Free fatty acids'], correct: 2, explain: 'At moderate intensity (~50-65% VO2max), fats (free fatty acids) are the primary fuel because the oxidative system has time to mobilize and oxidize fat. As intensity increases above ~65-70% VO2max, carbohydrates become increasingly dominant because they can be oxidized faster.' },
+    { ch: 'ch5', q: 'The rate-limiting enzyme of glycolysis is:', options: ['Creatine kinase', 'Phosphofructokinase (PFK)', 'Citrate synthase'], correct: 1, explain: 'PFK is the rate-limiting (slowest, regulatory) enzyme of glycolysis. Its activity is enhanced by ADP, AMP, and Pi (signals of energy need) and inhibited by ATP and citrate (signals of energy sufficiency). Citrate synthase is the rate-limiting enzyme of the Krebs cycle.' },
+
+    // ===== CH 6: NEUROENDOCRINE PHYSIOLOGY =====
+    { ch: 'ch6', q: 'Which hormone is primarily responsible for stimulating protein synthesis after resistance training?', options: ['Cortisol', 'Testosterone', 'Insulin'], correct: 1, explain: 'Testosterone is the primary anabolic hormone promoting protein synthesis and muscle growth. It increases acutely after resistance training, especially with high-volume, moderate-to-high intensity protocols using large muscle groups.' },
+    { ch: 'ch6', q: 'Cortisol is classified as a:', options: ['Anabolic hormone that promotes muscle growth', 'Catabolic hormone that promotes tissue breakdown', 'Hormone with no effect on muscle tissue'], correct: 1, explain: 'Cortisol is a catabolic stress hormone released by the adrenal cortex. It promotes protein degradation, inhibits protein synthesis, and mobilizes energy stores. Chronically elevated cortisol (from overtraining, stress, or poor sleep) impairs recovery and muscle growth.' },
+    { ch: 'ch6', q: 'Growth hormone (GH) secretion is enhanced by:', options: ['Short rest periods, high volume, moderate-to-high intensity training', 'Long rest periods, low volume, maximal intensity training', 'Low-intensity, steady-state aerobic exercise'], correct: 0, explain: 'GH secretion is greatest with protocols that create significant metabolic stress: shorter rest periods (30-60 sec), higher volume (multiple sets of 8-12 reps), and moderate-to-high intensity (70-85% 1RM). This is why "bodybuilding-style" training produces large GH responses.' },
+    { ch: 'ch6', q: 'The testosterone-to-cortisol (T:C) ratio is used as an indicator of:', options: ['Aerobic fitness level', 'Anabolic/catabolic balance and recovery status', 'Maximal strength potential'], correct: 1, explain: 'A declining T:C ratio may indicate overtraining, inadequate recovery, or excessive stress. A high T:C ratio suggests a favorable anabolic environment. Monitoring this ratio can help identify athletes at risk of overreaching/overtraining.' },
+    { ch: 'ch6', q: 'Insulin\'s primary role in exercise recovery is to:', options: ['Promote lipolysis (fat breakdown)', 'Facilitate glucose and amino acid uptake into cells', 'Increase heart rate and blood pressure'], correct: 1, explain: 'Insulin is an anabolic hormone that promotes nutrient uptake into cells — glucose into muscle for glycogen replenishment and amino acids for protein synthesis. Post-exercise carbohydrate intake stimulates insulin release, which enhances recovery.' },
+    { ch: 'ch6', q: 'Which training variable has the GREATEST impact on acute hormonal responses?', options: ['Exercise selection (upper vs lower body)', 'Volume (total work performed)', 'Time of day training occurs'], correct: 1, explain: 'Training volume (sets x reps x load) is the most influential variable for acute hormonal responses. Higher volume protocols produce greater elevations in testosterone, GH, and cortisol. Large muscle mass exercises, moderate-to-high intensity, and short rest periods also contribute.' },
+    { ch: 'ch6', q: 'Epinephrine and norepinephrine are released from the:', options: ['Anterior pituitary', 'Adrenal medulla', 'Thyroid gland'], correct: 1, explain: 'Epinephrine (adrenaline) and norepinephrine are catecholamines released from the adrenal medulla in response to exercise and stress. They increase heart rate, blood pressure, bronchodilation, glycogenolysis, and lipolysis — the "fight or flight" response.' },
+    { ch: 'ch6', q: 'Females produce testosterone primarily from the:', options: ['Ovaries and adrenal glands', 'Anterior pituitary', 'Thyroid gland'], correct: 0, explain: 'Females produce testosterone from the ovaries and adrenal glands, but at approximately 15-20x lower concentrations than males. This is a primary reason for sex-based differences in muscle mass and strength. Females still experience anabolic responses to training.' },
+
+    // ===== CH 7: CARDIOPULMONARY PHYSIOLOGY =====
+    { ch: 'ch7', q: 'Cardiac output is calculated as:', options: ['Heart rate x blood pressure', 'Heart rate x stroke volume', 'Stroke volume x arteriovenous oxygen difference'], correct: 1, explain: 'Cardiac output (Q) = Heart rate (HR) x Stroke volume (SV). It represents the total volume of blood pumped per minute. At rest: ~5 L/min. During maximal exercise in trained individuals: ~20-40 L/min.' },
+    { ch: 'ch7', q: 'During steady-state aerobic exercise, stroke volume:', options: ['Increases linearly with intensity up to maximum', 'Plateaus at approximately 40-60% of VO2max', 'Decreases as heart rate increases'], correct: 1, explain: 'Stroke volume plateaus at ~40-60% VO2max. Beyond this, cardiac output increases are driven primarily by heart rate. In highly trained endurance athletes, stroke volume may continue to increase slightly beyond this point (Frank-Starling mechanism).' },
+    { ch: 'ch7', q: 'The a-vO2 difference represents:', options: ['The difference in oxygen content between arteries and veins', 'The difference in blood pressure between arteries and veins', 'The difference in heart rate before and after exercise'], correct: 0, explain: 'Arteriovenous oxygen difference (a-vO2 diff) is the difference in oxygen content between arterial and venous blood. It reflects how much oxygen the muscles are extracting. VO2 = Q x a-vO2 diff (Fick equation). Training increases both cardiac output and a-vO2 difference.' },
+    { ch: 'ch7', q: 'A chronic adaptation to aerobic training is:', options: ['Increased resting heart rate', 'Increased stroke volume at rest and during exercise', 'Decreased capillary density in trained muscles'], correct: 1, explain: 'Aerobic training increases stroke volume through cardiac hypertrophy (left ventricular chamber enlargement) and increased blood plasma volume. This is why trained individuals have lower resting heart rates — they pump more blood per beat, so fewer beats are needed.' },
+    { ch: 'ch7', q: 'Blood pressure during resistance exercise typically shows:', options: ['Decreased systolic and diastolic pressure', 'Dramatically elevated systolic and diastolic pressure', 'Elevated systolic with decreased diastolic'], correct: 1, explain: 'Resistance exercise, especially with the Valsalva maneuver and heavy loads, can cause dramatic spikes in both systolic and diastolic blood pressure (200/150+ mmHg is not uncommon during heavy leg press). This is a normal acute response but is a concern for individuals with hypertension.' },
+    { ch: 'ch7', q: 'VO2max is the gold standard measure of:', options: ['Muscular strength', 'Cardiorespiratory endurance', 'Anaerobic power'], correct: 1, explain: 'VO2max (maximal oxygen uptake) represents the maximum rate at which the body can consume oxygen during exercise. It reflects the integrated function of the pulmonary, cardiovascular, and muscular systems. Higher VO2max = greater aerobic capacity.' },
+    { ch: 'ch7', q: 'The ventilatory threshold occurs when:', options: ['Breathing rate suddenly decreases during exercise', 'Ventilation increases disproportionately relative to oxygen consumption', 'The athlete reaches maximal heart rate'], correct: 1, explain: 'At the ventilatory threshold (closely related to lactate threshold), ventilation begins to increase nonlinearly relative to VO2. This occurs because excess CO2 (from buffering H+ ions produced by lactate) drives increased ventilation. It typically occurs at 50-80% of VO2max depending on training status.' },
+
+    // ===== CH 8: AGE & SEX DIFFERENCES =====
+    { ch: 'ch8', q: 'Peak bone mass in most individuals is achieved by age:', options: ['18-20', '25-30', '35-40'], correct: 1, explain: 'Peak bone mass is typically achieved by the late 20s to early 30s. After this, bone resorption gradually exceeds formation, leading to age-related bone loss. Maximizing peak bone mass through weight-bearing exercise and nutrition during youth is critical for preventing osteoporosis later.' },
+    { ch: 'ch8', q: 'Resistance training for youth athletes should prioritize:', options: ['Maximal 1RM testing and heavy loads', 'Proper technique, bodyweight exercises, and gradual progression', 'High-volume isolation exercises for muscle hypertrophy'], correct: 1, explain: 'Youth training should emphasize proper technique, fundamental movement patterns, and gradual progression. Avoid maximal 1RM testing (use submaximal prediction). The risk is not to muscle but to growth plates (epiphyseal plates). Resistance training IS safe and beneficial for youth when properly supervised.' },
+    { ch: 'ch8', q: 'Compared to younger adults, older adults typically show:', options: ['Greater Type II fiber atrophy and reduced muscle power', 'Greater Type I fiber atrophy and increased flexibility', 'No significant changes in muscle fiber composition'], correct: 0, explain: 'Aging preferentially affects Type II (fast-twitch) fibers — they atrophy more than Type I fibers (sarcopenia). This leads to greater losses in power and strength than in endurance. Resistance training can significantly attenuate these losses at any age.' },
+    { ch: 'ch8', q: 'Sex-based differences in upper body strength are primarily attributed to:', options: ['Differences in motivation and pain tolerance', 'Greater muscle mass and higher testosterone in males', 'Differences in neuromuscular coordination'], correct: 1, explain: 'Males have ~40-60% greater upper body strength than females, primarily due to greater muscle mass driven by higher testosterone levels (~15-20x higher). Lower body strength differences are smaller (~25-30%). When normalized to lean body mass, strength differences are reduced.' },
+
+    // ===== CH 9: PHYSIOLOGICAL ADAPTATIONS =====
+    { ch: 'ch9', q: 'Neural adaptations to resistance training include all EXCEPT:', options: ['Increased motor unit recruitment', 'Increased muscle fiber cross-sectional area', 'Improved motor unit synchronization'], correct: 1, explain: 'Increased muscle fiber size is a structural (hypertrophic) adaptation, not a neural one. Neural adaptations include: increased motor unit recruitment, increased firing rate, improved synchronization, reduced co-contraction of antagonists, and improved intermuscular coordination.' },
+    { ch: 'ch9', q: 'The interference effect refers to:', options: ['Reduced strength gains when concurrent aerobic and resistance training are performed', 'Increased injury risk from training multiple muscle groups', 'The negative effect of fatigue on exercise technique'], correct: 0, explain: 'The interference effect (concurrent training effect): combining high-volume endurance training with resistance training can blunt strength and hypertrophy gains compared to resistance training alone. This is due to competing molecular signaling pathways (AMPK vs. mTOR). Minimized by separating sessions by 6+ hours and managing total volume.' },
+    { ch: 'ch9', q: 'The principle of specificity (SAID principle) states that:', options: ['All exercises produce identical adaptations', 'Training adaptations are specific to the demands placed on the body', 'General fitness training is superior to sport-specific training'], correct: 1, explain: 'SAID = Specific Adaptations to Imposed Demands. Training adaptations mirror the type of stress applied: heavy loads → strength, high reps → endurance, explosive movements → power, specific movement patterns → improved skill in those patterns.' },
+
+    // ===== CH 10: SPORT PSYCHOLOGY =====
+    { ch: 'ch10', q: 'According to self-determination theory, the three basic psychological needs are:', options: ['Achievement, power, and affiliation', 'Autonomy, competence, and relatedness', 'Motivation, confidence, and focus'], correct: 1, explain: 'SDT identifies autonomy (feeling in control of choices), competence (feeling effective and capable), and relatedness (feeling connected to others) as the three basic needs. When met, intrinsic motivation flourishes.' },
+    { ch: 'ch10', q: 'The inverted-U hypothesis suggests that performance:', options: ['Improves linearly with increased arousal', 'Is optimal at a moderate level of arousal', 'Decreases with any increase in arousal'], correct: 1, explain: 'Performance improves with arousal up to an optimal point, then declines. Complex/fine motor tasks (golf putting) have a lower optimal arousal than simple/gross motor tasks (tackling). A S&C coach should help athletes find their optimal zone.' },
+    { ch: 'ch10', q: 'An athlete uses mental imagery to rehearse a perfect snatch before attempting it. This is an example of:', options: ['Arousal regulation', 'Visualization/imagery', 'Positive self-talk'], correct: 1, explain: 'Visualization/imagery = mentally rehearsing a skill without physical movement. It activates similar neural pathways as actual performance. Can be used for skill rehearsal, confidence building, and managing anxiety.' },
+    { ch: 'ch10', q: 'A S&C coach notices an athlete showing signs of depression and disordered eating. The coach should:', options: ['Design a nutrition plan to address the eating issues', 'Refer the athlete to a qualified mental health professional', 'Increase training to improve mood'], correct: 1, explain: 'Mental health and eating disorders are OUTSIDE the CSCS scope of practice. Recognize signs → refer to qualified professional. This "when to refer" concept appears frequently on the exam.' },
+    { ch: 'ch10', q: 'Outcome goals differ from process goals in that outcome goals:', options: ['Focus on specific behaviors and strategies during performance', 'Focus on the end result, such as winning or achieving a score', 'Are always more effective for motivation'], correct: 1, explain: 'Outcome goals = end result (win the game, set a PR). Process goals = specific behaviors/techniques (keep elbows tight during clean, maintain 90% effort on sprints). Performance goals = personal standards (run 4.5 sec 40-yard dash). Using all three types together is most effective.' },
+
+    // ===== CH 11: NUTRITION =====
+    { ch: 'ch11', q: 'Recommended daily protein intake for strength/power athletes is:', options: ['0.8-1.0 g/kg body weight', '1.2-1.7 g/kg body weight', '2.5-3.0 g/kg body weight'], correct: 1, explain: 'NSCA recommends 1.2-1.7 g/kg/day for strength/power athletes. Endurance athletes: 1.2-1.4 g/kg/day. General population RDA: 0.8 g/kg (insufficient for athletes).' },
+    { ch: 'ch11', q: 'An athlete consumed 120g protein, 400g carbs, and 60g fat. Total caloric intake is:', options: ['2,560 kcal', '2,620 kcal', '2,680 kcal'], correct: 1, explain: 'Protein: 120 x 4 = 480. Carbs: 400 x 4 = 1,600. Fat: 60 x 9 = 540. Total: 480 + 1,600 + 540 = 2,620 kcal. Remember: protein and carbs = 4 kcal/g, fat = 9 kcal/g, alcohol = 7 kcal/g.' },
+    { ch: 'ch11', q: 'Which supplement has the MOST evidence for improving high-intensity performance?', options: ['Glutamine', 'Creatine monohydrate', 'BCAAs'], correct: 1, explain: 'Creatine monohydrate is the most well-researched ergogenic supplement. It increases phosphocreatine stores for greater ATP regeneration during short, intense efforts. Effective dose: ~3-5 g/day (maintenance) or 20 g/day for 5-7 days (loading).' },
+    { ch: 'ch11', q: 'Dietary supplements in the US are:', options: ['Regulated by the FDA before sale', 'Not required to be tested for safety/efficacy before sale', 'Required to carry FDA approval labels'], correct: 1, explain: 'Under DSHEA (1994), supplements do NOT require FDA pre-approval. Manufacturers are responsible for safety. Third-party testing (NSF Certified for Sport, Informed Sport) provides independent verification. Athletes should be cautious of contamination.' },
+    { ch: 'ch11', q: 'The recommended daily carbohydrate intake for athletes in heavy training is:', options: ['3-5 g/kg body weight', '5-8 g/kg body weight', '8-10 g/kg body weight'], correct: 1, explain: 'Moderate-to-heavy training: 5-8 g/kg/day. Extreme/ultra-endurance: 8-12 g/kg/day. Light training: 3-5 g/kg/day. Carbs are the primary fuel for high-intensity exercise and critical for glycogen replenishment.' },
+    { ch: 'ch11', q: 'Pre-exercise meals should be consumed approximately:', options: ['5-10 minutes before exercise', '1-4 hours before exercise', 'Immediately before exercise for quick energy'], correct: 1, explain: 'Eat a balanced meal 1-4 hours pre-exercise to allow digestion and maintain blood glucose. The meal should be high in carbohydrates, moderate in protein, and low in fat and fiber (to minimize GI distress). Closer to exercise, opt for smaller, simpler carb sources.' },
+
+    // ===== CH 12: RESEARCH & STATISTICS =====
+    { ch: 'ch12', q: 'Test-retest reliability refers to:', options: ['Whether a test measures what it claims to measure', 'The consistency of results when a test is repeated', 'The degree to which results can be generalized'], correct: 1, explain: 'Reliability = consistency/repeatability. Validity = does it measure what it\'s supposed to? A test can be reliable but not valid (consistently measures the wrong thing). Both are important for quality testing.' },
+    { ch: 'ch12', q: 'The PICOT framework stands for:', options: ['Performance, Intensity, Conditioning, Outcome, Training', 'Population, Intervention, Comparison, Outcome, Time', 'Planning, Implementation, Control, Observation, Testing'], correct: 1, explain: 'PICOT is a framework for formulating answerable research questions. Population (who?), Intervention (what treatment/program?), Comparison (compared to what?), Outcome (what result?), Time (over what period?).' },
+    { ch: 'ch12', q: 'Effect size measures:', options: ['Whether results are statistically significant', 'The practical or meaningful magnitude of a treatment effect', 'The sample size needed for a study'], correct: 1, explain: 'Effect size quantifies the magnitude of a difference or relationship, regardless of sample size. A large sample can produce statistically significant results with trivial practical significance. Cohen\'s d: small = 0.2, medium = 0.5, large = 0.8.' },
+
+    // ===== CH 13: TESTING & EVALUATION =====
+    { ch: 'ch13', q: 'The 1RM test is considered the gold standard for measuring:', options: ['Muscular endurance', 'Maximal muscular strength', 'Muscular power'], correct: 1, explain: 'The 1RM measures the maximum weight lifted for one rep with proper form. It is the most valid and reliable measure of maximal strength. If 1RM testing is not appropriate, submaximal prediction equations can estimate 1RM from repetitions to failure.' },
+    { ch: 'ch13', q: 'The T-test primarily assesses:', options: ['Maximal sprint speed', 'Agility and change-of-direction ability', 'Aerobic endurance'], correct: 1, explain: 'The T-test assesses agility through forward sprint, lateral shuffles, and backpedal in a T-shaped pattern. It evaluates an athlete\'s ability to change direction quickly while maintaining speed and body control.' },
+    { ch: 'ch13', q: 'When conducting fitness testing, the recommended order is:', options: ['Endurance → strength → agility → body composition', 'Body composition → agility/power → strength → endurance', 'Strength → endurance → body composition → agility'], correct: 1, explain: 'Testing order: (1) non-fatiguing tests first (body comp, flexibility), (2) agility/power/speed, (3) strength, (4) endurance. This ensures fatigue from earlier tests does not compromise performance on subsequent tests.' },
+    { ch: 'ch13', q: 'The Wingate Anaerobic Test measures:', options: ['Maximal aerobic capacity', 'Anaerobic power and capacity', 'Muscular endurance'], correct: 1, explain: 'The Wingate test (30-second all-out cycle sprint against resistance) measures peak anaerobic power, mean anaerobic power, and fatigue index. It assesses the phosphagen and glycolytic energy systems.' },
+
+    // ===== CH 14-15: WARM-UP, FLEXIBILITY & MOBILITY =====
+    { ch: 'ch14', q: 'Static stretching before explosive performance has been shown to:', options: ['Improve power and sprint performance', 'Temporarily decrease power and strength output', 'Have no effect on performance'], correct: 1, explain: 'Static stretching before explosive activities can acutely reduce power, strength, and sprint performance by decreasing muscle-tendon stiffness and neural activation. Dynamic warm-ups are preferred before performance. Static stretching is better post-exercise or as a separate session.' },
+    { ch: 'ch14', q: 'PNF stretching works primarily through:', options: ['The stretch reflex increasing muscle activation', 'Autogenic inhibition from Golgi tendon organs', 'Increased blood flow to the muscle'], correct: 1, explain: 'PNF (contract-relax) stretching: the isometric contraction of the target muscle stimulates GTOs, which trigger autogenic inhibition (reflexive relaxation), allowing a greater stretch. PNF is generally considered the most effective stretching method for increasing ROM.' },
+    { ch: 'ch14', q: 'A proper warm-up before training should include:', options: ['Static stretching followed by sport-specific movements', 'General aerobic activity followed by dynamic movements specific to the training session', 'Maximal effort sprints to activate the nervous system'], correct: 1, explain: 'Warm-up order: (1) general aerobic activity (5-10 min to raise body temp), (2) dynamic stretching/movement prep specific to the session, (3) sport-specific movements with progressive intensity. This increases blood flow, muscle temperature, nerve conduction, and ROM.' },
+    { ch: 'ch14', q: 'Dynamic stretching is preferred before performance because it:', options: ['Maximally lengthens muscles for injury prevention', 'Activates muscles, increases heart rate, and prepares movement patterns', 'Is easier to perform than static stretching'], correct: 1, explain: 'Dynamic stretching involves active movements through full ROM that mimic the upcoming activity. It increases muscle temperature, neural activation, and movement-specific preparation without the acute performance decrements associated with prolonged static stretching.' },
+
+    // ===== CH 16: RESISTANCE TRAINING TECHNIQUE =====
+    { ch: 'ch16', q: 'During the back squat, the most common error increasing injury risk is:', options: ['Knees caving inward (valgus)', 'Looking straight ahead', 'Descending to parallel'], correct: 0, explain: 'Knee valgus significantly increases stress on the ACL and medial knee structures. Cue: "Push your knees out over your toes" or "spread the floor with your feet."' },
+    { ch: 'ch16', q: 'How many spotters are recommended for the back squat?', options: ['One behind the lifter only', 'Two, one at each end of the bar', 'Either one behind OR two at the ends, depending on load'], correct: 2, explain: 'One spotter behind for lighter loads, two spotters (one at each end) for heavier loads. Three spotters (one behind + two at ends) for maximal attempts. The back spotter should mirror the lifter\'s movement.' },
+    { ch: 'ch16', q: 'During the power clean, "early arm pull" refers to:', options: ['Bending the elbows before achieving full hip extension', 'Pulling the bar too close to the body', 'Catching the bar too high on the shoulders'], correct: 0, explain: 'Early arm pull = bending elbows and pulling with arms before full hip extension (second pull). This reduces power output. Arms should stay straight during first and second pulls, acting as "ropes." They only bend during the catch/turnover.' },
+    { ch: 'ch16', q: 'The Valsalva maneuver is MOST appropriate during:', options: ['High-rep endurance sets (15+ reps)', 'Near-maximal lifts with heavy loads', 'Aerobic conditioning'], correct: 1, explain: 'Valsalva (breath hold against closed glottis while bracing) increases intra-abdominal pressure and spinal stability for heavy lifts. Use cautiously with cardiovascular concerns due to acute BP spike.' },
+    { ch: 'ch16', q: 'The hook grip is used during Olympic lifts because it:', options: ['Is more comfortable than a standard grip', 'Prevents the bar from rolling out of the hands at high speeds', 'Reduces stress on the wrists'], correct: 1, explain: 'The hook grip (thumb wrapped around bar, fingers over thumb) creates a more secure grip that prevents the bar from rolling during the explosive second pull. It is uncomfortable initially but essential for heavy cleans and snatches.' },
+    { ch: 'ch16', q: 'During the deadlift, the hips should rise at the same rate as the:', options: ['Knees', 'Shoulders', 'Barbell'], correct: 1, explain: 'Hips and shoulders should rise together to maintain a constant back angle. If hips rise faster than shoulders ("stripper deadlift"), the lift becomes excessively back-dominant, increasing spinal stress and reducing leg drive.' },
+    { ch: 'ch16', q: 'For the bench press, proper foot position is:', options: ['Feet up on the bench to isolate the chest', 'Feet flat on the floor, creating a stable base', 'Feet elevated on a step for increased ROM'], correct: 1, explain: 'Feet flat on the floor provides a stable base for force production and allows leg drive. The 5 points of contact: head, upper back, and glutes on bench; both feet on floor. Feet on bench is sometimes used for rehab but reduces stability and load capacity.' },
+
+    // ===== CH 17: PLYOMETRICS =====
+    { ch: 'ch17', q: 'The stretch-shortening cycle (SSC) consists of:', options: ['Concentric → isometric → eccentric phases', 'Eccentric → amortization → concentric phases', 'Isometric → eccentric → concentric phases'], correct: 1, explain: 'SSC: (1) eccentric phase (stretch/loading), (2) amortization phase (transition — should be as short as possible), (3) concentric phase (explosive shortening). A shorter amortization phase = greater use of stored elastic energy = more power output.' },
+    { ch: 'ch17', q: 'Before beginning a plyometric program, an athlete should be able to:', options: ['Squat 1.5x body weight', 'Perform 5 clap push-ups', 'Demonstrate adequate strength base (e.g., squat 1.5x BW for lower body plyo)'], correct: 2, explain: 'NSCA recommends a strength base before plyometrics: squat ≥1.5x body weight for high-intensity lower body plyometrics. For upper body: bench press ≥1.0x BW. Athletes should also demonstrate proper landing mechanics and joint stability.' },
+    { ch: 'ch17', q: 'Depth jumps are classified as:', options: ['Low-intensity plyometric exercise', 'Moderate-intensity plyometric exercise', 'High-intensity plyometric exercise'], correct: 2, explain: 'Depth jumps (stepping off a box and immediately jumping upon landing) are high-intensity plyometrics due to the high eccentric forces at ground contact. They require a significant strength base and should be progressed to gradually. Box height typically 30-42 inches.' },
+    { ch: 'ch17', q: 'Proper landing mechanics during plyometric exercises include:', options: ['Landing on the heels with locked knees', 'Landing on the balls of the feet with flexion at ankles, knees, and hips', 'Landing flat-footed with minimal knee bend'], correct: 1, explain: 'Proper landing: ball of foot contact first → heel → flex ankles, knees, and hips to absorb force. Avoid knee valgus, stiff/locked knees, and excessive forward lean. Good landing mechanics must be taught BEFORE progressing plyometric intensity.' },
+
+    // ===== CH 18: SPEED, AGILITY & SPRINT =====
+    { ch: 'ch18', q: 'During the acceleration phase of sprinting, body lean should be:', options: ['Upright with head up', 'Forward, approximately 45 degrees', 'Backward to generate ground reaction force'], correct: 1, explain: 'During acceleration (first 10-30m), the body should lean forward at ~45 degrees with a positive shin angle to maximize horizontal force application. As the athlete transitions to maximal velocity, the torso gradually becomes more upright.' },
+    { ch: 'ch18', q: 'The difference between agility and change of direction (COD) is:', options: ['There is no difference; they are the same', 'Agility includes a reactive/cognitive component; COD is pre-planned', 'COD is more sport-specific than agility'], correct: 1, explain: 'Change of direction (COD) = pre-planned movements (e.g., cone drills). Agility = reactive, involving perception and decision-making in response to a stimulus (e.g., reacting to an opponent). True agility requires both physical ability AND cognitive processing.' },
+    { ch: 'ch18', q: 'Maximal velocity sprinting mechanics differ from acceleration in that maximal velocity involves:', options: ['Greater forward body lean and longer ground contact times', 'More upright posture, higher knee lift, and shorter ground contact times', 'Identical mechanics at higher speeds'], correct: 1, explain: 'At max velocity: more upright posture, higher knee lift (thigh nearly parallel to ground), shorter ground contact times, emphasis on vertical force application. Stride frequency plateaus and stride length is maximized. Acceleration: forward lean, positive shin angle, longer ground contact, emphasis on horizontal force.' },
+
+    // ===== CH 19-20: PROGRAM DESIGN & PERIODIZATION =====
+    { ch: 'ch19', q: 'The first step in designing a training program is:', options: ['Selecting exercises', 'Conducting a needs analysis', 'Determining training volume'], correct: 1, explain: 'Needs analysis comes first: (1) evaluate the sport demands (movement patterns, energy systems, common injuries), (2) assess the athlete (training history, injury history, current fitness, goals). Everything else flows from this analysis.' },
+    { ch: 'ch19', q: 'Which exercise should be performed FIRST in a session?', options: ['Bicep curl', 'Power clean', 'Leg extension'], correct: 1, explain: 'Exercise order: (1) power/explosive (clean, snatch, jump), (2) core multi-joint (squat, bench, deadlift), (3) assistance/single-joint (curls, extensions). Power exercises need maximal neural drive and should be done fresh.' },
+    { ch: 'ch19', q: 'For maximal strength, appropriate rest between sets is:', options: ['30 seconds to 1 minute', '2-5 minutes', '5-8 minutes'], correct: 1, explain: 'Strength (≥85% 1RM, 1-5 reps): 2-5 min rest. Hypertrophy (67-85% 1RM, 6-12 reps): 30-90 sec. Endurance (≤67% 1RM, 12+ reps): ≤30 sec. Power: 2-5 min. Longer rest = more PCr recovery = higher quality sets.' },
+    { ch: 'ch19', q: 'An athlete\'s 1RM squat is 300 lbs. For hypertrophy at 75% 1RM, the load is:', options: ['200 lbs', '225 lbs', '250 lbs'], correct: 1, explain: '300 x 0.75 = 225 lbs. Hypertrophy range: 67-85% 1RM for 6-12 reps with 30-90 sec rest.' },
+    { ch: 'ch19', q: 'During in-season training, the primary goal is to:', options: ['Maximize strength and power gains', 'Maintain fitness gained during off-season', 'Increase training volume to peak'], correct: 1, explain: 'In-season: maintain strength/power with reduced volume and frequency. Intensity is maintained but total training load decreases to manage competition fatigue. Off-season: build. Preseason: convert. In-season: maintain.' },
+    { ch: 'ch19', q: 'Undulating periodization differs from linear in that it:', options: ['Varies training variables within each week or session', 'Progressively increases intensity over months', 'Uses the same rep scheme throughout'], correct: 0, explain: 'Undulating (nonlinear) varies variables daily or weekly (e.g., Mon = strength 3x5, Wed = hypertrophy 3x10, Fri = power 5x3). Linear progressively increases intensity while decreasing volume over weeks/months. Both are effective; undulating may better suit athletes with unpredictable schedules.' },
+    { ch: 'ch19', q: 'A mesocycle typically lasts:', options: ['1 week', '2-6 weeks', '1 year'], correct: 1, explain: 'Microcycle = ~1 week. Mesocycle = 2-6 weeks (a training phase/block with a specific goal). Macrocycle = an entire training year or season. Periodization organizes training across these time frames.' },
+    { ch: 'ch19', q: 'For power development, the recommended load range is:', options: ['30-60% 1RM for speed-strength, 80-90% 1RM for strength-speed', 'Less than 30% 1RM', 'Greater than 95% 1RM'], correct: 0, explain: 'Power = force x velocity. Training for power uses a range of loads: lighter loads (30-60% 1RM) develop speed-strength (high velocity), heavier loads (80-90% 1RM) develop strength-speed (high force). Both zones are used in periodized power programs.' },
+
+    // ===== CH 21: AEROBIC ENDURANCE TRAINING =====
+    { ch: 'ch21', q: 'The Karvonen formula calculates target heart rate using:', options: ['Age-predicted max HR only', 'Heart rate reserve (HRmax - HRrest) and desired intensity', 'Resting heart rate and blood pressure'], correct: 1, explain: 'Karvonen: THR = [(HRmax - HRrest) x %intensity] + HRrest. Example: HRmax = 190, HRrest = 60, intensity = 70%. THR = [(190-60) x 0.70] + 60 = 91 + 60 = 151 bpm. This accounts for individual fitness level via resting HR.' },
+    { ch: 'ch21', q: 'Long slow distance (LSD) training is performed at what intensity?', options: ['90-100% VO2max', '70-80% HRmax or 60-70% VO2max', '50-60% HRmax'], correct: 1, explain: 'LSD training: moderate intensity (70-80% HRmax), extended duration (30+ minutes). Develops aerobic base, mitochondrial density, capillary density, and fat oxidation capacity. Foundation of endurance training.' },
+    { ch: 'ch21', q: 'Interval training for aerobic conditioning uses work-to-rest ratios of approximately:', options: ['1:12 to 1:20', '1:3 to 1:5', '1:1 to 1:3'], correct: 2, explain: 'Aerobic interval training: 1:1 to 1:3 work:rest (e.g., 3 min hard, 3-9 min recovery). Glycolytic intervals: 1:3 to 1:5. Phosphagen intervals: 1:12 to 1:20. The work:rest ratio determines which energy system is primarily stressed.' },
+
+    // ===== CH 22-23: REHAB & AGE-SPECIFIC TRAINING =====
+    { ch: 'ch22', q: 'During the return-to-play process, the S&C coach should:', options: ['Independently decide when the athlete is ready to return', 'Collaborate with the interdisciplinary team (athletic trainer, physician, PT)', 'Wait until the athlete feels completely pain-free before any training'], correct: 1, explain: 'Return-to-play is a collaborative process involving the sports medicine team (physician, AT, PT) and the S&C coach. The S&C coach designs the reconditioning program within the medical team\'s guidelines. The S&C coach does NOT make independent return-to-play decisions.' },
+    { ch: 'ch22', q: 'Resistance training for older adults has been shown to:', options: ['Be unsafe and increase fall risk', 'Increase strength, bone density, balance, and functional capacity', 'Only be effective for adults under 65'], correct: 1, explain: 'Resistance training is safe and highly beneficial for older adults at any age. Benefits include: increased strength, improved bone density (reduced osteoporosis risk), better balance (reduced fall risk), improved functional capacity, and enhanced quality of life.' },
+
+    // ===== CH 17: PLYOMETRICS (more questions) =====
+    { ch: 'ch17', q: 'The recommended plyometric volume for a beginner athlete is:', options: ['60-80 foot contacts per session', '80-100 foot contacts per session', '120-140 foot contacts per session'], correct: 1, explain: 'Beginner: 80-100 contacts. Intermediate: 100-120. Advanced: 120-140. Volume is measured in foot contacts (each time a foot hits the ground counts as one contact).' },
+    { ch: 'ch17', q: 'An athlete weighing 240 lbs wants to perform depth jumps. The maximum box height should be:', options: ['30 inches (76 cm)', '18 inches (46 cm)', '42 inches (107 cm)'], correct: 1, explain: 'Athletes over 220 lbs (100 kg) should NOT perform depth jumps from a box higher than 18 inches (46 cm) due to the excessive ground reaction forces at landing. This is a textbook-specific rule that appears on the exam.' },
+    { ch: 'ch17', q: 'The work-to-rest ratio for plyometric training is:', options: ['1:1 to 1:3', '1:5 to 1:10', '1:12 to 1:20'], correct: 1, explain: 'Plyometric work:rest = 1:5 to 1:10 (e.g., 10 seconds of work = 50-100 seconds rest). Full recovery between sets is essential because plyometrics train the phosphagen system and require maximal effort.' },
+    { ch: 'ch17', q: 'Complex training combines:', options: ['Aerobic and anaerobic exercises in the same session', 'A heavy resistance exercise followed by a biomechanically similar plyometric exercise', 'Upper body and lower body plyometrics alternating'], correct: 1, explain: 'Complex training pairs a heavy lift (e.g., heavy squats) with a biomechanically similar plyometric exercise (e.g., jump squats). It uses post-activation potentiation (PAP) — the heavy load enhances subsequent explosive performance. Rest 3-4 minutes between the pair.' },
+    { ch: 'ch17', q: 'The amortization phase of the stretch-shortening cycle should be:', options: ['As long as possible to maximize energy storage', 'As short as possible to maximize power output', 'Equal in duration to the eccentric phase'], correct: 1, explain: 'The amortization phase is the transition between eccentric (stretch) and concentric (shortening). A longer amortization = more elastic energy dissipated as heat = LESS power. Keeping it short maximizes the use of stored elastic energy and the stretch reflex contribution.' },
+
+    // ===== CH 18: SPEED & AGILITY (more questions) =====
+    { ch: 'ch18', q: 'When using a weighted sled for resisted sprinting, the load should NOT decrease sprint speed by more than:', options: ['5%', '10%', '25%'], correct: 1, explain: 'Sled load should not decrease speed by more than 10%. Heavier loads alter sprint mechanics too much, making the training less specific to actual sprinting. The purpose is to overload acceleration while maintaining similar movement patterns.' },
+    { ch: 'ch18', q: 'The work-to-rest ratio for speed development is:', options: ['1:1 to 1:3', '1:3 to 1:5', '1:12 to 1:20'], correct: 2, explain: 'Speed training uses the phosphagen system and requires full recovery: work:rest = 1:12 to 1:20. This ensures maximum quality on each sprint rep. Compare: agility = 1:4 to 1:8, glycolytic = 1:3 to 1:5, aerobic = 1:1 to 1:3.' },
+    { ch: 'ch18', q: 'Reactive agility differs from planned change-of-direction in that reactive agility:', options: ['Uses only pre-planned movements', 'Requires responding to an unpredictable stimulus', 'Is performed at lower intensities'], correct: 1, explain: 'Planned COD = pre-determined direction changes (closed skill, like a cone drill). Reactive agility = responding to unpredictable stimuli (open skill, like reacting to an opponent). True sport agility requires both physical ability AND cognitive/perceptual processing.' },
+    { ch: 'ch18', q: 'Assisted (overspeed) sprinting is used to develop:', options: ['Acceleration ability', 'Stride frequency (leg turnover speed)', 'Maximal strength'], correct: 1, explain: 'Assisted sprinting (towing, slight downhill <3 degrees) trains the neuromuscular system at supramaximal speeds to increase stride frequency. Resisted sprinting (sleds, hills) develops acceleration and stride length. Both are used but with caution due to injury risk.' },
+
+    // ===== CH 21: AEROBIC ENDURANCE (more questions) =====
+    { ch: 'ch21', q: 'A 25-year-old athlete has a resting HR of 65 bpm. Using the Karvonen formula, what is the target HR at 75% intensity?', options: ['148 bpm', '163 bpm', '150 bpm'], correct: 1, explain: 'HRmax = 220 - 25 = 195. HRR = 195 - 65 = 130. THR = (130 x 0.75) + 65 = 97.5 + 65 = 162.5, rounded to 163 bpm. Remember: THR = (HRR x %intensity) + HRrest.' },
+    { ch: 'ch21', q: 'The critical equivalence in exercise prescription is that:', options: ['%MHR = %VO2max', '%HRR = %VO2max', '%HRR = %MHR'], correct: 1, explain: '%HRR (heart rate reserve) is equivalent to %VO2max. This is why the Karvonen method is preferred — it directly corresponds to oxygen consumption intensity. %MHR does NOT equal %VO2max (e.g., 70% VO2max = 70% HRR but = 81% MHR).' },
+    { ch: 'ch21', q: 'Fartlek training is characterized by:', options: ['Structured intervals with set work and rest periods', 'Unstructured speed play with varied intensity throughout', 'Sustained effort at lactate threshold intensity'], correct: 1, explain: 'Fartlek ("speed play") is unstructured training where the athlete varies pace throughout the run based on feel. It differs from structured interval training (set work/rest periods) and tempo/threshold training (sustained near-threshold effort).' },
+    { ch: 'ch21', q: '1 MET is equal to:', options: ['3.5 ml O2/kg/min', '5.0 ml O2/kg/min', '10.0 ml O2/kg/min'], correct: 0, explain: '1 MET = 3.5 ml O2/kg/min = approximate resting oxygen consumption. An activity at 10 METs requires 10x resting metabolic rate (35 ml O2/kg/min). METs are used to classify exercise intensity relative to rest.' },
+    { ch: 'ch21', q: 'Using the %MHR method, a 40-year-old exercising at 80% MHR has a target heart rate of:', options: ['144 bpm', '160 bpm', '180 bpm'], correct: 0, explain: 'HRmax = 220 - 40 = 180. THR = 180 x 0.80 = 144 bpm. Note: this 80% MHR does NOT correspond to 80% VO2max — it actually corresponds to approximately 73% VO2max.' },
+
+    // ===== CH 8: AGE & SEX DIFFERENCES (more questions) =====
+    { ch: 'ch8', q: 'The female athlete triad consists of:', options: ['Dehydration, heat illness, and rhabdomyolysis', 'Low energy availability, menstrual dysfunction, and low bone mineral density', 'Anxiety, depression, and eating disorders'], correct: 1, explain: 'The female athlete triad: (1) low energy availability (with or without eating disorder), (2) menstrual dysfunction (amenorrhea), (3) low bone mineral density (osteoporosis). These are interrelated — inadequate energy intake drives the other two conditions.' },
+    { ch: 'ch8', q: 'Females are approximately how many times MORE likely than males to suffer an ACL injury?', options: ['2 times', '4 times', '6 times'], correct: 2, explain: 'Females are approximately 6x more likely to suffer ACL injuries than males. Contributing factors include: wider Q-angle, hormonal influences on ligament laxity, neuromuscular differences (greater knee valgus on landing), and smaller ACL size relative to body weight.' },
+    { ch: 'ch8', q: 'For youth athletes, resistance training repetitions should generally be in the range of:', options: ['1-5 reps at maximal loads', '6-15 reps with proper technique emphasis', '20+ reps for muscular endurance only'], correct: 1, explain: 'Youth training: 6-15 reps, 1-3 sets, 2-3 sessions/week. Avoid maximal 1RM testing — use submaximal prediction instead. Emphasize proper technique over load. Resistance training IS safe and beneficial for youth when properly supervised.' },
+    { ch: 'ch8', q: 'Sarcopenia refers to:', options: ['Age-related loss of bone density', 'Age-related loss of muscle mass and function', 'Exercise-induced muscle damage'], correct: 1, explain: 'Sarcopenia = age-related loss of skeletal muscle mass, strength, and function. It preferentially affects Type II (fast-twitch) fibers. Resistance training is the most effective intervention to combat sarcopenia at any age.' },
+    { ch: 'ch8', q: 'Strength differences between males and females are SMALLEST for:', options: ['Upper body', 'Lower body', 'Core/trunk'], correct: 1, explain: 'Males have ~40-60% greater upper body strength than females, but only ~25-30% greater lower body strength. The difference is smaller for lower body because women tend to carry a greater proportion of muscle mass in their lower body. When normalized to lean body mass, differences are further reduced.' },
+
+    // ===== CH 9: PHYSIOLOGICAL ADAPTATIONS (more questions) =====
+    { ch: 'ch9', q: 'Muscle fiber type transitions with resistance training typically involve:', options: ['Type I converting to Type II', 'Type IIx converting to Type IIa', 'Type IIa converting to Type I'], correct: 1, explain: 'Resistance training causes Type IIx (fast glycolytic) fibers to transition toward Type IIa (fast oxidative-glycolytic). This is because training increases the oxidative capacity of these fibers. Pure Type IIx fibers are actually most common in UNTRAINED individuals.' },
+    { ch: 'ch9', q: 'Detraining effects on muscular strength begin to appear after approximately:', options: ['3-5 days', '2-3 weeks', '6-8 weeks'], correct: 1, explain: 'Noticeable strength decrements begin after approximately 2-3 weeks of detraining. Neural adaptations are lost faster than hypertrophic adaptations. Power is lost faster than maximal strength. Aerobic fitness declines faster than strength with detraining.' },
+    { ch: 'ch9', q: 'The minimum training frequency to maintain strength gains during in-season is:', options: ['1 session per week', '3 sessions per week', '5 sessions per week'], correct: 0, explain: 'Research suggests that strength can be maintained with as few as 1 session per week during in-season, provided intensity is maintained. Volume and frequency can be reduced, but the intensity of training should not drop significantly.' },
+
+    // ===== CH 12: RESEARCH & STATISTICS (more questions) =====
+    { ch: 'ch12', q: 'An effect size of 0.8 is classified as:', options: ['Small', 'Moderate', 'Large'], correct: 2, explain: 'Cohen\'s d effect size classifications: small = 0.2, moderate = 0.5 (some sources say 0.6), large = 0.8 (some say 1.2), very large = 2.0. Effect size measures the practical magnitude of a difference, independent of sample size.' },
+    { ch: 'ch12', q: 'Criterion-referenced validity includes which subtypes?', options: ['Construct and face validity', 'Concurrent and predictive validity', 'Internal and external validity'], correct: 1, explain: 'Criterion-referenced validity has two subtypes: concurrent validity (how well test results correlate with a criterion measured at the same time) and predictive validity (how well test results predict future performance on the criterion). Both compare the test to an established "gold standard."' },
+    { ch: 'ch12', q: 'The smallest worthwhile change is typically calculated as:', options: ['0.2 x the between-subjects standard deviation', '0.5 x the mean score', '1.0 x the measurement error'], correct: 0, explain: 'Smallest worthwhile change = 0.2 x between-subjects SD. This represents the minimum change in a test score that is practically meaningful. If a vertical jump test has SD of 10 cm, the smallest worthwhile change = 2 cm. Changes smaller than this may be due to measurement error.' },
+
+    // ===== CH 22: REHAB & AGE-SPECIFIC (more questions) =====
+    { ch: 'ch22', q: 'Osteopenia is defined as a bone mineral density T-score of:', options: ['Above -1.0', 'Between -1.0 and -2.5', 'Below -2.5'], correct: 1, explain: 'Osteopenia: T-score between -1.0 and -2.5 (below normal but not yet osteoporosis). Osteoporosis: T-score at or below -2.5. Normal: T-score above -1.0. T-scores compare an individual\'s BMD to a healthy young adult reference population.' },
+    { ch: 'ch22', q: 'During return-to-play, the S&C coach\'s role is to:', options: ['Make independent decisions about when the athlete can return to competition', 'Design and implement the reconditioning program within the medical team\'s guidelines', 'Diagnose the extent of the injury and determine rehabilitation timeline'], correct: 1, explain: 'The S&C coach designs the reconditioning/return-to-play program but works within the guidelines set by the sports medicine team (physician, AT, PT). The S&C coach does NOT independently clear athletes for return to play or diagnose injuries.' },
+    { ch: 'ch22', q: 'Resistance training for older adults should initially use:', options: ['1RM testing to establish baseline strength', 'Light loads with higher repetitions (10-15 reps) to develop base', 'Same protocols as young adults with no modifications'], correct: 1, explain: 'Older adults should begin with lighter loads and higher repetitions (10-15) to develop a training base, learn proper technique, and reduce injury risk. 1RM testing can be performed with experienced older adults but is not appropriate initially. Progressive overload still applies — just start conservatively.' },
+
+    // ===== CH 24: OVERTRAINING & RECOVERY =====
+    { ch: 'ch24', q: 'Functional overreaching differs from nonfunctional overreaching in that:', options: ['Functional overreaching leads to performance improvements after a recovery period', 'Functional overreaching requires medical intervention', 'Nonfunctional overreaching always leads to improved performance'], correct: 0, explain: 'Functional overreaching (FOR): short-term performance decrement followed by supercompensation after adequate recovery (days to weeks). Nonfunctional overreaching (NFOR): performance decrement that requires weeks to months to recover from, with no supercompensation. Overtraining syndrome (OTS): prolonged performance decrement lasting months, often with systemic symptoms.' },
+    { ch: 'ch24', q: 'Signs and symptoms of overtraining syndrome include:', options: ['Increased performance and elevated mood', 'Decreased performance, persistent fatigue, mood disturbances, and increased injury/illness', 'Only physical symptoms with no psychological effects'], correct: 1, explain: 'OTS symptoms: persistent performance decrements, chronic fatigue, sleep disturbances, mood changes (irritability, depression), decreased appetite, increased resting HR, increased susceptibility to illness/injury, hormonal changes (decreased T:C ratio). Prevention through periodization is key.' },
+    { ch: 'ch24', q: 'The most effective strategy for preventing overtraining is:', options: ['Increasing training volume progressively without rest', 'Proper periodization with planned recovery and deload periods', 'Relying solely on athlete self-report of readiness'], correct: 1, explain: 'Periodization with planned recovery (deload weeks, active rest phases, undulating volume/intensity) is the primary prevention strategy. Monitoring tools (RPE, HRV, performance markers, mood questionnaires) help detect early signs of overreaching.' },
+    { ch: 'ch24', q: 'The General Adaptation Syndrome (GAS) describes which sequence?', options: ['Alarm, resistance, exhaustion', 'Activation, adaptation, atrophy', 'Stress, recovery, supercompensation'], correct: 0, explain: 'Hans Selye\'s GAS has three stages: (1) Alarm — initial shock/response to new stress (soreness, stiffness, temporary performance drop), (2) Resistance — body adapts to the stimulus (performance improves), (3) Exhaustion — if stress continues too long without recovery, maladaptation occurs (overtraining). This is the theoretical basis for periodization.' },
+
+    // ===== CH 25: FACILITY & ADMIN (more questions) =====
+    { ch: 'ch25', q: 'The minimum recommended floor space per athlete in a weight room is:', options: ['50 sq ft', '100 sq ft', '200 sq ft'], correct: 1, explain: 'The textbook recommends a minimum of 100 square feet per athlete. This provides adequate space for movement, safety, and equipment access. Ceiling height should be at least 12 feet to accommodate overhead lifts.' },
+    { ch: 'ch25', q: 'All four elements of negligence that must be proven are:', options: ['Intent, action, harm, and liability', 'Duty, breach, causation, and damages', 'Standard, violation, injury, and fault'], correct: 1, explain: 'To prove negligence, the plaintiff must establish all four: (1) Duty — the professional owed a duty of care, (2) Breach — the professional failed to meet the standard of care, (3) Causation — the breach directly caused the harm, (4) Damages — actual harm/injury occurred. Missing any one element defeats the negligence claim.' },
+    { ch: 'ch25', q: 'Which of the following is within the CSCS scope of practice?', options: ['Prescribing rehabilitation exercises for an injured athlete', 'Providing general information about healthy eating habits', 'Diagnosing a suspected ACL tear'], correct: 1, explain: 'A CSCS can provide GENERAL nutrition information (food groups, hydration, macronutrient basics) but cannot create individualized meal plans (that\'s a registered dietitian\'s scope). They cannot diagnose injuries, prescribe rehabilitation, or counsel on mental health issues — those require referral to appropriate professionals.' },
+    { ch: 'ch25', q: 'An emergency action plan (EAP) should include all EXCEPT:', options: ['A list of emergency phone numbers and nearest hospital', 'Medical diagnosis procedures for common injuries', 'Roles and responsibilities of staff during an emergency'], correct: 1, explain: 'An EAP should include: emergency phone numbers, directions to the nearest hospital, roles and responsibilities of each staff member, location of emergency equipment (AED, first aid), communication procedures, and documentation protocols. Diagnosing injuries is NOT part of the EAP — that is a medical professional\'s role.' },
+
+    // ===== CH 25-26: FACILITY, ADMIN & LEGAL =====
+    { ch: 'ch25', q: 'The recommended minimum spacing between equipment is:', options: ['24 inches (61 cm)', '36 inches (91 cm)', '48 inches (122 cm)'], correct: 1, explain: 'NSCA recommends minimum 36 inches (3 feet / 91 cm) between equipment for safe passage and movement. Olympic platforms and free weight areas need more space.' },
+    { ch: 'ch25', q: 'An athlete experiencing heat exhaustion should FIRST be:', options: ['Monitored while continuing to rest on the field', 'Moved to a cool environment with cooling measures initiated', 'Given salt tablets and returned to activity'], correct: 1, explain: 'Heat exhaustion: immediately move to cool/shaded area, remove excess clothing, apply cold water/towels, provide cool fluids. If symptoms progress to heat stroke (altered consciousness, cessation of sweating), activate EMS/call 911.' },
+    { ch: 'ch25', q: 'The CSCS scope of practice includes all EXCEPT:', options: ['Designing strength and conditioning programs', 'Diagnosing injuries and prescribing rehabilitation', 'Providing general nutrition information'], correct: 1, explain: 'A CSCS does NOT diagnose injuries, prescribe rehab, provide medical advice, counsel on mental health, or create individualized meal plans. They DO design S&C programs, teach exercise technique, provide general nutrition info, and refer athletes to appropriate professionals when needed.' },
+    { ch: 'ch25', q: 'An assumption of risk waiver:', options: ['Eliminates all legal liability for the S&C professional', 'Documents that the participant understands the inherent risks of the activity', 'Is not legally relevant in negligence cases'], correct: 1, explain: 'An assumption of risk waiver documents that the participant acknowledges and accepts inherent risks. It does NOT eliminate liability for negligence, gross negligence, or reckless conduct. Proper supervision, instruction, equipment maintenance, and emergency procedures are still required regardless of waivers.' },
+    { ch: 'ch25', q: 'The recommended professional-to-athlete supervision ratio for a weight room is:', options: ['1:1', '1:10', '1:20-25'], correct: 2, explain: 'NSCA recommends approximately 1 qualified supervisor per 20-25 athletes in the weight room, though ratios may need to be lower for less experienced athletes, youth populations, or when complex exercises (Olympic lifts) are being performed.' },
+];
+
+// Resources data
+const resources = [
+    { type: 'AI TUTOR (PRIMARY)', title: 'Claude - Your CSCS Tutor', desc: 'Conversational teaching for every chapter, exam-style quizzes with explanations, program design scenario practice, concept breakdowns tailored to your background. Replaces the need for paid video courses.', cost: 'Included', url: '' },
+    { type: 'App', title: 'Pocket Prep CSCS', desc: '1,000-1,500 practice questions with explanations. Daily quiz delivery, progress tracking, exam simulation mode. Best mobile practice question app. Use AFTER reading/watching chapters, not before. Expect real exam to be 8-15% harder.', cost: '$20.99/mo or $49.99/3mo', url: 'pocketprep.com' },
+    { type: 'Audio (Audible)', title: 'CSCS Audio Prep 2024', desc: 'Audible audiobook based on latest CSCS exam content outline. AI-narrated. Good for passive listening supplement.', cost: '1 Audible credit', url: 'audible.com/pd/B0CW2VPFS5' },
+    { type: 'Practice Exam', title: 'NSCA Official Practice Exam', desc: 'Most realistic exam simulation available. Take in Week 7-8 to benchmark readiness.', cost: 'Check NSCA.com', url: 'nsca.com' },
+    { type: 'Free Questions', title: 'Mometrix Free Practice Test', desc: 'Free CSCS practice test with explanations.', cost: 'Free', url: 'mometrix.com/academy/cscs-practice-test/' },
+    { type: 'YouTube (FREE)', title: 'NSCA Official Channel', desc: 'Exercise demonstrations, conference presentations, and educational content directly from the NSCA.', cost: 'Free', url: 'youtube.com/@NSCAOfficial' },
+    { type: 'NSCA Clinic', title: 'NSCA Exam Prep Live Clinic', desc: '2-3 day intensive review clinics. Available in-person or via Zoom. Covers SF (Day 1) and PA (Day 2). Good for final review 2-4 weeks before exam. Contact examprep@nsca.com for pricing.', cost: '~$200-$400', url: 'nsca.com/certification/exam-preparation/cscs-exam-prep-live/' },
+    { type: 'Textbook', title: 'Essentials of S&C, 5th Edition', desc: 'THE primary study resource. 26 chapters. Your physical copy is the source of truth for all exam content.', cost: 'Purchased', url: '' },
+    { type: 'Study Group', title: 'The Movement System Facebook Group', desc: 'Free CSCS study group with active community. Ask questions, share resources, get support.', cost: 'Free', url: 'facebook.com/groups' },
+];
+
+// ============================================================
+// APP STATE
+// ============================================================
+let state = JSON.parse(localStorage.getItem('cscs-study-state') || '{}');
+if (!state.completedDays) state.completedDays = {};
+if (!state.checklist) state.checklist = {};
+if (!state.quizStats) state.quizStats = { total: 0, correct: 0 };
+if (!state.currentMonth) state.currentMonth = 3; // April = month 3 (0-indexed)
+if (!state.currentYear) state.currentYear = 2026;
+// Pre-check completed items
+if (!state.checklist['nsca-account']) state.checklist['nsca-account'] = true;
+if (!state.checklist['nsca-membership']) state.checklist['nsca-membership'] = true;
+// Mark April 19 as completed (reviewed DCO, explored study hub, took Ch 1 quiz)
+if (!state.completedDays['2026-04-19']) state.completedDays['2026-04-19'] = true;
+
+function saveState() {
+    localStorage.setItem('cscs-study-state', JSON.stringify(state));
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+});
+
+function switchTab(tabName) {
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+    document.getElementById(`sec-${tabName}`).classList.add('active');
+}
+
+// ============================================================
+// COUNTDOWN
+// ============================================================
+function updateCountdown() {
+    const now = new Date();
+    const diff = EXAM_DATE - now;
+    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    document.getElementById('countdown').textContent = `${days} days until exam`;
+    document.getElementById('stat-days').textContent = days;
+}
+updateCountdown();
+setInterval(updateCountdown, 60000);
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function updateDashboard() {
+    // Chapters completed
+    const completedDays = Object.keys(state.completedDays).length;
+    const totalDays = Object.keys(studyPlan).length;
+    const pct = Math.round((completedDays / totalDays) * 100);
+
+    document.getElementById('stat-chapters').textContent = `${completedDays}/${totalDays}`;
+    document.getElementById('progress-pct').textContent = `${pct}%`;
+    document.getElementById('progress-fill').style.width = `${pct}%`;
+
+    // Quiz stats
+    document.getElementById('stat-quizzes').textContent = state.quizStats.total;
+    document.getElementById('stat-score').textContent = state.quizStats.total > 0
+        ? Math.round((state.quizStats.correct / state.quizStats.total) * 100) + '%'
+        : '--%';
+
+    // Today's plan
+    const today = formatDate(new Date());
+    const todayPlan = studyPlan[today];
+    const todayDiv = document.getElementById('today-plan');
+    if (todayPlan) {
+        todayDiv.innerHTML = `
+            <div style="margin-bottom: 8px;"><span class="day-tag tag-${todayPlan.tag}">${todayPlan.label}</span> <strong>${todayPlan.topic}</strong></div>
+            <div style="font-size: 13px; color: var(--text-dim);">
+                ${todayPlan.sessions.map(s => `<div style="padding: 4px 0;">&#8226; ${s}</div>`).join('')}
+            </div>
+        `;
+    } else {
+        todayDiv.innerHTML = '<div style="color: var(--text-dim);">No plan for today. Check the calendar for upcoming sessions.</div>';
+    }
+
+    // Week overview
+    const weekDiv = document.getElementById('week-overview');
+    const todayDate = new Date();
+    const dayOfWeek = todayDate.getDay();
+    const startOfWeek = new Date(todayDate);
+    startOfWeek.setDate(todayDate.getDate() - dayOfWeek);
+
+    let weekHtml = '<div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;">';
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    for (let i = 0; i < 7; i++) {
+        const d = new Date(startOfWeek);
+        d.setDate(startOfWeek.getDate() + i);
+        const ds = formatDate(d);
+        const plan = studyPlan[ds];
+        const isToday = ds === today;
+        const isDone = state.completedDays[ds];
+        weekHtml += `<div style="background: var(--surface2); border-radius: 8px; padding: 8px; text-align: center; ${isToday ? 'border: 2px solid var(--accent);' : ''} ${isDone ? 'border: 2px solid var(--green);' : ''}">
+            <div style="font-size: 11px; color: var(--text-dim);">${dayNames[i]}</div>
+            <div style="font-size: 13px; font-weight: 600;">${d.getDate()}</div>
+            ${plan ? `<div class="day-tag tag-${plan.tag}" style="margin-top: 4px;">${plan.label}</div>` : ''}
+            ${isDone ? '<div style="color: var(--green); font-size: 14px;">&#10003;</div>' : ''}
+        </div>`;
+    }
+    weekHtml += '</div>';
+    weekDiv.innerHTML = weekHtml;
+}
+
+// ============================================================
+// CALENDAR
+// ============================================================
+function renderCalendar() {
+    const year = state.currentYear;
+    const month = state.currentMonth;
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    document.getElementById('month-title').textContent = `${monthNames[month]} ${year}`;
+
+    const grid = document.getElementById('calendar-grid');
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    let html = dayNames.map(d => `<div class="cal-header">${d}</div>`).join('');
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = formatDate(new Date());
+
+    for (let i = 0; i < firstDay; i++) {
+        html += '<div class="cal-day empty"></div>';
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const plan = studyPlan[dateStr];
+        const isToday = dateStr === today;
+        const isDone = state.completedDays[dateStr];
+
+        let classes = 'cal-day';
+        if (isToday) classes += ' today';
+        if (isDone) classes += ' completed';
+
+        html += `<div class="${classes}" onclick="openDayModal('${dateStr}')">
+            <div class="day-num">${d}</div>
+            ${isDone ? '<span class="cal-check">&#10003;</span>' : ''}
+            ${plan ? `<span class="day-tag tag-${plan.tag}">${plan.label}</span><div class="day-topic">${plan.topic.substring(0, 60)}${plan.topic.length > 60 ? '...' : ''}</div>` : ''}
+        </div>`;
+    }
+
+    grid.innerHTML = html;
+}
+
+function changeMonth(dir) {
+    state.currentMonth += dir;
+    if (state.currentMonth > 11) { state.currentMonth = 0; state.currentYear++; }
+    if (state.currentMonth < 0) { state.currentMonth = 11; state.currentYear--; }
+    saveState();
+    renderCalendar();
+}
+
+// ============================================================
+// DAY MODAL
+// ============================================================
+let currentModalDate = '';
+
+function openDayModal(dateStr) {
+    currentModalDate = dateStr;
+    const plan = studyPlan[dateStr];
+    const modal = document.getElementById('day-modal');
+    const dateObj = new Date(dateStr + 'T12:00:00');
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+    document.getElementById('modal-date').textContent = dateObj.toLocaleDateString('en-US', options);
+
+    if (plan) {
+        document.getElementById('modal-content').innerHTML = `
+            <div style="margin-bottom: 16px;">
+                <span class="day-tag tag-${plan.tag}" style="font-size: 12px; padding: 4px 8px;">${plan.label}</span>
+                <span style="font-size: 13px; color: var(--text-dim); margin-left: 8px;">Phase: ${plan.phase}</span>
+            </div>
+            <div style="font-size: 15px; margin-bottom: 16px; font-weight: 500;">${plan.topic}</div>
+            <h3 style="font-size: 14px; color: var(--text-dim); margin-bottom: 12px;">Today's Sessions:</h3>
+            <div style="font-size: 13px;">
+                ${plan.sessions.map(s => `<div style="padding: 6px 0; border-bottom: 1px solid var(--border);">&#8226; ${s}</div>`).join('')}
+            </div>
+        `;
+    } else {
+        document.getElementById('modal-content').innerHTML = '<div style="color: var(--text-dim);">No study plan for this day.</div>';
+    }
+
+    document.getElementById('modal-complete').checked = !!state.completedDays[dateStr];
+    modal.classList.add('open');
+}
+
+function closeModal() {
+    document.getElementById('day-modal').classList.remove('open');
+}
+
+function toggleDayComplete() {
+    const checked = document.getElementById('modal-complete').checked;
+    if (checked) {
+        state.completedDays[currentModalDate] = true;
+    } else {
+        delete state.completedDays[currentModalDate];
+    }
+    saveState();
+    renderCalendar();
+    updateDashboard();
+}
+
+document.getElementById('day-modal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('day-modal')) closeModal();
+});
+
+// ============================================================
+// QUIZ
+// ============================================================
+let quizPool = [];
+let quizIndex = 0;
+let sessionCorrect = 0;
+let sessionTotal = 0;
+let answered = false;
+
+function loadQuiz() {
+    const sel = document.getElementById('quiz-domain').value;
+    const sfChapters = ['ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10','ch11','ch12'];
+    const paChapters = ['ch13','ch14','ch16','ch17','ch18','ch19','ch21','ch22','ch24','ch25'];
+
+    if (sel === 'all') {
+        quizPool = [...quizQuestions].sort(() => Math.random() - 0.5);
+    } else if (sel === 'dom-sf') {
+        quizPool = quizQuestions.filter(q => sfChapters.includes(q.ch)).sort(() => Math.random() - 0.5);
+    } else if (sel === 'dom-pa') {
+        quizPool = quizQuestions.filter(q => paChapters.includes(q.ch)).sort(() => Math.random() - 0.5);
+    } else {
+        quizPool = quizQuestions.filter(q => q.ch === sel).sort(() => Math.random() - 0.5);
+    }
+    quizIndex = 0;
+    sessionCorrect = 0;
+    sessionTotal = 0;
+
+    // Show chapter progress and video links
+    const progDiv = document.getElementById('quiz-chapter-progress');
+    if (sel !== 'all' && sel !== 'dom-sf' && sel !== 'dom-pa') {
+        const chStats = state.chapterStats?.[sel] || { total: 0, correct: 0 };
+        const pct = chStats.total > 0 ? Math.round((chStats.correct / chStats.total) * 100) : 0;
+        const videos = chapterVideos[sel] || [];
+        const videoHtml = videos.length > 0 ? `<div style="margin-top: 8px; padding: 8px; background: var(--bg); border-radius: 6px;">
+            <div style="font-size: 11px; font-weight: 600; color: var(--text-dim); margin-bottom: 4px;">VIDEO LECTURES:</div>
+            ${videos.map(v => `<a href="${v.url}" target="_blank" style="display: block; font-size: 12px; color: var(--accent); text-decoration: none; padding: 3px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${v.title}</a>`).join('')}
+        </div>` : '';
+        progDiv.innerHTML = `<div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+            <span style="color: var(--text-dim);">${quizPool.length} questions available | Lifetime: ${chStats.correct}/${chStats.total} (${pct}%)</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width: ${pct}%; background: ${pct >= 70 ? 'var(--green)' : pct >= 50 ? 'var(--yellow)' : 'var(--red)'}"></div></div>${videoHtml}`;
+    } else {
+        progDiv.innerHTML = `<div style="font-size: 13px; color: var(--text-dim);">${quizPool.length} questions available</div>`;
+    }
+
+    showQuestion();
+    updateChapterScores();
+}
+
+function showQuestion() {
+    if (quizPool.length === 0) {
+        document.getElementById('quiz-q').textContent = 'No questions available for this chapter yet. More coming soon!';
+        document.getElementById('quiz-options').innerHTML = '';
+        document.getElementById('quiz-explain').classList.remove('show');
+        document.getElementById('quiz-next-btn').style.display = 'none';
+        return;
+    }
+
+    if (quizIndex >= quizPool.length) {
+        // All questions done - show completion
+        const pct = sessionTotal > 0 ? Math.round((sessionCorrect / sessionTotal) * 100) : 0;
+        const color = pct >= 70 ? 'var(--green)' : pct >= 50 ? 'var(--yellow)' : 'var(--red)';
+        document.getElementById('quiz-q').innerHTML = `<div style="text-align: center; padding: 20px 0;">
+            <div style="font-size: 36px; font-weight: 700; color: ${color};">${pct}%</div>
+            <div style="font-size: 14px; color: var(--text-dim); margin-top: 8px;">You got ${sessionCorrect} out of ${sessionTotal} correct</div>
+            <div style="margin-top: 16px;">
+                <button class="btn btn-primary" onclick="startOver()" style="margin-right: 8px;">Start Over</button>
+                <button class="btn btn-secondary" onclick="showReview()">Review Answers</button>
+            </div>
+        </div>`;
+        document.getElementById('quiz-options').innerHTML = '';
+        document.getElementById('quiz-explain').classList.remove('show');
+        document.getElementById('quiz-next-btn').style.display = 'none';
+        document.getElementById('quiz-count').textContent = `Completed ${sessionTotal} questions`;
+        updateChapterScores();
+        return;
+    }
+
+    answered = false;
+    const q = quizPool[quizIndex];
+    document.getElementById('quiz-q').textContent = q.q;
+    document.getElementById('quiz-explain').classList.remove('show');
+    document.getElementById('quiz-count').textContent = `Question ${quizIndex + 1} of ${quizPool.length}`;
+    document.getElementById('session-score').textContent = `${sessionCorrect}/${sessionTotal}`;
+    document.getElementById('quiz-next-btn').style.display = '';
+
+    const optLabels = ['A', 'B', 'C'];
+    document.getElementById('quiz-options').innerHTML = q.options.map((opt, i) =>
+        `<button class="quiz-option" onclick="selectAnswer(${i})">${optLabels[i]}. ${opt}</button>`
+    ).join('');
+}
+
+let sessionAnswers = []; // track answers for review
+
+function selectAnswer(idx) {
+    if (answered) return;
+    answered = true;
+    sessionTotal++;
+
+    const q = quizPool[quizIndex];
+    const buttons = document.querySelectorAll('.quiz-option');
+
+    buttons.forEach((btn, i) => {
+        if (i === q.correct) btn.classList.add('correct');
+        if (i === idx && idx !== q.correct) btn.classList.add('incorrect');
+        btn.style.cursor = 'default';
+    });
+
+    if (!state.chapterStats) state.chapterStats = {};
+    if (!state.chapterStats[q.ch]) state.chapterStats[q.ch] = { total: 0, correct: 0 };
+    state.chapterStats[q.ch].total++;
+
+    const isCorrect = idx === q.correct;
+    sessionAnswers.push({ q: q.q, options: q.options, selected: idx, correct: q.correct, explain: q.explain, wasCorrect: isCorrect });
+
+    if (isCorrect) {
+        sessionCorrect++;
+        state.quizStats.correct++;
+        state.chapterStats[q.ch].correct++;
+    }
+    state.quizStats.total++;
+    saveState();
+
+    document.getElementById('session-score').textContent = `${sessionCorrect}/${sessionTotal}`;
+    document.getElementById('quiz-explain').textContent = q.explain;
+    document.getElementById('quiz-explain').classList.add('show');
+    updateDashboard();
+}
+
+function nextQuestion() {
+    quizIndex++;
+    showQuestion();
+}
+
+function startOver() {
+    sessionCorrect = 0;
+    sessionTotal = 0;
+    sessionAnswers = [];
+    quizIndex = 0;
+    quizPool.sort(() => Math.random() - 0.5);
+    showQuestion();
+}
+
+function showReview() {
+    const optLabels = ['A', 'B', 'C'];
+    let html = '<div style="font-size: 14px; font-weight: 600; margin-bottom: 12px;">Review Your Answers</div>';
+    sessionAnswers.forEach((a, i) => {
+        const icon = a.wasCorrect ? '<span style="color: var(--green);">&#10003;</span>' : '<span style="color: var(--red);">&#10007;</span>';
+        html += `<div style="padding: 12px; margin-bottom: 8px; background: var(--surface2); border-radius: 8px; border-left: 3px solid ${a.wasCorrect ? 'var(--green)' : 'var(--red)'};">
+            <div style="font-size: 13px; margin-bottom: 6px;">${icon} <strong>Q${i+1}:</strong> ${a.q}</div>`;
+        a.options.forEach((opt, j) => {
+            let style = 'font-size: 12px; padding: 2px 0; color: var(--text-dim);';
+            if (j === a.correct) style += ' color: var(--green); font-weight: 600;';
+            if (j === a.selected && !a.wasCorrect) style += ' color: var(--red); text-decoration: line-through;';
+            html += `<div style="${style}">${optLabels[j]}. ${opt}</div>`;
+        });
+        if (!a.wasCorrect) {
+            html += `<div style="font-size: 11px; color: var(--text-dim); margin-top: 6px; padding: 6px; background: var(--bg); border-radius: 4px;">${a.explain}</div>`;
+        }
+        html += '</div>';
+    });
+    html += `<div style="margin-top: 12px;"><button class="btn btn-primary" onclick="startOver()">Start Over</button></div>`;
+    document.getElementById('quiz-q').innerHTML = html;
+    document.getElementById('quiz-options').innerHTML = '';
+    document.getElementById('quiz-explain').classList.remove('show');
+    document.getElementById('quiz-next-btn').style.display = 'none';
+}
+
+// ============================================================
+// CHECKLIST
+// ============================================================
+function renderChecklists() {
+    renderChecklist('admin-checklist', adminItems);
+    renderChecklist('study-checklist', studyMilestones);
+}
+
+function renderChecklist(containerId, items) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = items.map(item => {
+        const done = state.checklist[item.id];
+        return `<div class="checklist-item ${done ? 'done' : ''}">
+            <input type="checkbox" ${done ? 'checked' : ''} onchange="toggleChecklist('${item.id}')">
+            <div class="cl-text">
+                <div class="cl-title">${item.title}</div>
+                <div class="cl-desc">${item.desc}</div>
+                <div class="cl-deadline">Deadline: ${item.deadline}</div>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function toggleChecklist(id) {
+    state.checklist[id] = !state.checklist[id];
+    saveState();
+    renderChecklists();
+}
+
+// ============================================================
+// RESOURCES
+// ============================================================
+function renderResources() {
+    const grid = document.getElementById('resource-grid');
+    grid.innerHTML = resources.map(r => `
+        <div class="resource-card">
+            <div class="resource-type">${r.type}</div>
+            <h4>${r.title}</h4>
+            <p>${r.desc}</p>
+            <div class="resource-cost">${r.cost}</div>
+            ${r.url ? `<div style="font-size: 11px; color: var(--accent); margin-top: 4px;">${r.url}</div>` : ''}
+        </div>
+    `).join('');
+}
+
+// ============================================================
+// UTILITY
+// ============================================================
+function formatDate(d) {
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+// ============================================================
+// YOUTUBE LINKS BY CHAPTER
+// ============================================================
+const chapterVideos = {
+    ch1: [
+        { title: 'Ch 1 - Structure & Function of Body Systems | NSCA CSCS', url: 'https://www.youtube.com/watch?v=BvFn1ZOPCqQ' },
+        { title: 'Muscle Structure & Function (with Practice Questions)', url: 'https://www.youtube.com/watch?v=an2QkXlnmtk' },
+        { title: 'Ch 1 Summary: Sliding Filament, Muscle Spindle vs GTO', url: 'https://www.youtube.com/watch?v=-dq3W3T2IPM' },
+    ],
+    ch2: [
+        { title: 'Ch 2 - Biomechanics of Resistance Exercise | NSCA CSCS', url: 'https://www.youtube.com/watch?v=0LymQZt8TzA' },
+        { title: 'Biomechanics and Muscle Leverage', url: 'https://www.youtube.com/watch?v=j2uYPNjmsHo' },
+        { title: 'Definitions of Strength, Power & Work', url: 'https://www.youtube.com/watch?v=UBOjpYy8je4' },
+    ],
+    ch3: [
+        { title: 'Ch 3 - Bioenergetics | NSCA CSCS', url: 'https://www.youtube.com/watch?v=AgS5Mf9CNvQ' },
+        { title: '3 Energy Systems', url: 'https://www.youtube.com/watch?v=W7xg-U1yLWE' },
+        { title: 'Ch 3 Summary: ATP Energy Systems, Interval Training', url: 'https://www.youtube.com/watch?v=l7A9kfjbk-0' },
+    ],
+    ch4: [
+        { title: 'Ch 4 Summary: Endocrine Response to Resistance Exercise', url: 'https://www.youtube.com/watch?v=pjh9i36nrLY' },
+        { title: 'Primary Anabolic Hormones', url: 'https://www.youtube.com/watch?v=W9Fsf0R3vuU' },
+        { title: 'Hormone-Muscle Interactions', url: 'https://www.youtube.com/watch?v=lDUfvVZgdJc' },
+    ],
+    ch5: [
+        { title: 'Neural Adaptations (Henneman\'s Size Principle)', url: 'https://www.youtube.com/watch?v=RhhCKpum8yM' },
+        { title: 'Muscular Adaptations to Anaerobic Training', url: 'https://www.youtube.com/watch?v=l1tJHth9LdA' },
+        { title: 'Connective Tissue & Endocrine Adaptations', url: 'https://www.youtube.com/watch?v=EtJ43R6Qe5I' },
+    ],
+    ch6: [
+        { title: 'Adaptations to Aerobic Training', url: 'https://www.youtube.com/watch?v=yecoJKnGhoQ' },
+        { title: 'Acute Responses to Aerobic Training', url: 'https://www.youtube.com/watch?v=I84W3a1U4DM' },
+        { title: 'Ch 5 & 6 Summary: Anaerobic & Aerobic Adaptations', url: 'https://www.youtube.com/watch?v=w2EeAYUc318' },
+    ],
+    ch7: [
+        { title: 'Ch 7 Summary: Age & Sex Differences', url: 'https://www.youtube.com/watch?v=MYyXfztvODQ' },
+        { title: 'Is It Safe for Seniors to Lift?', url: 'https://www.youtube.com/watch?v=5gpYLa2cS-0' },
+    ],
+    ch8: [
+        { title: 'Should Men & Women Train Differently?', url: 'https://www.youtube.com/watch?v=MhtzxwyVhes' },
+        { title: 'Ch 7 Summary (covers both age & sex)', url: 'https://www.youtube.com/watch?v=MYyXfztvODQ' },
+    ],
+    ch9: [
+        { title: 'Arousal, Anxiety & Stress', url: 'https://www.youtube.com/watch?v=J0WbDtpgHRA' },
+        { title: 'Psychological Techniques for Performance', url: 'https://www.youtube.com/watch?v=WCVwEkU7IKI' },
+    ],
+    ch10: [
+        { title: 'Ch 9 Summary: Basic Nutrition Factors', url: 'https://www.youtube.com/watch?v=a0N_t2DzGzs' },
+        { title: 'Nutrition Factors for Health', url: 'https://www.youtube.com/watch?v=lgBpWxkdBdc' },
+    ],
+    ch11: [
+        { title: 'Ch 10 Summary: Nutrition Strategies for Performance', url: 'https://www.youtube.com/watch?v=GTDK0N1OOVA' },
+        { title: 'Pre, During & Post-Competition Nutrition', url: 'https://www.youtube.com/watch?v=hppgpdK8rp8' },
+        { title: 'Solving Nutrition Questions - CSCS Exam', url: 'https://www.youtube.com/watch?v=-EL2HXnC7Ak' },
+    ],
+    ch12: [
+        { title: 'Solving Nutrition Questions - CSCS Exam', url: 'https://www.youtube.com/watch?v=-EL2HXnC7Ak' },
+    ],
+    ch13: [
+        { title: 'Performance Testing: Validity & Reliability', url: 'https://www.youtube.com/watch?v=DYIvBUd--Bk' },
+        { title: 'Performance Testing Order & Methods', url: 'https://www.youtube.com/watch?v=8G8JCrohDzk' },
+        { title: 'Ch 12 Summary: Test Selection', url: 'https://www.youtube.com/watch?v=Joe8-V2uo2c' },
+        { title: 'Ch 13 Summary: Test Administration & Scoring', url: 'https://www.youtube.com/watch?v=enD6YGWNHjQ' },
+    ],
+    ch14: [
+        { title: 'CSCS Ch 15/16 Exercise Technique (Show Up Fitness)', url: 'https://www.youtube.com/watch?v=2seQdU8Axlg' },
+    ],
+    ch16: [
+        { title: 'Ch 15 Summary: Exercise Technique Free Weight & Machine', url: 'https://www.youtube.com/watch?v=MtoDSKRtj5M' },
+        { title: 'CSCS Exercise Technique Video Breakdown', url: 'https://www.youtube.com/watch?v=1jgVqvEnvj8' },
+        { title: 'CSCS Exercise Technique: Speed and Agility', url: 'https://www.youtube.com/watch?v=vda-hKgnEec' },
+    ],
+    ch17: [
+        { title: 'What are Plyometrics?', url: 'https://www.youtube.com/watch?v=v6HRpVecPuA' },
+        { title: 'Plyometric Programming Guidelines', url: 'https://www.youtube.com/watch?v=YyapIa_LbRU' },
+        { title: 'Ch 18 Summary: Plyometric Training', url: 'https://www.youtube.com/watch?v=KmhWTXghAfc' },
+    ],
+    ch18: [
+        { title: 'Speed & Agility Technique and Programming', url: 'https://www.youtube.com/watch?v=qfGrGDoLQYc' },
+        { title: 'RFD, Impulse & Stride Characteristics', url: 'https://www.youtube.com/watch?v=6nsV6N8erlc' },
+        { title: 'Ch 19 Summary: Speed & Agility', url: 'https://www.youtube.com/watch?v=Ad_628Pt0ok' },
+    ],
+    ch19: [
+        { title: 'Exercise Order', url: 'https://www.youtube.com/watch?v=_cs56HmyqC8' },
+        { title: 'Training Load & Repetitions', url: 'https://www.youtube.com/watch?v=lqNKJPNNzBg' },
+        { title: 'Volume & Rest Periods', url: 'https://www.youtube.com/watch?v=HgCqnDA6cio' },
+        { title: 'Ch 17 Summary: Program Design', url: 'https://www.youtube.com/watch?v=0Hr04YIvwlc' },
+        { title: 'Complete Guide to RT Program Design (Full Lecture)', url: 'https://www.youtube.com/watch?v=342ALAEwapQ' },
+        { title: 'Periodization: Macro, Meso & Microcycles', url: 'https://www.youtube.com/watch?v=iFu_uB0S-go' },
+        { title: 'Ch 21 Summary: Periodization', url: 'https://www.youtube.com/watch?v=iwQQczM9Nkk' },
+    ],
+    ch21: [
+        { title: 'Programming for Aerobic Endurance', url: 'https://www.youtube.com/watch?v=2OJhTTrIM24' },
+        { title: 'Training Methods: LSD, Threshold, Intervals, Fartlek', url: 'https://www.youtube.com/watch?v=XkNEElf3upY' },
+        { title: 'Ch 20 Summary: Aerobic Endurance', url: 'https://www.youtube.com/watch?v=rgRNvEcfs7I' },
+    ],
+    ch22: [
+        { title: 'Ch 22 Summary: Rehabilitation', url: 'https://www.youtube.com/watch?v=cL5z9PiNRJw' },
+    ],
+    ch24: [
+        { title: 'Ch 23 & 24 Summary: Facility, Admin & Legal', url: 'https://www.youtube.com/watch?v=DD8Vk4EbWVg' },
+    ],
+    ch25: [
+        { title: 'Ch 23 & 24 Summary: Facility, Admin & Legal', url: 'https://www.youtube.com/watch?v=DD8Vk4EbWVg' },
+    ],
+};
+
+// ============================================================
+// CHAPTER SCORES
+// ============================================================
+function updateChapterScores() {
+    const container = document.getElementById('chapter-scores');
+    const chapterNames = {
+        ch1: 'Ch 1 - Structure & Function of Body Systems',
+        ch2: 'Ch 2 - Biomechanics',
+        ch3: 'Ch 3 - Bioenergetics',
+        ch4: 'Ch 4 - Endocrine Responses',
+        ch5: 'Ch 5 - Anaerobic Training Adaptations',
+        ch6: 'Ch 6 - Aerobic Training Adaptations',
+        ch7: 'Ch 7 - Age-Related Differences',
+        ch8: 'Ch 8 - Sex-Related Differences',
+        ch9: 'Ch 9 - Psychological Foundations',
+        ch10: 'Ch 10 - Basic Nutritional Factors',
+        ch11: 'Ch 11 - Nutrition Strategies',
+        ch12: 'Ch 12 - Performance-Enhancing Substances',
+        ch13: 'Ch 13-14 - Testing & Evaluation',
+        ch14: 'Ch 15 - Performance Prep & Flexibility',
+        ch16: 'Ch 16-17 - Exercise Technique',
+        ch17: 'Ch 19 - Plyometric Training',
+        ch18: 'Ch 20 - Speed & Agility',
+        ch19: 'Ch 18 & 22 - Program Design & Periodization',
+        ch21: 'Ch 21 - Aerobic Endurance',
+        ch22: 'Ch 23 - Rehab & Reconditioning',
+        ch24: 'Ch 24 - Overtraining & Recovery',
+        ch25: 'Ch 25-26 - Facility & Legal',
+    };
+
+    if (!state.chapterStats) state.chapterStats = {};
+
+    let html = '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">';
+    for (const [ch, name] of Object.entries(chapterNames)) {
+        const s = state.chapterStats[ch] || { total: 0, correct: 0 };
+        const qCount = quizQuestions.filter(q => q.ch === ch).length;
+        const pct = s.total > 0 ? Math.round((s.correct / s.total) * 100) : -1;
+        const color = pct === -1 ? 'var(--text-dim)' : pct >= 70 ? 'var(--green)' : pct >= 50 ? 'var(--yellow)' : 'var(--red)';
+        html += `<div style="display: flex; justify-content: space-between; padding: 6px 8px; background: var(--surface2); border-radius: 6px; align-items: center; cursor: pointer;" onclick="document.getElementById('quiz-domain').value='${ch}'; loadQuiz();">
+            <span style="font-size: 12px;">${name}</span>
+            <span style="font-weight: 600; color: ${color}; font-size: 12px; white-space: nowrap; margin-left: 8px;">${pct === -1 ? `${qCount} Qs` : pct + '% (' + s.correct + '/' + s.total + ')'}</span>
+        </div>`;
+    }
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+// ============================================================
+// INIT
+// ============================================================
+updateDashboard();
+renderCalendar();
+loadQuiz();
+renderChecklists();
+renderResources();
+updateChapterScores();
+</script>
+
+</body>
+</html>

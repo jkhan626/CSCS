@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSCS Study Calendar - Jamal Khan</title>
+    <style>
+        @page { margin: 0.3in; size: letter landscape; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, 'Segoe UI', Arial, sans-serif; font-size: 7.5pt; line-height: 1.25; color: #1a1a1a; background: white; }
+        h1 { font-size: 14pt; text-align: center; margin-bottom: 2px; color: #1a3a6b; }
+        .subtitle { text-align: center; font-size: 8pt; color: #666; margin-bottom: 6px; }
+        .month { page-break-after: always; }
+        .month:last-child { page-break-after: avoid; }
+        .month-title { font-size: 13pt; font-weight: 700; color: #1a3a6b; margin-bottom: 4px; text-align: center; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+        .cal-header { text-align: center; font-weight: 700; font-size: 8pt; padding: 3px; background: #1a3a6b; color: white; }
+        .cal-day { min-height: 95px; border: 1px solid #ccc; padding: 3px 4px; font-size: 7pt; vertical-align: top; background: white; }
+        .cal-day.empty { border: none; background: transparent; }
+        .day-num { font-weight: 700; font-size: 9pt; margin-bottom: 2px; }
+        .tag { display: inline-block; font-size: 6pt; padding: 1px 4px; border-radius: 2px; font-weight: 700; margin-bottom: 1px; }
+        .tag-science { background: #dbeafe; color: #1e40af; }
+        .tag-practical { background: #ffedd5; color: #c2410c; }
+        .tag-review { background: #dcfce7; color: #166534; }
+        .tag-quiz { background: #f3e8ff; color: #7e22ce; }
+        .tag-rest { background: #f3f4f6; color: #6b7280; }
+        .tag-admin { background: #fef3c7; color: #92400e; }
+        .tag-exam { background: #fee2e2; color: #991b1b; }
+        .topic { font-size: 6.5pt; color: #555; line-height: 1.2; }
+        .legend { display: flex; gap: 10px; justify-content: center; margin: 6px 0; flex-wrap: wrap; font-size: 7pt; }
+        .legend-item { display: flex; align-items: center; gap: 3px; }
+        .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+        .checkbox { display: inline-block; width: 10px; height: 10px; border: 1px solid #999; margin-left: auto; }
+        @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+    </style>
+</head>
+<body>
+<script>
+const plan = {
+'2026-04-19': { tag: 'rest', label: 'Setup', topic: 'Setup materials, review DCO, apps, HKPropel' },
+'2026-04-20': { tag: 'rest', label: 'Light', topic: 'Watch CSCS overview videos' },
+'2026-04-21': { tag: 'science', label: 'Ch 1', topic: 'Muscle anatomy video lecture' },
+'2026-04-22': { tag: 'science', label: 'Ch 1', topic: 'Fiber types, sliding filament, muscle actions' },
+'2026-04-23': { tag: 'rest', label: 'Light', topic: 'Pocket Prep questions only' },
+'2026-04-24': { tag: 'science', label: 'Ch 2', topic: 'Neuromuscular anatomy, motor units' },
+'2026-04-25': { tag: 'review', label: 'Review', topic: 'Ch 1-2 review + Claude quiz' },
+'2026-04-26': { tag: 'science', label: 'Ch 3', topic: 'Biomechanics: levers, planes, torque' },
+'2026-04-27': { tag: 'rest', label: 'Light', topic: 'Pocket Prep + catch-up' },
+'2026-04-28': { tag: 'science', label: 'Ch 4', topic: 'Bone & connective tissue' },
+'2026-04-29': { tag: 'science', label: 'Ch 5', topic: 'Bioenergetics: 3 energy systems' },
+'2026-04-30': { tag: 'rest', label: 'Light', topic: 'Pocket Prep + energy systems review' },
+'2026-05-01': { tag: 'science', label: 'Ch 5', topic: 'Bioenergetics applied + work:rest' },
+'2026-05-02': { tag: 'review', label: 'Review', topic: 'Ch 1-5 comprehensive review' },
+'2026-05-03': { tag: 'science', label: 'Ch 6', topic: 'Neuroendocrine: hormones & exercise' },
+'2026-05-04': { tag: 'science', label: 'Ch 7', topic: 'Cardiopulmonary physiology' },
+'2026-05-05': { tag: 'review', label: 'Review', topic: 'Ch 6-7 review + quiz' },
+'2026-05-06': { tag: 'admin', label: 'Surgery', topic: "Dad's knee surgery - light study" },
+'2026-05-07': { tag: 'science', label: 'Ch 8', topic: 'Age & sex differences' },
+'2026-05-08': { tag: 'science', label: 'Ch 9', topic: 'Physiological adaptations' },
+'2026-05-09': { tag: 'review', label: 'Review', topic: 'Ch 6-9 + full Exercise Science review' },
+'2026-05-10': { tag: 'science', label: 'Ch 10', topic: 'Sport psychology: motivation, mental skills' },
+'2026-05-11': { tag: 'science', label: 'Ch 10b', topic: 'Mental health, eating disorders, referral' },
+'2026-05-12': { tag: 'science', label: 'Ch 11', topic: 'Nutrition: macros, hydration, energy' },
+'2026-05-13': { tag: 'science', label: 'Ch 11b', topic: 'Supplements & ergogenic aids' },
+'2026-05-14': { tag: 'science', label: 'Ch 12', topic: 'Research & statistics, PICOT' },
+'2026-05-15': { tag: 'review', label: 'SF Review', topic: 'Full Scientific Foundations review' },
+'2026-05-16': { tag: 'quiz', label: 'PRACTICE', topic: 'Timed SF practice exam (95 Qs/90 min)' },
+'2026-05-17': { tag: 'practical', label: 'Ch 13', topic: 'Testing & evaluation' },
+'2026-05-18': { tag: 'practical', label: 'Ch 13b', topic: 'Testing protocols & norms' },
+'2026-05-19': { tag: 'practical', label: 'Ch 14-15', topic: 'Warm-up, flexibility, mobility' },
+'2026-05-20': { tag: 'practical', label: 'Ch 16', topic: 'Resistance technique + HKPropel videos' },
+'2026-05-21': { tag: 'practical', label: 'Ch 16-17', topic: 'Olympic lifts, machines + HKPropel videos' },
+'2026-05-22': { tag: 'practical', label: 'Ch 17-18', topic: 'Plyometrics, speed, agility' },
+'2026-05-23': { tag: 'review', label: 'Review', topic: 'Testing + technique review' },
+'2026-05-24': { tag: 'practical', label: 'Ch 19', topic: 'Program Design: needs analysis, selection' },
+'2026-05-25': { tag: 'practical', label: 'Ch 19b', topic: 'Program Design: order, intensity, volume' },
+'2026-05-26': { tag: 'practical', label: 'Ch 20', topic: 'Periodization: linear, undulating, block' },
+'2026-05-27': { tag: 'practical', label: 'Practice', topic: 'Program design scenarios + Claude' },
+'2026-05-28': { tag: 'practical', label: 'Ch 21', topic: 'Aerobic endurance training design' },
+'2026-05-29': { tag: 'practical', label: 'Ch 22-23', topic: 'Rehab, return-to-play, youth/older' },
+'2026-05-30': { tag: 'review', label: 'PD Review', topic: 'Program Design comprehensive review' },
+'2026-05-31': { tag: 'practical', label: 'Ch 24', topic: 'Overtraining & recovery (NEW ch)' },
+'2026-06-01': { tag: 'practical', label: 'Ch 25-26', topic: 'Facility, admin, legal, ethics' },
+'2026-06-02': { tag: 'practical', label: 'Admin', topic: 'Org & Admin deep review' },
+'2026-06-03': { tag: 'review', label: 'PA Review', topic: 'Full Practical/Applied review' },
+'2026-06-04': { tag: 'quiz', label: 'PRACTICE', topic: 'Timed PA practice exam (125 Qs/150 min)' },
+'2026-06-05': { tag: 'review', label: 'Weak Areas', topic: 'Target weak areas from practice exam' },
+'2026-06-06': { tag: 'quiz', label: 'FULL EXAM', topic: 'Both sections timed practice exam' },
+'2026-06-07': { tag: 'review', label: 'Analysis', topic: 'Practice exam analysis + review plan' },
+'2026-06-08': { tag: 'science', label: 'SF Drill', topic: 'Scientific Foundations intensive drill' },
+'2026-06-09': { tag: 'practical', label: 'PA Drill', topic: 'Practical/Applied intensive drill' },
+'2026-06-10': { tag: 'review', label: 'Video Prep', topic: 'Re-watch HKPropel videos, error ID prep' },
+'2026-06-11': { tag: 'quiz', label: 'FINAL EXAM', topic: 'Final full practice exam, test conditions' },
+'2026-06-12': { tag: 'review', label: 'Final Review', topic: 'Review missed Qs, create cheat sheets' },
+'2026-06-13': { tag: 'review', label: 'Consolidate', topic: 'Consolidate notes, plan exam day' },
+'2026-06-14': { tag: 'review', label: 'Review', topic: 'Ex Sci + Sport Psych final review' },
+'2026-06-15': { tag: 'review', label: 'Review', topic: 'Nutrition + Research final review' },
+'2026-06-16': { tag: 'review', label: 'Review', topic: 'Program Design final review' },
+'2026-06-17': { tag: 'review', label: 'Review', topic: 'Technique + Testing final review' },
+'2026-06-18': { tag: 'review', label: 'Light', topic: 'Admin + remaining light review' },
+'2026-06-19': { tag: 'rest', label: 'Taper', topic: 'Light review only. Trust your prep.' },
+'2026-06-20': { tag: 'rest', label: 'Rest', topic: 'Rest. Skim cheat sheets. Sleep well.' },
+'2026-06-21': { tag: 'rest', label: 'Rest', topic: 'Confirm exam details. Relax.' },
+'2026-06-22': { tag: 'exam', label: 'EXAM', topic: 'Exam day option (Mon)' },
+'2026-06-23': { tag: 'exam', label: 'EXAM', topic: 'Exam day option (Tue)' },
+'2026-06-24': { tag: 'exam', label: 'EXAM', topic: 'Exam day option (Wed)' },
+'2026-06-25': { tag: 'exam', label: 'EXAM', topic: 'Exam day option (Thu)' },
+'2026-06-26': { tag: 'exam', label: 'BIRTHDAY!', topic: 'PASS THE EXAM. Happy Birthday!' },
+};
+
+function renderMonth(year, month, title) {
+    const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date().toISOString().split('T')[0];
+
+    let html = `<div class="month"><div class="month-title">${title}</div>`;
+    html += '<div class="cal-grid">';
+    dayNames.forEach(d => { html += `<div class="cal-header">${d}</div>`; });
+    for (let i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
+    for (let d = 1; d <= daysInMonth; d++) {
+        const ds = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const p = plan[ds];
+        html += `<div class="cal-day">`;
+        html += `<div style="display:flex;justify-content:space-between;"><span class="day-num">${d}</span><span class="checkbox"></span></div>`;
+        if (p) {
+            html += `<span class="tag tag-${p.tag}">${p.label}</span><br>`;
+            html += `<span class="topic">${p.topic}</span>`;
+        }
+        html += '</div>';
+    }
+    html += '</div></div>';
+    return html;
+}
+
+document.write('<h1>CSCS STUDY CALENDAR</h1>');
+document.write('<div class="subtitle">Jamal Khan | April 19 - June 26, 2026 | Target: Pass by Birthday</div>');
+document.write('<div class="legend">');
+document.write('<div class="legend-item"><div class="legend-dot" style="background:#dbeafe;border:1px solid #1e40af;"></div> Scientific Foundations</div>');
+document.write('<div class="legend-item"><div class="legend-dot" style="background:#ffedd5;border:1px solid #c2410c;"></div> Practical/Applied</div>');
+document.write('<div class="legend-item"><div class="legend-dot" style="background:#dcfce7;border:1px solid #166534;"></div> Review</div>');
+document.write('<div class="legend-item"><div class="legend-dot" style="background:#f3e8ff;border:1px solid #7e22ce;"></div> Practice Exam</div>');
+document.write('<div class="legend-item"><div class="legend-dot" style="background:#f3f4f6;border:1px solid #6b7280;"></div> Rest/Light</div>');
+document.write('<div class="legend-item"><div class="legend-dot" style="background:#fee2e2;border:1px solid #991b1b;"></div> EXAM</div>');
+document.write('</div>');
+document.write(renderMonth(2026, 3, 'APRIL 2026'));
+document.write(renderMonth(2026, 4, 'MAY 2026'));
+document.write(renderMonth(2026, 5, 'JUNE 2026'));
+</script>
+</body>
+</html>
