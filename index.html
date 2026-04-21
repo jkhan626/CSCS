@@ -514,6 +514,7 @@
     <button class="nav-tab" data-tab="checklist">Admin Checklist</button>
     <button class="nav-tab" data-tab="resources">Resources</button>
     <div class="nav-right">
+        <span id="sync-status" style="font-size: 11px;"></span>
         <div class="countdown" id="countdown"></div>
     </div>
 </nav>
@@ -1127,7 +1128,6 @@ async function cloudLoad() {
 async function cloudSave() {
     const now = Date.now();
     if (now - lastSyncTime < 2000) {
-        // Debounce: if we just saved, queue it
         if (!syncPending) {
             syncPending = true;
             setTimeout(() => { syncPending = false; cloudSave(); }, 2000);
@@ -1135,13 +1135,18 @@ async function cloudSave() {
         return;
     }
     lastSyncTime = now;
+    const syncDot = document.getElementById('sync-status');
     try {
-        await fetch(SYNC_URL, {
+        const res = await fetch(SYNC_URL, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify(state)
         });
-    } catch (e) { /* offline, saved locally */ }
+        if (syncDot) syncDot.style.color = res.ok ? 'var(--green)' : 'var(--red)';
+        if (syncDot) { syncDot.textContent = res.ok ? 'Synced' : 'Sync failed'; setTimeout(() => { syncDot.textContent = ''; }, 2000); }
+    } catch (e) {
+        if (syncDot) { syncDot.style.color = 'var(--red)'; syncDot.textContent = 'Offline'; setTimeout(() => { syncDot.textContent = ''; }, 2000); }
+    }
 }
 
 let state = JSON.parse(localStorage.getItem('cscs-study-state') || '{}');
@@ -1161,6 +1166,9 @@ function saveState() {
     localStorage.setItem('cscs-study-state', JSON.stringify(state));
     cloudSave();
 }
+
+// Initial save to push pre-checked items to cloud
+setTimeout(() => { cloudSave(); }, 1000);
 
 // ============================================================
 // NAVIGATION
