@@ -1059,6 +1059,65 @@ const resources = [
 // ============================================================
 // APP STATE
 // ============================================================
+// ============================================================
+// CLOUD SYNC
+// ============================================================
+const SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019db172-d0ca-7784-be51-b689564dbc27';
+let syncPending = false;
+let lastSyncTime = 0;
+
+async function cloudLoad() {
+    try {
+        const res = await fetch(SYNC_URL, { headers: { 'Accept': 'application/json' } });
+        if (res.ok) {
+            const cloud = await res.json();
+            // Merge: cloud wins if it has more data, local wins if cloud is empty
+            if (cloud && (Object.keys(cloud.completedDays || {}).length > 0 || Object.keys(cloud.checklist || {}).length > 0 || (cloud.quizStats && cloud.quizStats.total > 0))) {
+                // Merge local and cloud — take the max/union of both
+                const local = JSON.parse(localStorage.getItem('cscs-study-state') || '{}');
+                state.completedDays = Object.assign({}, cloud.completedDays || {}, local.completedDays || {});
+                state.checklist = Object.assign({}, cloud.checklist || {}, local.checklist || {});
+                state.quizStats = {
+                    total: Math.max((cloud.quizStats || {}).total || 0, (local.quizStats || {}).total || 0),
+                    correct: Math.max((cloud.quizStats || {}).correct || 0, (local.quizStats || {}).correct || 0)
+                };
+                state.chapterStats = Object.assign({}, cloud.chapterStats || {}, local.chapterStats || {});
+                // For chapterStats, take the higher total for each chapter
+                for (const ch of Object.keys(state.chapterStats)) {
+                    const c = (cloud.chapterStats || {})[ch] || { total: 0, correct: 0 };
+                    const l = (local.chapterStats || {})[ch] || { total: 0, correct: 0 };
+                    state.chapterStats[ch] = { total: Math.max(c.total, l.total), correct: Math.max(c.correct, l.correct) };
+                }
+                saveState();
+                updateDashboard();
+                renderCalendar();
+                renderChecklists();
+                updateChapterScores();
+            }
+        }
+    } catch (e) { /* offline, use local */ }
+}
+
+async function cloudSave() {
+    const now = Date.now();
+    if (now - lastSyncTime < 2000) {
+        // Debounce: if we just saved, queue it
+        if (!syncPending) {
+            syncPending = true;
+            setTimeout(() => { syncPending = false; cloudSave(); }, 2000);
+        }
+        return;
+    }
+    lastSyncTime = now;
+    try {
+        await fetch(SYNC_URL, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(state)
+        });
+    } catch (e) { /* offline, saved locally */ }
+}
+
 let state = JSON.parse(localStorage.getItem('cscs-study-state') || '{}');
 if (!state.completedDays) state.completedDays = {};
 if (!state.checklist) state.checklist = {};
@@ -1073,6 +1132,7 @@ if (!state.completedDays['2026-04-19']) state.completedDays['2026-04-19'] = true
 
 function saveState() {
     localStorage.setItem('cscs-study-state', JSON.stringify(state));
+    cloudSave();
 }
 
 // ============================================================
@@ -1664,6 +1724,8 @@ loadQuiz();
 renderChecklists();
 renderResources();
 updateChapterScores();
+// Load cloud state and merge with local
+cloudLoad();
 </script>
 
 </body>
