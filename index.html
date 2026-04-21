@@ -1028,11 +1028,26 @@ function updateDashboard() {
     const todayPlan = studyPlan[today];
     const todayDiv = document.getElementById('today-plan');
     if (todayPlan) {
+        // Find which chapter is scheduled today by looking at the label
+        const chMatch = todayPlan.label.match(/Ch\s*(\d+)/i);
+        let todayVideos = [];
+        if (chMatch) {
+            const chNum = parseInt(chMatch[1]);
+            // Map to quiz chapter keys
+            const chKey = 'ch' + chNum;
+            todayVideos = chapterVideos[chKey] || [];
+        }
+        const videoHtml = todayVideos.length > 0 ? `
+            <div style="margin-top: 10px; padding: 10px; background: var(--surface2); border-radius: 8px;">
+                <div style="font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 6px;">TODAY'S VIDEOS:</div>
+                ${todayVideos.map(v => `<a href="${v.url}" target="_blank" style="display: block; font-size: 13px; color: var(--accent); text-decoration: none; padding: 5px 0; border-bottom: 1px solid var(--border);">${v.title}</a>`).join('')}
+            </div>` : '';
         todayDiv.innerHTML = `
             <div style="margin-bottom: 8px;"><span class="day-tag tag-${todayPlan.tag}">${todayPlan.label}</span> <strong>${todayPlan.topic}</strong></div>
             <div style="font-size: 13px; color: var(--text-dim);">
                 ${todayPlan.sessions.map(s => `<div style="padding: 4px 0;">&#8226; ${s}</div>`).join('')}
             </div>
+            ${videoHtml}
         `;
     } else {
         todayDiv.innerHTML = '<div style="color: var(--text-dim);">No plan for today. Check the calendar for upcoming sessions.</div>';
