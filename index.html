@@ -461,6 +461,7 @@
                 min-width: 24px !important;
             }
             #video-queue > div {
+                flex-direction: row !important;
                 padding: 12px 0 !important;
             }
             #video-queue a {
@@ -475,8 +476,8 @@
                 display: block;
             }
 
-            /* Quick action buttons stack */
-            .card div[style*="flex"] {
+            /* Quick action buttons stack - only target the quick actions div */
+            #sec-dashboard > .card:last-of-type div[style*="flex"] {
                 flex-direction: column;
             }
 
