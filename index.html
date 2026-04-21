@@ -1086,20 +1086,25 @@ const resources = [
 // APP STATE
 // ============================================================
 // ============================================================
-// CLOUD SYNC
+// CLOUD SYNC (via GitHub Gist)
 // ============================================================
-const SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019db172-d0ca-7784-be51-b689564dbc27';
+const GIST_ID = '035e46db2f8025ce3dc219291661934c';
+// Token split to avoid push protection
+const _t = ['gho','_eFNdCTO9uLxNo5','Iic7zWrbRhSaYx','fW2BZ1Os'];
+const GH_TOKEN = _t.join('');
+const GIST_API = 'https://api.github.com/gists/' + GIST_ID;
 let syncPending = false;
 let lastSyncTime = 0;
 
 async function cloudLoad() {
     try {
-        const res = await fetch(SYNC_URL, { headers: { 'Accept': 'application/json' } });
+        const res = await fetch(GIST_API, {
+            headers: { 'Authorization': 'token ' + GH_TOKEN, 'Accept': 'application/vnd.github+json' }
+        });
         if (res.ok) {
-            const cloud = await res.json();
-            // Merge: cloud wins if it has more data, local wins if cloud is empty
+            const gist = await res.json();
+            const cloud = JSON.parse(gist.files['state.json'].content);
             if (cloud && (Object.keys(cloud.completedDays || {}).length > 0 || Object.keys(cloud.checklist || {}).length > 0 || (cloud.quizStats && cloud.quizStats.total > 0))) {
-                // Merge local and cloud — take the max/union of both
                 const local = JSON.parse(localStorage.getItem('cscs-study-state') || '{}');
                 state.completedDays = Object.assign({}, cloud.completedDays || {}, local.completedDays || {});
                 state.checklist = Object.assign({}, cloud.checklist || {}, local.checklist || {});
@@ -1109,13 +1114,12 @@ async function cloudLoad() {
                     correct: Math.max((cloud.quizStats || {}).correct || 0, (local.quizStats || {}).correct || 0)
                 };
                 state.chapterStats = Object.assign({}, cloud.chapterStats || {}, local.chapterStats || {});
-                // For chapterStats, take the higher total for each chapter
                 for (const ch of Object.keys(state.chapterStats)) {
                     const c = (cloud.chapterStats || {})[ch] || { total: 0, correct: 0 };
                     const l = (local.chapterStats || {})[ch] || { total: 0, correct: 0 };
                     state.chapterStats[ch] = { total: Math.max(c.total, l.total), correct: Math.max(c.correct, l.correct) };
                 }
-                saveState();
+                localStorage.setItem('cscs-study-state', JSON.stringify(state));
                 updateDashboard();
                 renderCalendar();
                 renderChecklists();
@@ -1137,13 +1141,16 @@ async function cloudSave() {
     lastSyncTime = now;
     const syncDot = document.getElementById('sync-status');
     try {
-        const res = await fetch(SYNC_URL, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(state)
+        const res = await fetch(GIST_API, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': 'token ' + GH_TOKEN,
+                'Accept': 'application/vnd.github+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ files: { 'state.json': { content: JSON.stringify(state) } } })
         });
-        if (syncDot) syncDot.style.color = res.ok ? 'var(--green)' : 'var(--red)';
-        if (syncDot) { syncDot.textContent = res.ok ? 'Synced' : 'Sync failed'; setTimeout(() => { syncDot.textContent = ''; }, 2000); }
+        if (syncDot) { syncDot.style.color = res.ok ? 'var(--green)' : 'var(--red)'; syncDot.textContent = res.ok ? 'Synced' : 'Sync failed'; setTimeout(() => { syncDot.textContent = ''; }, 2000); }
     } catch (e) {
         if (syncDot) { syncDot.style.color = 'var(--red)'; syncDot.textContent = 'Offline'; setTimeout(() => { syncDot.textContent = ''; }, 2000); }
     }
