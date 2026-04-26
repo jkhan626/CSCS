@@ -726,29 +726,33 @@ function generateStudyPlan() {
         { d: '2026-04-25', tag: 'science', label: 'DONE', topic: 'Ch 2 quiz (87%) + tutoring + Ch 3 start', phase: 'Done', sessions: ['Completed ✓'] },
 
         // THIS WEEKEND - Apr 26-27
-        { d: '2026-04-26', tag: 'science', label: 'Ch 3', topic: 'Bioenergetics — finish videos + reading', phase: 'Current', sessions: ['Finish Ch 3 YouTube videos', 'Read textbook Ch 3: energy systems, substrates, work:rest ratios', 'Claude session: Ch 3 tutoring', 'Take Ch 3 quiz in Study Hub'] },
+        { d: '2026-04-26', tag: 'science', label: 'Ch 3', topic: 'Bioenergetics — finish + quiz + tutoring', phase: 'Current', sessions: ['Finish Ch 3 YouTube videos', 'Read textbook Ch 3: energy systems, substrates, work:rest ratios', 'Claude session: Ch 3 tutoring', 'Take Ch 3 quiz in Study Hub'] },
         { d: '2026-04-27', tag: 'science', label: 'Ch 4', topic: 'Endocrine Responses to Resistance Exercise', phase: 'Current', sessions: ['Watch Ch 4 YouTube videos', 'Read textbook Ch 4: testosterone, GH, cortisol, insulin', 'Claude session: Ch 4 tutoring', 'Take Ch 4 quiz'] },
 
-        // BUSY WEEK WITH DAD - Apr 28 - May 2 (light study ~1 hr/day)
-        { d: '2026-04-28', tag: 'science', label: 'Ch 5 (light)', topic: 'Adaptations to Anaerobic Training', phase: 'Busy Week', sessions: ['Watch 1 Ch 5 video (~30 min)', 'Skim textbook Ch 5: neural adaptations, hypertrophy, detraining', 'Pocket Prep: 10 questions'] },
-        { d: '2026-04-29', tag: 'science', label: 'Ch 5 (light)', topic: 'Finish Ch 5 + quiz', phase: 'Busy Week', sessions: ['Claude session: Ch 5 tutoring (~20 min)', 'Take Ch 5 quiz', 'Pocket Prep: 10 questions'] },
-        { d: '2026-04-30', tag: 'science', label: 'Ch 6 (light)', topic: 'Adaptations to Aerobic Training', phase: 'Busy Week', sessions: ['Watch 1 Ch 6 video (~30 min)', 'Key concepts: cardiac output, stroke volume, VO2max', 'Pocket Prep: 10 questions'] },
-        { d: '2026-05-01', tag: 'science', label: 'Ch 6 (light)', topic: 'Finish Ch 6 + quiz', phase: 'Busy Week', sessions: ['Claude session: Ch 6 tutoring (~20 min)', 'Take Ch 6 quiz', 'Pocket Prep: 10 questions'] },
-        { d: '2026-05-02', tag: 'science', label: 'Ch 7 (light)', topic: 'Age-Related Differences', phase: 'Busy Week', sessions: ['Watch Ch 7 video (~30 min)', 'Key concepts: youth training, older adults, sarcopenia', 'Pocket Prep: 10 questions'] },
+        // BUSY WEEK WITH DAD - Apr 28 - May 1 (1 chapter spread across 4 days)
+        { d: '2026-04-28', tag: 'science', label: 'Ch 5 (light)', topic: 'Adaptations to Anaerobic Training — start', phase: 'Busy Week', sessions: ['Watch Ch 5 video (~30 min)', 'Skim textbook Ch 5 first half'] },
+        { d: '2026-04-29', tag: 'science', label: 'Ch 5 (light)', topic: 'Ch 5 continued', phase: 'Busy Week', sessions: ['Finish textbook Ch 5: neural, muscular, connective tissue adaptations', 'Pocket Prep: 10 questions'] },
+        { d: '2026-04-30', tag: 'science', label: 'Ch 5 (light)', topic: 'Ch 5 continued — detraining, interference effect', phase: 'Busy Week', sessions: ['Key concepts: detraining timeline, SAID principle, interference effect', 'Pocket Prep: 10 questions'] },
+        { d: '2026-05-01', tag: 'science', label: 'Ch 5 (light)', topic: 'Finish Ch 5 + quiz', phase: 'Busy Week', sessions: ['Claude session: Ch 5 tutoring', 'Take Ch 5 quiz'] },
 
-        // WEEKEND - May 3 (more time)
-        { d: '2026-05-03', tag: 'science', label: 'Ch 7-8', topic: 'Finish Ch 7 + Ch 8 Sex-Related Differences', phase: 'Pre-Surgery', sessions: ['Take Ch 7 quiz', 'Watch Ch 8 video', 'Read textbook Ch 8: female athlete triad, ACL risk, strength differences', 'Take Ch 8 quiz', 'Claude session: Ch 7-8 tutoring'] },
+        // WEEKEND - May 2-3 (more time — 1 chapter)
+        { d: '2026-05-02', tag: 'science', label: 'Ch 6', topic: 'Adaptations to Aerobic Training — start', phase: 'Pre-Surgery', sessions: ['Watch Ch 6 YouTube videos', 'Read textbook Ch 6: cardiac output, stroke volume, VO2max, chronic adaptations'] },
+        { d: '2026-05-03', tag: 'science', label: 'Ch 6', topic: 'Finish Ch 6 + quiz + tutoring', phase: 'Pre-Surgery', sessions: ['Claude session: Ch 6 tutoring', 'Take Ch 6 quiz', 'Pocket Prep: 15 questions'] },
 
-        // SLOW DAYS - May 4-5 (~1 hr each)
-        { d: '2026-05-04', tag: 'science', label: 'Ch 9 (light)', topic: 'Psychological Foundations - Part 1', phase: 'Pre-Surgery', sessions: ['Watch Ch 9 video (~30 min)', 'Key concepts: SDT, arousal theories, motivation', 'Pocket Prep: 10 questions'] },
-        { d: '2026-05-05', tag: 'science', label: 'Ch 9 (light)', topic: 'Psychological Foundations - Part 2 + quiz', phase: 'Pre-Surgery', sessions: ['Key concepts: mental health, when to refer, goal types', 'Claude session: Ch 9 tutoring (~20 min)', 'Take Ch 9 quiz'] },
+        // SLOW DAYS - May 4-5 (~1 hr each — 1 chapter)
+        { d: '2026-05-04', tag: 'science', label: 'Ch 7 (light)', topic: 'Age-Related Differences — start', phase: 'Pre-Surgery', sessions: ['Watch Ch 7 video (~30 min)', 'Skim textbook Ch 7: youth training, older adults, sarcopenia'] },
+        { d: '2026-05-05', tag: 'science', label: 'Ch 7 (light)', topic: 'Finish Ch 7 + quiz', phase: 'Pre-Surgery', sessions: ['Claude session: Ch 7 tutoring', 'Take Ch 7 quiz'] },
 
-        // SURGERY DAY + RAMP UP - May 6+
-        { d: '2026-05-06', tag: 'admin', label: 'Surgery Day', topic: 'Dad\'s knee surgery. Light study if time.', phase: 'Surgery', sessions: ['Be with family', 'If time: Pocket Prep 10-15 questions on phone'] },
-        { d: '2026-05-07', tag: 'science', label: 'Ch 10', topic: 'Basic Nutritional Factors Affecting Health', phase: 'Full Study', sessions: ['Watch Ch 10 videos', 'Read textbook Ch 10: macronutrients, vitamins, minerals, hydration', 'Claude session: Ch 10 tutoring', 'Take Ch 10 quiz', 'Pocket Prep: 15 questions'] },
-        { d: '2026-05-08', tag: 'science', label: 'Ch 11', topic: 'Nutrition Strategies for Maximizing Performance', phase: 'Full Study', sessions: ['Watch Ch 11 videos', 'Read textbook Ch 11: pre/during/post nutrition, body comp, RED-S', 'Claude session: Ch 11 tutoring', 'Take Ch 11 quiz'] },
-        { d: '2026-05-09', tag: 'science', label: 'Ch 12', topic: 'Performance-Enhancing Substances and Methods', phase: 'Full Study', sessions: ['Watch Ch 12 videos', 'Read textbook Ch 12: supplements, banned substances, creatine, caffeine', 'Claude session: Ch 12 tutoring', 'Take Ch 12 quiz'] },
-        { d: '2026-05-10', tag: 'review', label: 'SF Review', topic: 'Full Scientific Foundations review (Ch 1-12)', phase: 'Full Study', sessions: ['Review all SF notes and weak areas', 'Pocket Prep: 40 SF questions', 'Claude session: comprehensive SF review quiz'] },
+        // SURGERY DAY - May 6 (review only)
+        { d: '2026-05-06', tag: 'review', label: 'Review Day', topic: 'Dad\'s surgery. Light review of Ch 1-7 only.', phase: 'Surgery', sessions: ['Be with family', 'If time: Pocket Prep 10-15 questions on phone', 'Review any weak areas from Ch 1-7'] },
+
+        // FULL STUDY MODE - May 7+
+        { d: '2026-05-07', tag: 'science', label: 'Ch 8', topic: 'Sex-Related Differences', phase: 'Full Study', sessions: ['Watch Ch 8 videos', 'Read textbook Ch 8: female athlete triad, ACL risk, strength differences', 'Claude session: Ch 8 tutoring', 'Take Ch 8 quiz'] },
+        { d: '2026-05-08', tag: 'science', label: 'Ch 9', topic: 'Psychological Foundations of Performance', phase: 'Full Study', sessions: ['Watch Ch 9 videos', 'Read textbook Ch 9: SDT, arousal, motivation, mental health, when to refer', 'Claude session: Ch 9 tutoring', 'Take Ch 9 quiz'] },
+        { d: '2026-05-09', tag: 'science', label: 'Ch 10', topic: 'Basic Nutritional Factors Affecting Health', phase: 'Full Study', sessions: ['Watch Ch 10 videos', 'Read textbook Ch 10: macronutrients, vitamins, minerals, hydration', 'Claude session: Ch 10 tutoring', 'Take Ch 10 quiz'] },
+        { d: '2026-05-10', tag: 'science', label: 'Ch 11', topic: 'Nutrition Strategies for Maximizing Performance', phase: 'Full Study', sessions: ['Watch Ch 11 videos', 'Read textbook Ch 11: pre/during/post nutrition, body comp, RED-S', 'Claude session: Ch 11 tutoring', 'Take Ch 11 quiz'] },
+        { d: '2026-05-11', tag: 'science', label: 'Ch 12', topic: 'Performance-Enhancing Substances and Methods', phase: 'Full Study', sessions: ['Watch Ch 12 videos', 'Read textbook Ch 12: creatine, caffeine, EPO, banned substances', 'Claude session: Ch 12 tutoring', 'Take Ch 12 quiz'] },
+        { d: '2026-05-12', tag: 'review', label: 'SF Review', topic: 'Full Scientific Foundations review (Ch 1-12)', phase: 'Full Study', sessions: ['Review all SF notes and weak areas', 'Pocket Prep: 40 SF questions', 'Claude session: comprehensive SF review quiz'] },
 
         // PRACTICAL/APPLIED SECTION - May 11+
         { d: '2026-05-11', tag: 'practical', label: 'Ch 13', topic: 'Principles of Test Selection and Administration', phase: 'Practical', sessions: ['Watch Ch 13 videos', 'Read textbook Ch 13: testing terminology, validity, reliability, test selection', 'Claude session: Ch 13 tutoring', 'Take Ch 13 quiz'] },
