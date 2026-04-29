@@ -706,7 +706,7 @@
 // ============================================================
 // DATA
 // ============================================================
-const EXAM_DATE = new Date(2026, 5, 26); // June 26, 2026
+const EXAM_DATE = new Date(2026, 6, 17); // July 17, 2026
 const START_DATE = new Date(2026, 3, 19); // April 19, 2026
 
 // Study plan data - each day from Apr 19 to Jun 26
@@ -716,7 +716,7 @@ function generateStudyPlan() {
     const plan = {};
 
     const days = [
-        // COMPLETED
+        // ===== COMPLETED (Apr 19-27) =====
         { d: '2026-04-19', tag: 'rest', label: 'DONE', topic: 'Setup day — DCO, Study Hub, Ch 1 quiz', phase: 'Done', sessions: ['Completed ✓'] },
         { d: '2026-04-20', tag: 'science', label: 'DONE', topic: 'Ch 1 videos', phase: 'Done', sessions: ['Completed ✓'] },
         { d: '2026-04-21', tag: 'science', label: 'DONE', topic: 'Ch 1 videos + study', phase: 'Done', sessions: ['Completed ✓'] },
@@ -724,88 +724,104 @@ function generateStudyPlan() {
         { d: '2026-04-23', tag: 'science', label: 'DONE', topic: 'Ch 1 tutoring + Ch 2 start', phase: 'Done', sessions: ['Completed ✓'] },
         { d: '2026-04-24', tag: 'science', label: 'DONE', topic: 'Ch 2 videos + reading', phase: 'Done', sessions: ['Completed ✓'] },
         { d: '2026-04-25', tag: 'science', label: 'DONE', topic: 'Ch 2 quiz (87%) + tutoring + Ch 3 start', phase: 'Done', sessions: ['Completed ✓'] },
+        { d: '2026-04-26', tag: 'science', label: 'DONE', topic: 'Ch 3 videos + study', phase: 'Done', sessions: ['Completed ✓'] },
+        { d: '2026-04-27', tag: 'science', label: 'DONE', topic: 'Ch 3 quiz (90%) + Ch 4 videos', phase: 'Done', sessions: ['Completed ✓'] },
 
-        // THIS WEEKEND - Apr 26-27
-        { d: '2026-04-26', tag: 'science', label: 'Ch 3', topic: 'Bioenergetics — finish + quiz + tutoring', phase: 'Current', sessions: ['Finish Ch 3 YouTube videos', 'Read textbook Ch 3: energy systems, substrates, work:rest ratios', 'Claude session: Ch 3 tutoring', 'Take Ch 3 quiz in Study Hub'] },
-        { d: '2026-04-27', tag: 'science', label: 'Ch 4', topic: 'Endocrine Responses to Resistance Exercise', phase: 'Current', sessions: ['Watch Ch 4 YouTube videos', 'Read textbook Ch 4: testosterone, GH, cortisol, insulin', 'Claude session: Ch 4 tutoring', 'Take Ch 4 quiz'] },
+        // ===== LIGHT PHASE: Helping dad with plumbing (Apr 29 - May 12) =====
+        // Ch 4 videos already watched, need quiz + tutoring
+        { d: '2026-04-29', tag: 'science', label: 'Ch 4 (light)', topic: 'Endocrine — review + quiz', phase: 'Light', sessions: ['Review Ch 4 notes: testosterone, GH, cortisol, insulin, T:C ratio', 'Claude session: Ch 4 tutoring', 'Take Ch 4 quiz'] },
+        { d: '2026-04-30', tag: 'science', label: 'Ch 5 (light)', topic: 'Adaptations to Anaerobic Training — start', phase: 'Light', sessions: ['Watch Ch 5 videos (~30 min)', 'Skim textbook Ch 5: neural adaptations, SAID principle'] },
+        { d: '2026-05-01', tag: 'science', label: 'Ch 5 (light)', topic: 'Ch 5 continued', phase: 'Light', sessions: ['Key concepts: detraining, interference effect, fiber type transitions', 'Pocket Prep: 10 questions'] },
+        { d: '2026-05-02', tag: 'science', label: 'Ch 5 (light)', topic: 'Finish Ch 5 + quiz', phase: 'Light', sessions: ['Claude session: Ch 5 tutoring', 'Take Ch 5 quiz'] },
+        { d: '2026-05-03', tag: 'science', label: 'Ch 6 (light)', topic: 'Adaptations to Aerobic Training — start', phase: 'Light', sessions: ['Watch Ch 6 videos', 'Skim textbook Ch 6: cardiac output, stroke volume, VO2max'] },
+        { d: '2026-05-04', tag: 'science', label: 'Ch 6 (light)', topic: 'Finish Ch 6 + quiz', phase: 'Light', sessions: ['Key concepts: Fick equation, chronic adaptations, a-vO2 diff', 'Claude session: Ch 6 tutoring', 'Take Ch 6 quiz'] },
+        { d: '2026-05-05', tag: 'rest', label: 'Rest', topic: 'Rest day — light Pocket Prep only', phase: 'Light', sessions: ['Pocket Prep: 10-15 questions on phone', 'Rest and recharge'] },
+        { d: '2026-05-06', tag: 'science', label: 'Ch 7 (light)', topic: 'Age-Related Differences — start', phase: 'Light', sessions: ['Watch Ch 7 video (~30 min)', 'Skim textbook Ch 7: youth training, older adults, sarcopenia'] },
+        { d: '2026-05-07', tag: 'science', label: 'Ch 7 (light)', topic: 'Finish Ch 7 + quiz', phase: 'Light', sessions: ['Claude session: Ch 7 tutoring', 'Take Ch 7 quiz'] },
+        { d: '2026-05-08', tag: 'science', label: 'Ch 8 (light)', topic: 'Sex-Related Differences — start', phase: 'Light', sessions: ['Watch Ch 8 videos', 'Key concepts: female athlete triad, ACL risk, strength differences'] },
+        { d: '2026-05-09', tag: 'science', label: 'Ch 8 (light)', topic: 'Finish Ch 8 + quiz', phase: 'Light', sessions: ['Claude session: Ch 8 tutoring', 'Take Ch 8 quiz'] },
+        { d: '2026-05-10', tag: 'review', label: 'Review', topic: 'Review Ch 1-8 weak areas', phase: 'Light', sessions: ['Pocket Prep: 20 questions', 'Review any chapters below 80%', 'Get CPR/AED done if possible'] },
+        { d: '2026-05-11', tag: 'science', label: 'Ch 9 (light)', topic: 'Psychological Foundations — start', phase: 'Light', sessions: ['Watch Ch 9 videos', 'Key concepts: SDT, arousal, inverted-U, goal types, when to refer'] },
+        { d: '2026-05-12', tag: 'science', label: 'Ch 9 (light)', topic: 'Finish Ch 9 + quiz', phase: 'Light', sessions: ['Claude session: Ch 9 tutoring', 'Take Ch 9 quiz', 'Last day helping dad — you got through it!'] },
 
-        // BUSY WEEK WITH DAD - Apr 28 - May 1 (1 chapter spread across 4 days)
-        { d: '2026-04-28', tag: 'science', label: 'Ch 5 (light)', topic: 'Adaptations to Anaerobic Training — start', phase: 'Busy Week', sessions: ['Watch Ch 5 video (~30 min)', 'Skim textbook Ch 5 first half'] },
-        { d: '2026-04-29', tag: 'science', label: 'Ch 5 (light)', topic: 'Ch 5 continued', phase: 'Busy Week', sessions: ['Finish textbook Ch 5: neural, muscular, connective tissue adaptations', 'Pocket Prep: 10 questions'] },
-        { d: '2026-04-30', tag: 'science', label: 'Ch 5 (light)', topic: 'Ch 5 continued — detraining, interference effect', phase: 'Busy Week', sessions: ['Key concepts: detraining timeline, SAID principle, interference effect', 'Pocket Prep: 10 questions'] },
-        { d: '2026-05-01', tag: 'science', label: 'Ch 5 (light)', topic: 'Finish Ch 5 + quiz', phase: 'Busy Week', sessions: ['Claude session: Ch 5 tutoring', 'Take Ch 5 quiz'] },
+        // ===== SURGERY DAY - May 13 =====
+        { d: '2026-05-13', tag: 'rest', label: 'Surgery Day', topic: 'Dad\'s knee replacement. Be with family.', phase: 'Surgery', sessions: ['Be with family', 'If time: Pocket Prep 10 questions on phone', 'No pressure today'] },
 
-        // WEEKEND - May 2-3 (more time — 1 chapter)
-        { d: '2026-05-02', tag: 'science', label: 'Ch 6', topic: 'Adaptations to Aerobic Training — start', phase: 'Pre-Surgery', sessions: ['Watch Ch 6 YouTube videos', 'Read textbook Ch 6: cardiac output, stroke volume, VO2max, chronic adaptations'] },
-        { d: '2026-05-03', tag: 'science', label: 'Ch 6', topic: 'Finish Ch 6 + quiz + tutoring', phase: 'Pre-Surgery', sessions: ['Claude session: Ch 6 tutoring', 'Take Ch 6 quiz', 'Pocket Prep: 15 questions'] },
+        // ===== FULL STUDY MODE - May 14+ =====
+        // Scientific Foundations wrap-up (Ch 10-12)
+        { d: '2026-05-14', tag: 'science', label: 'Ch 10', topic: 'Basic Nutritional Factors Affecting Health', phase: 'Full Study', sessions: ['Watch Ch 10 videos', 'Read textbook Ch 10: macronutrients, vitamins, minerals, hydration', 'Claude session: Ch 10 tutoring', 'Take Ch 10 quiz'] },
+        { d: '2026-05-15', tag: 'science', label: 'Ch 11', topic: 'Nutrition Strategies for Maximizing Performance', phase: 'Full Study', sessions: ['Watch Ch 11 videos', 'Read textbook Ch 11: pre/during/post nutrition, body comp, RED-S', 'Claude session: Ch 11 tutoring', 'Take Ch 11 quiz'] },
+        { d: '2026-05-16', tag: 'science', label: 'Ch 12', topic: 'Performance-Enhancing Substances and Methods', phase: 'Full Study', sessions: ['Watch Ch 12 videos', 'Read textbook Ch 12: creatine, caffeine, EPO, banned substances', 'Claude session: Ch 12 tutoring', 'Take Ch 12 quiz'] },
+        { d: '2026-05-17', tag: 'review', label: 'SF Review', topic: 'Full Scientific Foundations review (Ch 1-12)', phase: 'Full Study', sessions: ['Review all SF notes and weak areas', 'Pocket Prep: 40 SF questions', 'Claude session: comprehensive SF review quiz'] },
+        { d: '2026-05-18', tag: 'rest', label: 'Rest', topic: 'Rest day — light review only', phase: 'Full Study', sessions: ['Pocket Prep: 10 questions', 'Rest before Practical/Applied section'] },
 
-        // SLOW DAYS - May 4-5 (~1 hr each — 1 chapter)
-        { d: '2026-05-04', tag: 'science', label: 'Ch 7 (light)', topic: 'Age-Related Differences — start', phase: 'Pre-Surgery', sessions: ['Watch Ch 7 video (~30 min)', 'Skim textbook Ch 7: youth training, older adults, sarcopenia'] },
-        { d: '2026-05-05', tag: 'science', label: 'Ch 7 (light)', topic: 'Finish Ch 7 + quiz', phase: 'Pre-Surgery', sessions: ['Claude session: Ch 7 tutoring', 'Take Ch 7 quiz'] },
+        // Practical/Applied Section (Ch 13-26)
+        { d: '2026-05-19', tag: 'practical', label: 'Ch 13', topic: 'Principles of Test Selection and Administration', phase: 'Practical', sessions: ['Watch Ch 13 videos', 'Read textbook Ch 13: testing terminology, validity, reliability, test selection', 'Claude session: Ch 13 tutoring', 'Take Ch 13 quiz'] },
+        { d: '2026-05-20', tag: 'practical', label: 'Ch 14', topic: 'Administration, Scoring, Interpretation of Tests', phase: 'Practical', sessions: ['Watch Ch 14 videos', 'Read textbook Ch 14: test protocols, normative data, statistics', 'Study the percentile tables (60th percentile values)', 'Pocket Prep: 20 questions'] },
+        { d: '2026-05-21', tag: 'practical', label: 'Ch 15', topic: 'Performance Preparation, Mobility, and Flexibility', phase: 'Practical', sessions: ['Watch Ch 15 videos', 'Read textbook Ch 15: warm-up, stretching types, PNF', 'Claude session: Ch 15 tutoring', 'Take Ch 15 quiz'] },
+        { d: '2026-05-22', tag: 'practical', label: 'Ch 16', topic: 'Exercise Technique for Free Weight and Machine Training', phase: 'Practical', sessions: ['Watch Ch 16 videos + YouTube exercise technique breakdowns', 'Read textbook Ch 16: fundamentals, spotting, common errors', 'Key concepts: grip types, breathing, Valsalva, 5 points of contact', 'Claude session: exercise technique tutoring'] },
+        { d: '2026-05-23', tag: 'practical', label: 'Ch 17', topic: 'Exercise Technique for Alternative Modes and Nontraditional', phase: 'Practical', sessions: ['Watch Ch 17 videos', 'Read textbook Ch 17: bodyweight, core stability, kettlebells, bands, implements', 'Take Ch 16-17 quiz', 'Pocket Prep: 20 questions'] },
+        { d: '2026-05-24', tag: 'rest', label: 'Rest', topic: 'Rest day — light Pocket Prep', phase: 'Practical', sessions: ['Pocket Prep: 15 questions', 'Rest'] },
+        { d: '2026-05-25', tag: 'practical', label: 'Ch 18', topic: 'Program Design for Resistance Training — THE BIG ONE', phase: 'Practical', sessions: ['Watch Ch 18 videos (all of them — this is 40% of the PA section)', 'Read textbook Ch 18: needs analysis, exercise selection, order, load, volume, rest', 'Memorize: %1RM table, rep/set/rest by goal, 2-for-2 rule', 'Claude session: Ch 18 tutoring'] },
+        { d: '2026-05-26', tag: 'practical', label: 'Ch 18b', topic: 'Program Design continued + practice scenarios', phase: 'Practical', sessions: ['Re-read the master table (load/reps/sets/rest by goal)', 'Practice: design programs for 3 different athletes with Claude', 'Take Ch 18 quiz', 'Pocket Prep: 20 questions (Program Design)'] },
+        { d: '2026-05-27', tag: 'practical', label: 'Ch 19', topic: 'Program Design and Technique for Plyometric Training', phase: 'Practical', sessions: ['Watch Ch 19 videos', 'Read textbook Ch 19: SSC, prerequisites, volume, depth jumps', 'Claude session: Ch 19 tutoring', 'Take Ch 19 quiz'] },
+        { d: '2026-05-28', tag: 'practical', label: 'Ch 20', topic: 'Program Design and Technique for Speed and Agility', phase: 'Practical', sessions: ['Watch Ch 20 videos', 'Read textbook Ch 20: sprint mechanics, COD vs agility, resisted/assisted', 'Claude session: Ch 20 tutoring', 'Take Ch 20 quiz'] },
+        { d: '2026-05-29', tag: 'practical', label: 'Ch 21', topic: 'Aerobic Endurance and Metabolic Training', phase: 'Practical', sessions: ['Watch Ch 21 videos', 'Read textbook Ch 21: Karvonen formula, LSD, intervals, fartlek', 'Key concepts: %HRR = %VO2max, training methods', 'Claude session: Ch 21 tutoring', 'Take Ch 21 quiz'] },
+        { d: '2026-05-30', tag: 'practical', label: 'Ch 22', topic: 'Periodization', phase: 'Practical', sessions: ['Watch Ch 22 videos', 'Read textbook Ch 22: linear, undulating, block, macro/meso/micro', 'Claude session: Ch 22 tutoring', 'Take Ch 22 quiz'] },
+        { d: '2026-05-31', tag: 'rest', label: 'Rest', topic: 'Rest day — halfway through PA!', phase: 'Practical', sessions: ['Pocket Prep: 15 questions', 'Review any weak PA chapters', 'Rest'] },
+        { d: '2026-06-01', tag: 'practical', label: 'Ch 23', topic: 'Rehabilitation, Reconditioning, and Medical Issues', phase: 'Practical', sessions: ['Watch Ch 23 videos', 'Read textbook Ch 23: tissue healing, return to play, allied health team', 'Claude session: Ch 23 tutoring', 'Take Ch 23 quiz'] },
+        { d: '2026-06-02', tag: 'practical', label: 'Ch 24', topic: 'Overreaching, Overtraining, and Recovery', phase: 'Practical', sessions: ['Watch Ch 24 videos', 'Read textbook Ch 24: GAS, FOR/NFOR/OTS, recovery methods', 'Claude session: Ch 24 tutoring', 'Take Ch 24 quiz'] },
+        { d: '2026-06-03', tag: 'practical', label: 'Ch 25-26', topic: 'Facility Design + Policies, Procedures, Legal', phase: 'Practical', sessions: ['Watch Ch 25-26 videos', 'Read textbook Ch 25-26: space requirements, equipment, negligence, EAP, scope', 'Claude session: Ch 25-26 tutoring', 'Take Ch 25-26 quiz'] },
 
-        // SURGERY DAY - May 6 (review only)
-        { d: '2026-05-06', tag: 'review', label: 'Review Day', topic: 'Dad\'s surgery. Light review of Ch 1-7 only.', phase: 'Surgery', sessions: ['Be with family', 'If time: Pocket Prep 10-15 questions on phone', 'Review any weak areas from Ch 1-7'] },
+        // ===== ALL CHAPTERS DONE — REVIEW PHASE (Jun 4 - Jul 10) =====
+        { d: '2026-06-04', tag: 'review', label: 'PA Review', topic: 'Full Practical/Applied review', phase: 'Review', sessions: ['Review all PA notes', 'Pocket Prep: 40 PA questions', 'Claude session: comprehensive PA review quiz'] },
+        { d: '2026-06-05', tag: 'review', label: 'SF Review', topic: 'Full Scientific Foundations review', phase: 'Review', sessions: ['Review all SF notes', 'Pocket Prep: 40 SF questions', 'Claude session: comprehensive SF review quiz'] },
+        { d: '2026-06-06', tag: 'quiz', label: 'Practice Exam', topic: 'Timed SF practice exam (95 Qs / 90 min)', phase: 'Review', sessions: ['Take full timed SF practice exam', 'Review all incorrect answers', 'Identify weak SF domains'] },
+        { d: '2026-06-07', tag: 'review', label: 'SF Weak Areas', topic: 'Review SF weak areas from practice exam', phase: 'Review', sessions: ['Deep review of weakest SF domains', 'Re-watch relevant videos', 'Claude session: targeted drilling'] },
+        { d: '2026-06-08', tag: 'rest', label: 'Rest', topic: 'Rest day', phase: 'Review', sessions: ['Light Pocket Prep: 10 questions', 'Rest'] },
+        { d: '2026-06-09', tag: 'quiz', label: 'Practice Exam', topic: 'Timed PA practice exam (125 Qs / 150 min)', phase: 'Review', sessions: ['Take full timed PA practice exam', 'Review all incorrect answers', 'Identify weak PA domains'] },
+        { d: '2026-06-10', tag: 'review', label: 'PA Weak Areas', topic: 'Review PA weak areas from practice exam', phase: 'Review', sessions: ['Deep review of weakest PA domains', 'Program design scenario practice', 'Claude session: targeted drilling'] },
+        { d: '2026-06-11', tag: 'review', label: 'Video Prep', topic: 'Exercise technique video/image question prep', phase: 'Review', sessions: ['Watch exercise technique videos — focus on identifying errors', 'Review spotting positions, Olympic lift phases, common errors', 'Claude session: error identification practice'] },
+        { d: '2026-06-12', tag: 'review', label: 'Normative Data', topic: 'Memorize key normative data + percentile tables', phase: 'Review', sessions: ['Review 60th percentile values for all major tests', 'Study body fat % by sport', 'Practice test result interpretation scenarios'] },
+        { d: '2026-06-13', tag: 'review', label: 'Program Design', topic: 'Deep dive: Program Design (40% of PA section)', phase: 'Review', sessions: ['Master the %1RM / reps / sets / rest table', 'Practice needs analysis scenarios with Claude', 'Pocket Prep: 20 Program Design questions'] },
+        { d: '2026-06-14', tag: 'review', label: 'Exercise Science', topic: 'Deep dive: Exercise Science (60% of SF section)', phase: 'Review', sessions: ['Energy systems, muscle physiology, biomechanics review', 'Claude session: rapid-fire Exercise Science Q&A', 'Pocket Prep: 20 Exercise Science questions'] },
+        { d: '2026-06-15', tag: 'rest', label: 'Rest', topic: 'Rest day', phase: 'Review', sessions: ['Light Pocket Prep: 10 questions', 'Rest and recharge'] },
+        { d: '2026-06-16', tag: 'review', label: 'Technique', topic: 'Exercise Technique deep dive (25% of PA)', phase: 'Review', sessions: ['Olympic lifts: clean, snatch, jerk — phases and common errors', 'Spotting techniques for all major lifts', 'HKPropel exercise technique videos'] },
+        { d: '2026-06-17', tag: 'review', label: 'Testing', topic: 'Testing & Program Implementation review', phase: 'Review', sessions: ['Test selection, order, validity, reliability', 'Normative data interpretation', 'Work:rest ratios for all energy systems'] },
+        { d: '2026-06-18', tag: 'review', label: 'Psych + Nutr', topic: 'Sport Psychology + Nutrition review', phase: 'Review', sessions: ['SDT, arousal, goal setting, scope of practice', 'Macro calculations, hydration, pre/post nutrition', 'Pocket Prep: 20 questions'] },
+        { d: '2026-06-19', tag: 'quiz', label: 'FULL Practice', topic: 'Complete timed practice exam (BOTH sections)', phase: 'Review', sessions: ['SF: 95 Qs / 90 min', '15 min break', 'PA: 125 Qs / 150 min', 'Review all results'] },
+        { d: '2026-06-20', tag: 'review', label: 'Exam Analysis', topic: 'Analyze full practice exam + adjust review plan', phase: 'Review', sessions: ['Score analysis by domain', 'Create priority list for final 4 weeks', 'Claude session: review missed concepts'] },
+        { d: '2026-06-21', tag: 'rest', label: 'Rest', topic: 'Rest day', phase: 'Review', sessions: ['Rest', 'Light Pocket Prep if desired'] },
+        { d: '2026-06-22', tag: 'review', label: 'Weak Areas', topic: 'Targeted weak area drilling', phase: 'Review', sessions: ['Focus on domains below 75% from practice exam', 'Claude session: targeted tutoring', 'Pocket Prep: 20 targeted questions'] },
+        { d: '2026-06-23', tag: 'review', label: 'Weak Areas', topic: 'Continued weak area targeting', phase: 'Review', sessions: ['Continue drilling weak domains', 'Re-watch relevant chapter videos', 'Pocket Prep: 20 questions'] },
+        { d: '2026-06-24', tag: 'review', label: 'Program Design', topic: 'Program Design scenario practice', phase: 'Review', sessions: ['Design programs for 5 different athlete scenarios with Claude', 'Periodization models — linear vs undulating vs block', 'Pocket Prep: 20 questions'] },
+        { d: '2026-06-25', tag: 'review', label: 'Admin + Legal', topic: 'Organization, Admin, and Legal review', phase: 'Review', sessions: ['Negligence elements, EAP, scope of practice', 'Facility layout, equipment spacing, supervision ratios', 'Take Ch 25-26 quiz again'] },
+        { d: '2026-06-26', tag: 'rest', label: 'BIRTHDAY!', topic: 'Happy Birthday Jamal! Rest and celebrate.', phase: 'Review', sessions: ['Celebrate!', 'Optional light Pocket Prep', 'You\'re almost there'] },
+        { d: '2026-06-27', tag: 'review', label: 'SF Drill', topic: 'Scientific Foundations intensive drill', phase: 'Review', sessions: ['Exercise Science rapid review', 'Sport Psychology + Nutrition review', 'Pocket Prep: 40 SF questions'] },
+        { d: '2026-06-28', tag: 'review', label: 'PA Drill', topic: 'Practical/Applied intensive drill', phase: 'Review', sessions: ['Program Design scenarios', 'Exercise technique review', 'Testing protocols', 'Pocket Prep: 40 PA questions'] },
+        { d: '2026-06-29', tag: 'rest', label: 'Rest', topic: 'Rest day', phase: 'Review', sessions: ['Rest', 'Light review only'] },
+        { d: '2026-06-30', tag: 'review', label: 'Formulas', topic: 'Key formulas and calculations review', phase: 'Review', sessions: ['Karvonen, %1RM, caloric calculations, work:rest ratios', '%HRR = %VO2max, MET conversions', 'Claude session: calculation practice'] },
+        { d: '2026-07-01', tag: 'quiz', label: 'FINAL Practice', topic: 'Final full practice exam — test conditions', phase: 'Final Review', sessions: ['Simulate test center: no phone, timed, no notes', 'Both sections', 'Score and review'] },
+        { d: '2026-07-02', tag: 'review', label: 'Exam Review', topic: 'Review final practice exam results', phase: 'Final Review', sessions: ['Review all missed questions', 'Create 1-page cheat sheet per domain', 'Claude session: last deep review'] },
+        { d: '2026-07-03', tag: 'review', label: 'Weak Areas', topic: 'Final weak area targeting', phase: 'Final Review', sessions: ['Deep dive on remaining weak areas from final practice', 'Claude session: rapid-fire Q&A'] },
+        { d: '2026-07-04', tag: 'rest', label: 'Rest', topic: 'July 4th — rest and enjoy', phase: 'Final Review', sessions: ['Rest', 'Optional: skim cheat sheets'] },
+        { d: '2026-07-05', tag: 'review', label: 'Light Review', topic: 'Light review — skim cheat sheets', phase: 'Final Review', sessions: ['Review cheat sheets', 'Pocket Prep: 15 questions', 'Confidence building — you know this material'] },
+        { d: '2026-07-06', tag: 'rest', label: 'Rest', topic: 'Rest day', phase: 'Final Review', sessions: ['Rest', 'Light Pocket Prep only'] },
 
-        // FULL STUDY MODE - May 7+
-        { d: '2026-05-07', tag: 'science', label: 'Ch 8', topic: 'Sex-Related Differences', phase: 'Full Study', sessions: ['Watch Ch 8 videos', 'Read textbook Ch 8: female athlete triad, ACL risk, strength differences', 'Claude session: Ch 8 tutoring', 'Take Ch 8 quiz'] },
-        { d: '2026-05-08', tag: 'science', label: 'Ch 9', topic: 'Psychological Foundations of Performance', phase: 'Full Study', sessions: ['Watch Ch 9 videos', 'Read textbook Ch 9: SDT, arousal, motivation, mental health, when to refer', 'Claude session: Ch 9 tutoring', 'Take Ch 9 quiz'] },
-        { d: '2026-05-09', tag: 'science', label: 'Ch 10', topic: 'Basic Nutritional Factors Affecting Health', phase: 'Full Study', sessions: ['Watch Ch 10 videos', 'Read textbook Ch 10: macronutrients, vitamins, minerals, hydration', 'Claude session: Ch 10 tutoring', 'Take Ch 10 quiz'] },
-        { d: '2026-05-10', tag: 'science', label: 'Ch 11', topic: 'Nutrition Strategies for Maximizing Performance', phase: 'Full Study', sessions: ['Watch Ch 11 videos', 'Read textbook Ch 11: pre/during/post nutrition, body comp, RED-S', 'Claude session: Ch 11 tutoring', 'Take Ch 11 quiz'] },
-        { d: '2026-05-11', tag: 'science', label: 'Ch 12', topic: 'Performance-Enhancing Substances and Methods', phase: 'Full Study', sessions: ['Watch Ch 12 videos', 'Read textbook Ch 12: creatine, caffeine, EPO, banned substances', 'Claude session: Ch 12 tutoring', 'Take Ch 12 quiz'] },
-        { d: '2026-05-12', tag: 'review', label: 'SF Review', topic: 'Full Scientific Foundations review (Ch 1-12)', phase: 'Full Study', sessions: ['Review all SF notes and weak areas', 'Pocket Prep: 40 SF questions', 'Claude session: comprehensive SF review quiz'] },
+        // ===== TAPER WEEK (Jul 7-16) =====
+        { d: '2026-07-07', tag: 'review', label: 'Light Review', topic: 'Program Design + Technique final review', phase: 'Taper', sessions: ['Review master table (reps/sets/rest)', 'Review exercise technique errors', 'Pocket Prep: 15 questions'] },
+        { d: '2026-07-08', tag: 'review', label: 'Light Review', topic: 'Exercise Science + Bioenergetics final review', phase: 'Taper', sessions: ['Energy systems, work:rest ratios, substrates', 'Muscle physiology key concepts', 'Pocket Prep: 15 questions'] },
+        { d: '2026-07-09', tag: 'review', label: 'Light Review', topic: 'Testing + Admin final review', phase: 'Taper', sessions: ['Testing order, normative data, validity/reliability', 'Negligence, EAP, scope of practice', 'Pocket Prep: 15 questions'] },
+        { d: '2026-07-10', tag: 'review', label: 'Light Review', topic: 'Nutrition + Psychology + Periodization final review', phase: 'Taper', sessions: ['Macro calcs, hydration, supplement evidence', 'SDT, arousal, goal setting', 'Linear vs undulating vs block periodization'] },
+        { d: '2026-07-11', tag: 'rest', label: 'Rest', topic: 'Rest. No new material.', phase: 'Taper', sessions: ['Optional: skim cheat sheets', 'Trust your prep'] },
+        { d: '2026-07-12', tag: 'review', label: 'Light', topic: 'Light skim of cheat sheets only', phase: 'Taper', sessions: ['Skim cheat sheets', 'Pocket Prep: 10 questions max', 'Stay calm and confident'] },
+        { d: '2026-07-13', tag: 'rest', label: 'Rest', topic: 'Rest day. Trust the work.', phase: 'Taper', sessions: ['Rest', 'No studying', 'Early bedtime'] },
+        { d: '2026-07-14', tag: 'review', label: 'Final Skim', topic: 'Last light review', phase: 'Taper', sessions: ['Skim cheat sheets one more time', 'Pocket Prep: 10 questions', 'No new material — just confidence'] },
+        { d: '2026-07-15', tag: 'rest', label: 'Rest', topic: 'Rest. Confirm exam logistics.', phase: 'Taper', sessions: ['Confirm exam appointment and location', 'Prepare ID and directions to Pearson VUE', 'Early bedtime'] },
+        { d: '2026-07-16', tag: 'rest', label: 'Rest', topic: 'Day before exam. Rest.', phase: 'Taper', sessions: ['REST', 'No studying', 'Good sleep', 'You are ready'] },
 
-        // PRACTICAL/APPLIED SECTION - May 11+
-        { d: '2026-05-11', tag: 'practical', label: 'Ch 13', topic: 'Principles of Test Selection and Administration', phase: 'Practical', sessions: ['Watch Ch 13 videos', 'Read textbook Ch 13: testing terminology, validity, reliability, test selection', 'Claude session: Ch 13 tutoring', 'Take Ch 13 quiz'] },
-        { d: '2026-05-12', tag: 'practical', label: 'Ch 14', topic: 'Administration, Scoring, Interpretation of Tests', phase: 'Practical', sessions: ['Watch Ch 14 videos', 'Read textbook Ch 14: test protocols, normative data, statistics', 'Study the percentile tables (60th percentile values)', 'Pocket Prep: 20 questions'] },
-        { d: '2026-05-13', tag: 'practical', label: 'Ch 15', topic: 'Performance Preparation, Mobility, and Flexibility', phase: 'Practical', sessions: ['Watch Ch 15 videos', 'Read textbook Ch 15: warm-up, stretching types, PNF', 'Claude session: Ch 15 tutoring', 'Take Ch 15 quiz'] },
-        { d: '2026-05-14', tag: 'practical', label: 'Ch 16', topic: 'Exercise Technique for Free Weight and Machine Training', phase: 'Practical', sessions: ['Watch Ch 16 videos + YouTube exercise technique breakdowns', 'Read textbook Ch 16: fundamentals, spotting, common errors', 'Key concepts: grip types, breathing, Valsalva, 5 points of contact', 'Claude session: exercise technique tutoring'] },
-        { d: '2026-05-15', tag: 'practical', label: 'Ch 17', topic: 'Exercise Technique for Alternative Modes and Nontraditional', phase: 'Practical', sessions: ['Watch Ch 17 videos', 'Read textbook Ch 17: bodyweight, core stability, kettlebells, bands, implements', 'Take Ch 16-17 quiz', 'Pocket Prep: 20 questions'] },
-        { d: '2026-05-16', tag: 'practical', label: 'Ch 18', topic: 'Program Design for Resistance Training — THE BIG ONE', phase: 'Practical', sessions: ['Watch Ch 18 videos (all of them — this is 40% of the PA section)', 'Read textbook Ch 18: needs analysis, exercise selection, order, load, volume, rest', 'Memorize: %1RM table, rep/set/rest by goal, 2-for-2 rule', 'Claude session: Ch 18 tutoring'] },
-        { d: '2026-05-17', tag: 'practical', label: 'Ch 18b', topic: 'Program Design continued + practice scenarios', phase: 'Practical', sessions: ['Re-read the master table (load/reps/sets/rest by goal)', 'Practice: design programs for 3 different athletes with Claude', 'Take Ch 18 quiz', 'Pocket Prep: 20 questions (Program Design)'] },
-        { d: '2026-05-18', tag: 'practical', label: 'Ch 19', topic: 'Program Design and Technique for Plyometric Training', phase: 'Practical', sessions: ['Watch Ch 19 videos', 'Read textbook Ch 19: SSC, prerequisites, volume, depth jumps', 'Claude session: Ch 19 tutoring', 'Take Ch 19 quiz'] },
-        { d: '2026-05-19', tag: 'practical', label: 'Ch 20', topic: 'Program Design and Technique for Speed and Agility', phase: 'Practical', sessions: ['Watch Ch 20 videos', 'Read textbook Ch 20: sprint mechanics, COD vs agility, resisted/assisted', 'Claude session: Ch 20 tutoring', 'Take Ch 20 quiz'] },
-        { d: '2026-05-20', tag: 'practical', label: 'Ch 21', topic: 'Aerobic Endurance and Metabolic Training', phase: 'Practical', sessions: ['Watch Ch 21 videos', 'Read textbook Ch 21: Karvonen formula, LSD, intervals, fartlek', 'Key concepts: %HRR = %VO2max, training methods', 'Claude session: Ch 21 tutoring', 'Take Ch 21 quiz'] },
-        { d: '2026-05-21', tag: 'practical', label: 'Ch 22', topic: 'Periodization', phase: 'Practical', sessions: ['Watch Ch 22 videos', 'Read textbook Ch 22: linear, undulating, block, macro/meso/micro', 'Claude session: Ch 22 tutoring', 'Take Ch 22 quiz'] },
-        { d: '2026-05-22', tag: 'practical', label: 'Ch 23', topic: 'Rehabilitation, Reconditioning, and Medical Issues', phase: 'Practical', sessions: ['Watch Ch 23 videos', 'Read textbook Ch 23: tissue healing, return to play, allied health team', 'Claude session: Ch 23 tutoring', 'Take Ch 23 quiz'] },
-        { d: '2026-05-23', tag: 'practical', label: 'Ch 24', topic: 'Overreaching, Overtraining, and Recovery', phase: 'Practical', sessions: ['Watch Ch 24 videos', 'Read textbook Ch 24: GAS, FOR/NFOR/OTS, recovery methods', 'Claude session: Ch 24 tutoring', 'Take Ch 24 quiz'] },
-        { d: '2026-05-24', tag: 'practical', label: 'Ch 25-26', topic: 'Facility Design + Policies, Procedures, Legal', phase: 'Practical', sessions: ['Watch Ch 25-26 videos', 'Read textbook Ch 25-26: space requirements, equipment, negligence, EAP, scope', 'Claude session: Ch 25-26 tutoring', 'Take Ch 25-26 quiz'] },
-
-        // ALL CHAPTERS DONE — REVIEW PHASE - May 25 - Jun 7
-        { d: '2026-05-25', tag: 'review', label: 'PA Review', topic: 'Full Practical/Applied review', phase: 'Review', sessions: ['Review all PA notes', 'Pocket Prep: 40 PA questions', 'Claude session: comprehensive PA review quiz'] },
-        { d: '2026-05-26', tag: 'quiz', label: 'Practice Exam', topic: 'Timed SF practice exam (95 Qs / 90 min)', phase: 'Review', sessions: ['Take full timed SF practice exam', 'Review all incorrect answers', 'Identify weak SF domains'] },
-        { d: '2026-05-27', tag: 'review', label: 'SF Weak Areas', topic: 'Review SF weak areas from practice exam', phase: 'Review', sessions: ['Deep review of weakest SF domains', 'Re-watch relevant videos', 'Claude session: targeted drilling'] },
-        { d: '2026-05-28', tag: 'quiz', label: 'Practice Exam', topic: 'Timed PA practice exam (125 Qs / 150 min)', phase: 'Review', sessions: ['Take full timed PA practice exam', 'Review all incorrect answers', 'Identify weak PA domains'] },
-        { d: '2026-05-29', tag: 'review', label: 'PA Weak Areas', topic: 'Review PA weak areas from practice exam', phase: 'Review', sessions: ['Deep review of weakest PA domains', 'Program design scenario practice', 'Claude session: targeted drilling'] },
-        { d: '2026-05-30', tag: 'review', label: 'Video Prep', topic: 'Exercise technique video/image question prep', phase: 'Review', sessions: ['Watch exercise technique videos — focus on identifying errors', 'Review spotting positions, Olympic lift phases, common errors', 'Claude session: error identification practice'] },
-        { d: '2026-05-31', tag: 'review', label: 'Normative Data', topic: 'Memorize key normative data + percentile tables', phase: 'Review', sessions: ['Review 60th percentile values for all major tests', 'Study body fat % by sport', 'Practice test result interpretation scenarios'] },
-        { d: '2026-06-01', tag: 'quiz', label: 'FULL Practice', topic: 'Complete timed practice exam (BOTH sections)', phase: 'Review', sessions: ['SF: 95 Qs / 90 min', '15 min break', 'PA: 125 Qs / 150 min', 'Review all results'] },
-        { d: '2026-06-02', tag: 'review', label: 'Exam Analysis', topic: 'Analyze full practice exam + create final review plan', phase: 'Review', sessions: ['Score analysis by domain', 'Create priority list', 'Claude session: review missed concepts'] },
-        { d: '2026-06-03', tag: 'review', label: 'SF Drill', topic: 'Scientific Foundations intensive drill', phase: 'Review', sessions: ['Exercise Science rapid review', 'Sport Psychology + Nutrition review', 'Pocket Prep: 40 SF questions'] },
-        { d: '2026-06-04', tag: 'review', label: 'PA Drill', topic: 'Practical/Applied intensive drill', phase: 'Review', sessions: ['Program Design scenarios', 'Exercise technique review', 'Testing protocols', 'Pocket Prep: 40 PA questions'] },
-        { d: '2026-06-05', tag: 'review', label: 'Weak Areas', topic: 'Final weak area targeting', phase: 'Review', sessions: ['Deep dive on remaining weak areas', 'Claude session: rapid-fire Q&A'] },
-        { d: '2026-06-06', tag: 'quiz', label: 'FINAL Practice', topic: 'Final full practice exam — test conditions', phase: 'Review', sessions: ['Simulate test center: no phone, timed, no notes', 'Both sections', 'Score and review'] },
-        { d: '2026-06-07', tag: 'review', label: 'Final Review', topic: 'Review final practice exam results', phase: 'Review', sessions: ['Review all missed questions', 'Create 1-page cheat sheet per domain', 'Claude session: last review'] },
-
-        // TAPER + EXAM - Jun 8-26
-        { d: '2026-06-08', tag: 'review', label: 'Light Review', topic: 'Skim cheat sheets, light Pocket Prep', phase: 'Taper', sessions: ['Review cheat sheets', 'Pocket Prep: 20 questions', 'No new material'] },
-        { d: '2026-06-09', tag: 'review', label: 'Light Review', topic: 'Program Design + Technique review', phase: 'Taper', sessions: ['Review master table (reps/sets/rest)', 'Review exercise technique errors', 'Pocket Prep: 15 questions'] },
-        { d: '2026-06-10', tag: 'rest', label: 'Light', topic: 'Light review only. Trust your prep.', phase: 'Taper', sessions: ['Skim cheat sheets', 'Confirm exam appointment', 'Prepare ID and directions'] },
-        { d: '2026-06-11', tag: 'rest', label: 'Rest', topic: 'Rest. Get good sleep.', phase: 'Taper', sessions: ['Rest', 'Optional: skim cheat sheets', 'Early bedtime'] },
-        { d: '2026-06-12', tag: 'exam', label: 'EXAM OPTION', topic: 'Earliest exam day. Or keep reviewing.', phase: 'Exam Week', sessions: ['Take the exam OR rest more'] },
-        { d: '2026-06-13', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option', phase: 'Exam Week', sessions: ['Take the exam'] },
-        { d: '2026-06-14', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option', phase: 'Exam Week', sessions: ['Take the exam'] },
-        { d: '2026-06-15', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option', phase: 'Exam Week', sessions: ['Take the exam'] },
-        { d: '2026-06-16', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option', phase: 'Exam Week', sessions: ['Take the exam'] },
-        { d: '2026-06-17', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option', phase: 'Exam Week', sessions: ['Take the exam'] },
-        { d: '2026-06-18', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option', phase: 'Exam Week', sessions: ['Take the exam'] },
-        { d: '2026-06-19', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option', phase: 'Exam Week', sessions: ['Take the exam'] },
-        { d: '2026-06-20', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option', phase: 'Exam Week', sessions: ['Take the exam'] },
-        { d: '2026-06-21', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option', phase: 'Exam Week', sessions: ['Take the exam'] },
-        { d: '2026-06-22', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option', phase: 'Exam Week', sessions: ['Take the exam'] },
-        { d: '2026-06-23', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option', phase: 'Exam Week', sessions: ['Take the exam'] },
-        { d: '2026-06-24', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option', phase: 'Exam Week', sessions: ['Take the exam'] },
-        { d: '2026-06-25', tag: 'exam', label: 'EXAM OPTION', topic: 'Exam day option', phase: 'Exam Week', sessions: ['Take the exam'] },
-        { d: '2026-06-26', tag: 'exam', label: 'BIRTHDAY!', topic: 'Happy Birthday Jamal! Last chance. You got this.', phase: 'Exam Week', sessions: ['PASS THE EXAM', 'CELEBRATE'] },
+        // ===== EXAM DAY =====
+        { d: '2026-07-17', tag: 'exam', label: 'EXAM DAY', topic: 'CSCS Exam Day. You got this, Jamal.', phase: 'Exam Day', sessions: ['PASS THE CSCS EXAM', 'CELEBRATE'] },
     ];
 
     days.forEach(d => { plan[d.d] = d; });
@@ -817,9 +833,9 @@ const adminItems = [
     { id: 'nsca-account', title: 'Create NSCA account', desc: 'Go to NSCA.com/User-Registration. Make sure first and last name EXACTLY match your government-issued photo ID.', deadline: 'By April 25' },
     { id: 'nsca-membership', title: 'Purchase NSCA Professional Membership ($130/yr)', desc: 'Saves $135 on exam fees ($340 vs $475 = net $5 savings). BUT if you need to retake a section: $250 member vs $385 non-member = $135 savings. Also gives access to JSCR journal and study resources. Worth it.', deadline: 'By May 1' },
     { id: 'transcripts', title: 'Order official transcripts', desc: 'Either your bachelor\'s or MPA works (NSCA requires bachelor\'s or higher). E-transcripts accepted via Parchment, National Student Clearinghouse, etc. University sends directly to Exams@NSCA.com. Cost: ~$10-25. You have 1 year after passing to submit, but do it early.', deadline: 'By May 9' },
-    { id: 'cpraed', title: 'Get CPR/AED certification (REQUIRED)', desc: 'MUST include hands-on skills assessment (not fully online). Blended learning (online + in-person skills check) is OK. NYC options: CPR Certification NYC (cprclassesnyc.org, ~$70, multiple weekly classes in Manhattan) | American Red Cross (redcross.org, ~$80-100, blended option) | AHA BLS course. Takes 3-4 hours total.', deadline: 'By May 8' },
-    { id: 'register-exam', title: 'Register for CSCS exam on NSCA.com ($340 member)', desc: 'Upload CPR/AED cert during registration. Pay $340 (member) or $475 (non-member). You get 120 days to schedule and take the exam. Registering May 15 gives you until Sep 12 — plenty of buffer.', deadline: 'May 10-15' },
-    { id: 'schedule-pearson', title: 'Schedule exam at Pearson VUE (NYC)', desc: 'You\'ll get an email from Pearson within 15 minutes of NSCA registration. Schedule for week of June 22-26. NYC centers: 100 William St (FiDi) | 18 W 21st St (Flatiron) | One WTC | 45 Main St (DUMBO) | 340 Flatbush Ave Ext (Downtown BK). Book 2-4 weeks ahead. Can take both sections same day.', deadline: 'Immediately after registration' },
+    { id: 'cpraed', title: 'Get CPR/AED certification (REQUIRED)', desc: 'MUST include hands-on skills assessment (not fully online). Blended learning (online + in-person skills check) is OK. NYC options: CPR Certification NYC (cprclassesnyc.org, ~$70, multiple weekly classes in Manhattan) | American Red Cross (redcross.org, ~$80-100, blended option) | AHA BLS course. Takes 3-4 hours total.', deadline: 'By May 12 (before dad\'s surgery)' },
+    { id: 'register-exam', title: 'Register for CSCS exam on NSCA.com ($340 member)', desc: 'Upload CPR/AED cert during registration. Pay $340 (member) or $475 (non-member). You get 120 days to schedule and take the exam.', deadline: 'May 15-20' },
+    { id: 'schedule-pearson', title: 'Schedule exam at Pearson VUE (NYC)', desc: 'You\'ll get an email from Pearson within 15 minutes of NSCA registration. Schedule for July 17. NYC centers: 100 William St (FiDi) | 18 W 21st St (Flatiron) | One WTC | 45 Main St (DUMBO) | 340 Flatbush Ave Ext (Downtown BK). Book 2-4 weeks ahead. Can take both sections same day.', deadline: 'Immediately after registration' },
     { id: 'pocket-prep', title: 'Download Pocket Prep CSCS app ($20.99/mo)', desc: '1,000-1,500 practice questions. Use AFTER watching video lectures, not before. Great for daily drilling on phone.', deadline: 'April 19-20' },
     { id: 'movement-system', title: 'Watch Movement System FREE YouTube videos', desc: 'Free chapter-by-chapter breakdowns and exercise technique videos on YouTube. Skip the $250 paid course — Claude + NotebookLM + Pocket Prep covers everything.', deadline: 'Start with Ch 1 video this week' },
     { id: 'practice-exam', title: 'Purchase NSCA official practice exam', desc: 'Available through NSCA.com. Most realistic exam simulation. Take in Week 7-8 as benchmark.', deadline: 'By mid-May' },
@@ -827,15 +843,15 @@ const adminItems = [
 
 const studyMilestones = [
     { id: 'ch1-5', title: 'Complete Chapters 1-5 (Exercise Science foundations)', desc: 'Muscle, neuro, biomechanics, bone, bioenergetics', deadline: 'May 2' },
-    { id: 'ch6-9', title: 'Complete Chapters 6-9 (Exercise Science advanced)', desc: 'Endocrine, cardiopulmonary, adaptations, age/sex differences', deadline: 'May 9' },
-    { id: 'ch10-12', title: 'Complete Chapters 10-12 (Psych, Nutrition, Research)', desc: 'Finishing Scientific Foundations content', deadline: 'May 15' },
-    { id: 'sf-practice', title: 'Score 70%+ on Scientific Foundations practice exam', desc: 'Full timed practice exam', deadline: 'May 16' },
-    { id: 'ch13-18', title: 'Complete Chapters 13-18 (Testing, Technique, Plyo, Speed)', desc: 'Exercise technique and testing domains', deadline: 'May 23' },
-    { id: 'ch19-23', title: 'Complete Chapters 19-23 (Program Design, Periodization)', desc: 'The biggest domain on the exam', deadline: 'May 30' },
-    { id: 'ch24-26', title: 'Complete Chapters 24-26 (Recovery, Facility, Admin)', desc: 'Finishing all textbook content', deadline: 'June 2' },
-    { id: 'pa-practice', title: 'Score 70%+ on Practical/Applied practice exam', desc: 'Full timed practice exam', deadline: 'June 4' },
-    { id: 'full-practice', title: 'Score 70%+ on full combined practice exam', desc: 'Both sections, test conditions', deadline: 'June 11' },
-    { id: 'pass-exam', title: 'PASS THE CSCS EXAM', desc: 'Happy Birthday!', deadline: 'June 26' },
+    { id: 'ch6-9', title: 'Complete Chapters 6-9 (Exercise Science advanced)', desc: 'Endocrine, cardiopulmonary, adaptations, age/sex differences', deadline: 'May 12' },
+    { id: 'ch10-12', title: 'Complete Chapters 10-12 (Psych, Nutrition, Research)', desc: 'Finishing Scientific Foundations content', deadline: 'May 16' },
+    { id: 'sf-practice', title: 'Score 70%+ on Scientific Foundations practice exam', desc: 'Full timed practice exam', deadline: 'June 6' },
+    { id: 'ch13-18', title: 'Complete Chapters 13-18 (Testing, Technique, Program Design)', desc: 'Exercise technique, testing, and program design domains', deadline: 'May 26' },
+    { id: 'ch19-26', title: 'Complete Chapters 19-26 (Plyo, Speed, Endurance, Perio, Facility)', desc: 'Finishing all textbook content', deadline: 'June 3' },
+    { id: 'pa-practice', title: 'Score 70%+ on Practical/Applied practice exam', desc: 'Full timed practice exam', deadline: 'June 9' },
+    { id: 'full-practice', title: 'Score 70%+ on full combined practice exam', desc: 'Both sections, test conditions', deadline: 'June 19' },
+    { id: 'final-practice', title: 'Score 75%+ on final practice exam under test conditions', desc: 'Simulate test center — no phone, timed, no notes', deadline: 'July 1' },
+    { id: 'pass-exam', title: 'PASS THE CSCS EXAM', desc: 'You earned this.', deadline: 'July 17' },
 ];
 
 // Quiz questions bank - organized by chapter (~20 per chapter)
@@ -1725,25 +1741,25 @@ const videoSchedule = [
     { date: '2026-04-23', ch: 'ch2' },
     { date: '2026-04-25', ch: 'ch3' },
     { date: '2026-04-27', ch: 'ch4' },
-    { date: '2026-04-28', ch: 'ch5' },
-    { date: '2026-05-02', ch: 'ch6' },
-    { date: '2026-05-04', ch: 'ch7' },
-    { date: '2026-05-07', ch: 'ch8' },
-    { date: '2026-05-08', ch: 'ch9' },
-    { date: '2026-05-09', ch: 'ch10' },
-    { date: '2026-05-10', ch: 'ch11' },
-    { date: '2026-05-11', ch: 'ch12' },
-    { date: '2026-05-13', ch: 'ch13' },
-    { date: '2026-05-15', ch: 'ch14' },
-    { date: '2026-05-16', ch: 'ch16' },
-    { date: '2026-05-18', ch: 'ch19' },
-    { date: '2026-05-20', ch: 'ch17' },
-    { date: '2026-05-21', ch: 'ch18' },
-    { date: '2026-05-22', ch: 'ch21' },
-    { date: '2026-05-23', ch: 'ch22' },
-    { date: '2026-05-24', ch: 'ch22' },
-    { date: '2026-05-25', ch: 'ch24' },
-    { date: '2026-05-26', ch: 'ch25' },
+    { date: '2026-04-30', ch: 'ch5' },
+    { date: '2026-05-03', ch: 'ch6' },
+    { date: '2026-05-06', ch: 'ch7' },
+    { date: '2026-05-08', ch: 'ch8' },
+    { date: '2026-05-11', ch: 'ch9' },
+    { date: '2026-05-14', ch: 'ch10' },
+    { date: '2026-05-15', ch: 'ch11' },
+    { date: '2026-05-16', ch: 'ch12' },
+    { date: '2026-05-19', ch: 'ch13' },
+    { date: '2026-05-21', ch: 'ch14' },
+    { date: '2026-05-22', ch: 'ch16' },
+    { date: '2026-05-25', ch: 'ch19' },
+    { date: '2026-05-27', ch: 'ch17' },
+    { date: '2026-05-28', ch: 'ch18' },
+    { date: '2026-05-29', ch: 'ch21' },
+    { date: '2026-05-30', ch: 'ch22' },
+    { date: '2026-06-01', ch: 'ch22' },
+    { date: '2026-06-02', ch: 'ch24' },
+    { date: '2026-06-03', ch: 'ch25' },
 ];
 
 function getUnwatchedVideos() {
