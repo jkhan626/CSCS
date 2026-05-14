@@ -1,0 +1,519 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CSCS Study Hub//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:CSCS Study Plan
+X-WR-TIMEZONE:America/New_York
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260419
+DTEND;VALUE=DATE:20260420
+SUMMARY:CSCS: Setup Day
+DESCRIPTION:Set up study materials\, review DCO\, download Pocket Prep\, explore study app\, watch The Movement System intro video
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260420
+DTEND;VALUE=DATE:20260421
+SUMMARY:CSCS: Overview Videos (Light)
+DESCRIPTION:Watch CSCS exam overview videos (1 hr)\nReview study calendar and admin checklist\nLIGHT WEEK - busy schedule
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260421
+DTEND;VALUE=DATE:20260422
+SUMMARY:CSCS: Ch 1 - Muscle Anatomy Intro
+DESCRIPTION:Watch: Muscle Anatomy video lecture (45 min)\nReview muscle group names and locations\nPocket Prep: 10 questions\nLIGHT WEEK
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260422
+DTEND;VALUE=DATE:20260423
+SUMMARY:CSCS: Ch 1 - Muscle Physiology
+DESCRIPTION:Watch: Muscle Physiology video (45 min)\nKey concepts: Type I vs Type II fibers\, concentric/eccentric/isometric\nPocket Prep: 10 questions\nLIGHT WEEK
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260423
+DTEND;VALUE=DATE:20260424
+SUMMARY:CSCS: Light Review Day
+DESCRIPTION:Pocket Prep: 20 questions on Exercise Science\nReview any missed questions\nLIGHT WEEK
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260424
+DTEND;VALUE=DATE:20260425
+SUMMARY:CSCS: Ch 2 - Neuromuscular Anatomy
+DESCRIPTION:Watch: Neuromuscular Physiology video (45 min)\nKey concepts: motor unit recruitment\, muscle spindles\, GTOs\nPocket Prep: 10 questions\nLIGHT WEEK
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260425
+DTEND;VALUE=DATE:20260426
+SUMMARY:CSCS: Week 1 Review
+DESCRIPTION:Review Ch 1-2 notes\nPocket Prep: 15 questions\nClaude session: Ch 1-2 quiz and review\nLIGHT WEEK
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260426
+DTEND;VALUE=DATE:20260427
+SUMMARY:CSCS: Ch 3 - Biomechanics
+DESCRIPTION:Watch: Biomechanics video lecture (60 min)\nKey concepts: anatomical planes\, lever systems\, force-velocity curve\nPractice: identify planes of movement for common exercises\nLIGHT WEEK
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260427
+DTEND;VALUE=DATE:20260428
+SUMMARY:CSCS: Light Review / Rest
+DESCRIPTION:Pocket Prep: 15 questions\nReview any weak areas from Ch 1-3\nLIGHT WEEK
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260428
+DTEND;VALUE=DATE:20260429
+SUMMARY:CSCS: Ch 4 - Bone & Connective Tissue
+DESCRIPTION:Watch: Bone & Connective Tissue video (45 min)\nKey concepts: Wolff's law\, bone remodeling\, tendon/ligament adaptations\nLIGHT WEEK
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260429
+DTEND;VALUE=DATE:20260430
+SUMMARY:CSCS: Ch 5 - Bioenergetics Intro
+DESCRIPTION:Watch: Bioenergetics video lecture (45 min)\nKey concepts: phosphagen\, glycolytic\, oxidative systems\nMemorize: substrate\, duration\, intensity for each system\nLIGHT WEEK
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260430
+DTEND;VALUE=DATE:20260501
+SUMMARY:CSCS: Light Review
+DESCRIPTION:Pocket Prep: 20 questions\nReview energy systems chart\nLIGHT WEEK
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260501
+DTEND;VALUE=DATE:20260502
+SUMMARY:CSCS: Ch 5 Deep - Bioenergetics Applied
+DESCRIPTION:Watch: Energy Systems applied video (30 min)\nPractice: match sports to primary energy systems\nClaude session: bioenergetics quiz\nLIGHT WEEK
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260502
+DTEND;VALUE=DATE:20260503
+SUMMARY:CSCS: Week 2 Review (Ch 1-5)
+DESCRIPTION:Review all notes from Ch 1-5\nPocket Prep: 25 questions (Exercise Science)\nClaude session: comprehensive Ch 1-5 review quiz\nIdentify top 3 weak areas
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260503
+DTEND;VALUE=DATE:20260504
+SUMMARY:CSCS: Ch 6 - Neuroendocrine Physiology
+DESCRIPTION:Watch: Endocrine System & Exercise video (60 min)\nKey concepts: testosterone\, GH\, cortisol\, insulin responses\nTextbook Ch 6 reading\nDEEP STUDY BEGINS
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260504
+DTEND;VALUE=DATE:20260505
+SUMMARY:CSCS: Ch 7 - Cardiopulmonary
+DESCRIPTION:Watch: Cardiovascular Physiology video (60 min)\nKey concepts: cardiac output\, stroke volume\, a-vO2 difference\nTextbook Ch 7
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260505
+DTEND;VALUE=DATE:20260506
+SUMMARY:CSCS: Ch 6-7 Review + Practice Qs
+DESCRIPTION:Pocket Prep: 25 questions\nClaude session: Ch 6-7 deep dive quiz\nReview hormonal response charts
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260506
+DTEND;VALUE=DATE:20260507
+SUMMARY:Dad's Knee Surgery - Light Study
+DESCRIPTION:Be with family\nIf time: Pocket Prep 10-15 questions on phone
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260507
+DTEND;VALUE=DATE:20260508
+SUMMARY:CSCS: Ch 8 - Age & Sex Differences
+DESCRIPTION:Watch: Age/Sex Differences video (45 min)\nKey concepts: youth training\, older adult adaptations\, sex-based differences\nTextbook Ch 8\nFULL TIME STUDY MODE
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260508
+DTEND;VALUE=DATE:20260509
+SUMMARY:CSCS: Ch 9 - Physiological Adaptations
+DESCRIPTION:Watch: Training Adaptations video (60 min)\nKey concepts: neural vs hypertrophic adaptations\nTextbook Ch 9\nPocket Prep: 20 questions
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260509
+DTEND;VALUE=DATE:20260510
+SUMMARY:CSCS: Week Review (Ch 6-9)
+DESCRIPTION:Review all exercise science notes (Ch 1-9)\nPocket Prep: 30 questions (Exercise Science)\nClaude session: full Exercise Science domain quiz
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260510
+DTEND;VALUE=DATE:20260511
+SUMMARY:CSCS: Ch 10 - Sport Psychology
+DESCRIPTION:Watch: Sport Psychology video lectures (60 min)\nKey concepts: self-determination theory\, goal orientation\, arousal regulation\, imagery\nTextbook Ch 10
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260511
+DTEND;VALUE=DATE:20260512
+SUMMARY:CSCS: Ch 10b - Mental Health & Wellness
+DESCRIPTION:Watch: Athlete Mental Health video (45 min)\nKey concepts: injury psychology\, eating disorders\, when to refer\nPocket Prep: 20 questions (Sport Psych)
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260512
+DTEND;VALUE=DATE:20260513
+SUMMARY:CSCS: Ch 11 - Nutrition Fundamentals
+DESCRIPTION:Watch: Sports Nutrition video (60 min)\nKey concepts: macronutrient recommendations\, hydration\, caloric calculations\nPractice: macronutrient calculations\nTextbook Ch 11
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260513
+DTEND;VALUE=DATE:20260514
+SUMMARY:CSCS: Ch 9 - Sport Psychology
+DESCRIPTION:Watch: Sport Psychology video lectures (60 min)\nKey concepts: self-determination theory\, goal orientation\, arousal regulation\, imagery\nTextbook Ch 10 (5th ed) = Ch 9 (4th ed)\nPocket Prep: 15 questions
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260514
+DTEND;VALUE=DATE:20260515
+SUMMARY:CSCS: Ch 12 - Research & Statistics
+DESCRIPTION:Watch: Research Methods video (45 min)\nKey concepts: PICOT\, reliability vs validity\, basic statistics\nTextbook Ch 12
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260515
+DTEND;VALUE=DATE:20260516
+SUMMARY:CSCS: Scientific Foundations Full Review
+DESCRIPTION:Review ALL Scientific Foundations notes\nPocket Prep: 40 questions (all SF domains)\nClaude session: full SF practice exam\nIdentify top 5 weak areas
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260516
+DTEND;VALUE=DATE:20260517
+SUMMARY:CSCS: SF Practice Exam (Timed)
+DESCRIPTION:Take full timed practice exam - Scientific Foundations\n95 questions in 90 minutes\nReview all incorrect answers\nScore analysis by domain
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260517
+DTEND;VALUE=DATE:20260518
+SUMMARY:CSCS: Ch 13 - Testing & Evaluation
+DESCRIPTION:Watch: Testing & Evaluation videos (60 min)\nKey concepts: test selection\, common tests (1RM\, Wingate\, VO2max\, T-test)\nTextbook Ch 13\nPRACTICAL DEEP DIVE BEGINS
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260518
+DTEND;VALUE=DATE:20260519
+SUMMARY:CSCS: Ch 13b - Testing Protocols
+DESCRIPTION:Watch: Fitness Testing Protocols videos (60 min)\nMemorize specific test protocols\nPractice interpreting test results\nPocket Prep: 20 questions
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260519
+DTEND;VALUE=DATE:20260520
+SUMMARY:CSCS: Ch 14-15 - Warm-Up & Flexibility
+DESCRIPTION:Watch: Warm-Up & Flexibility videos (45 min)\nKey concepts: dynamic vs static stretching\, PNF\, CNS activation\nTextbook Ch 14-15
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260520
+DTEND;VALUE=DATE:20260521
+SUMMARY:CSCS: Ch 16 - Resistance Training Technique
+DESCRIPTION:Watch: Exercise Technique videos - Squat\, Bench\, Deadlift (90 min)\nKey concepts: form\, errors\, coaching cues\, spotting\, breathing\nVIDEO QUESTION PREP
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260521
+DTEND;VALUE=DATE:20260522
+SUMMARY:CSCS: Ch 16b - Olympic Lifts & Machines
+DESCRIPTION:Watch: Olympic Lifting Technique videos (60 min)\nKey concepts: clean\, snatch\, jerk phases and errors\nMachine vs free weight considerations\nPocket Prep: 20 questions
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260522
+DTEND;VALUE=DATE:20260523
+SUMMARY:CSCS: Ch 17-18 - Plyometrics & Speed/Agility
+DESCRIPTION:Watch: Plyometrics & Speed/Agility videos (60 min)\nKey concepts: stretch-shortening cycle\, landing mechanics\, acceleration vs max velocity\nTextbook Ch 17-18
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260523
+DTEND;VALUE=DATE:20260524
+SUMMARY:CSCS: Practical Week Review
+DESCRIPTION:Review all practical notes\nWatch exercise technique videos for weak areas\nPocket Prep: 30 questions (Practical)\nClaude session: technique identification quiz
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260524
+DTEND;VALUE=DATE:20260525
+SUMMARY:CSCS: Ch 19 - Program Design Part 1
+DESCRIPTION:Watch: Program Design Part 1 videos (90 min)\nKey concepts: needs analysis\, exercise selection\, structural vs power exercises\nTextbook Ch 19\nPROGRAM DESIGN WEEK
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260525
+DTEND;VALUE=DATE:20260526
+SUMMARY:CSCS: Ch 19b - Program Variables
+DESCRIPTION:Watch: Program Design Part 2 videos (60 min)\nKey concepts: exercise order\, %1RM tables\, volume\, rest periods\nPractice: design a training session
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260526
+DTEND;VALUE=DATE:20260527
+SUMMARY:CSCS: Ch 20 - Periodization
+DESCRIPTION:Watch: Periodization videos (60 min)\nKey concepts: linear vs undulating vs block\, macro/meso/microcycles\nPractice: design a periodized annual plan\nTextbook Ch 20
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260527
+DTEND;VALUE=DATE:20260528
+SUMMARY:CSCS: Program Design Practice Day
+DESCRIPTION:Claude session: program design scenarios\nDesign programs for: football lineman\, soccer midfielder\, swimmer\nPractice needs analysis\nPocket Prep: 25 questions
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260528
+DTEND;VALUE=DATE:20260529
+SUMMARY:CSCS: Ch 21 - Aerobic Endurance Training
+DESCRIPTION:Watch: Endurance Training Design video (45 min)\nKey concepts: Karvonen method\, heart rate zones\, interval training\nTextbook Ch 21
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260529
+DTEND;VALUE=DATE:20260530
+SUMMARY:CSCS: Ch 22-23 - Rehab & Age-Specific
+DESCRIPTION:Watch: Return to Play & Youth Training videos (60 min)\nKey concepts: rehab progressions\, youth/older adult guidelines\nTextbook Ch 22-23
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260530
+DTEND;VALUE=DATE:20260531
+SUMMARY:CSCS: Program Design Review
+DESCRIPTION:Review all program design notes\nPractice: 3 program design scenarios with Claude\nPocket Prep: 30 questions\nCreate cheat sheets for rep ranges\, rest periods
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260531
+DTEND;VALUE=DATE:20260601
+SUMMARY:CSCS: Ch 24 - Overtraining & Recovery (NEW)
+DESCRIPTION:Watch: Overtraining & Recovery videos (45 min)\nKey concepts: functional vs nonfunctional overreaching\, OTS\nThis chapter is NEW in 5th edition!\nTextbook Ch 24
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260601
+DTEND;VALUE=DATE:20260602
+SUMMARY:CSCS: Ch 25-26 - Facility & Admin
+DESCRIPTION:Watch: Facility & Admin videos (45 min)\nKey concepts: facility layout\, emergency procedures\, scope of practice\, liability\nTextbook Ch 25-26
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260602
+DTEND;VALUE=DATE:20260603
+SUMMARY:CSCS: Organization & Admin Deep Review
+DESCRIPTION:Pocket Prep: 20 questions (Org & Admin)\nClaude session: Org & Admin scenario quiz\nReview legal concepts\, standard of care
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260603
+DTEND;VALUE=DATE:20260604
+SUMMARY:CSCS: Full Practical/Applied Review
+DESCRIPTION:Review ALL Practical/Applied notes\nFocus on program design tables\, exercise technique cues\nPocket Prep: 40 questions\nClaude session: comprehensive review
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260604
+DTEND;VALUE=DATE:20260605
+SUMMARY:CSCS: Practical/Applied Practice Exam
+DESCRIPTION:Full timed practice exam - Practical/Applied\n125 questions in 150 minutes\nReview all incorrect answers\nScore analysis by domain
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260605
+DTEND;VALUE=DATE:20260606
+SUMMARY:CSCS: Weak Areas Deep Dive
+DESCRIPTION:Deep review of weakest 2-3 domains from practice exam\nRe-watch relevant video lectures\nClaude session: targeted drilling\nPocket Prep: 25 focused questions
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260606
+DTEND;VALUE=DATE:20260607
+SUMMARY:CSCS: FULL Practice Exam (Both Sections)
+DESCRIPTION:Complete timed practice exam - BOTH sections\nSF: 95 Qs / 90 min\n15 min break\nPA: 125 Qs / 150 min\nReview all results
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260607
+DTEND;VALUE=DATE:20260608
+SUMMARY:CSCS: Practice Exam Analysis
+DESCRIPTION:Detailed analysis of practice exam by domain\nCreate priority list of topics to review\nClaude session: targeted review of missed concepts
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260608
+DTEND;VALUE=DATE:20260609
+SUMMARY:CSCS: Scientific Foundations Drill
+DESCRIPTION:Exercise Science rapid review\nSport Psychology rapid review\nNutrition calculations practice\nPocket Prep: 40 SF questions
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260609
+DTEND;VALUE=DATE:20260610
+SUMMARY:CSCS: Practical/Applied Drill
+DESCRIPTION:Program Design scenario practice\nExercise technique video review\nTesting protocols memorization\nPocket Prep: 40 PA questions
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260610
+DTEND;VALUE=DATE:20260611
+SUMMARY:CSCS: Video/Image Question Prep
+DESCRIPTION:Watch exercise technique videos (focus on errors)\nPractice identifying common form errors\nReview spotting positions\nOlympic lift phases review
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260611
+DTEND;VALUE=DATE:20260612
+SUMMARY:CSCS: FINAL Practice Exam
+DESCRIPTION:Final full practice exam under test conditions\nSimulate test center: no phone\, timed\, no notes\nScore and review
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260612
+DTEND;VALUE=DATE:20260613
+SUMMARY:CSCS: Final Review
+DESCRIPTION:Review all missed questions from final practice exam\nClaude session: rapid-fire Q&A on weak areas\nCreate 1-page cheat sheet per domain
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260613
+DTEND;VALUE=DATE:20260614
+SUMMARY:CSCS: Consolidate & Rest
+DESCRIPTION:Review cheat sheets\nLight Pocket Prep: 20 questions\nReview DCO one more time\nPlan exam day logistics
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260614
+DTEND;VALUE=DATE:20260615
+SUMMARY:CSCS: Final Domain Review - Ex Sci + Psych
+DESCRIPTION:Rapid review of Exercise Science key concepts\nRapid review of Sport Psychology\nPocket Prep: 30 questions\nClaude session: final SF quiz
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260615
+DTEND;VALUE=DATE:20260616
+SUMMARY:CSCS: Final Domain Review - Nutrition + Research
+DESCRIPTION:Nutrition calculations practice\nResearch/statistics key concepts\nPocket Prep: 20 questions
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260616
+DTEND;VALUE=DATE:20260617
+SUMMARY:CSCS: Final Domain Review - Program Design
+DESCRIPTION:Review rep/set/rest/intensity tables\nPractice 2 program design scenarios\nPocket Prep: 20 questions
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260617
+DTEND;VALUE=DATE:20260618
+SUMMARY:CSCS: Final Domain Review - Technique + Testing
+DESCRIPTION:Watch key exercise technique videos one more time\nReview all testing protocols\nPocket Prep: 20 questions
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260618
+DTEND;VALUE=DATE:20260619
+SUMMARY:CSCS: Light Review - Admin + Remaining
+DESCRIPTION:Review Org & Admin\nReview overtraining/recovery chapter\nLight Pocket Prep: 15 questions
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260619
+DTEND;VALUE=DATE:20260620
+SUMMARY:CSCS: Taper - Light Review Only
+DESCRIPTION:Skim cheat sheets\nNo new material\nPrepare for exam day: ID\, directions\, food/water\nTrust your preparation
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260620
+DTEND;VALUE=DATE:20260621
+SUMMARY:CSCS: Rest Day
+DESCRIPTION:Rest day. Maybe skim cheat sheets.\nEarly bedtime. Get good sleep.
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260621
+DTEND;VALUE=DATE:20260622
+SUMMARY:CSCS: Rest - Confirm Exam Details
+DESCRIPTION:Day off. Relax.\nConfirm exam appointment details\nLay out ID and materials
+CATEGORIES:CSCS Study
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260622
+DTEND;VALUE=DATE:20260623
+SUMMARY:CSCS: EXAM DAY OPTION (Mon)
+DESCRIPTION:Take the CSCS exam OR rest one more day\nArrive 15 min early with valid photo ID\nBring food/water for the break
+CATEGORIES:CSCS Exam
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260623
+DTEND;VALUE=DATE:20260624
+SUMMARY:CSCS: EXAM DAY OPTION (Tue)
+DESCRIPTION:Backup exam day
+CATEGORIES:CSCS Exam
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260624
+DTEND;VALUE=DATE:20260625
+SUMMARY:CSCS: EXAM DAY OPTION (Wed)
+DESCRIPTION:Backup exam day
+CATEGORIES:CSCS Exam
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260625
+DTEND;VALUE=DATE:20260626
+SUMMARY:CSCS: EXAM DAY OPTION (Thu)
+DESCRIPTION:Backup exam day
+CATEGORIES:CSCS Exam
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260626
+DTEND;VALUE=DATE:20260627
+SUMMARY:HAPPY BIRTHDAY + CSCS EXAM (Last Day)
+DESCRIPTION:Happy Birthday Jamal! Last chance exam day.\nYOU GOT THIS.
+CATEGORIES:CSCS Exam
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260501
+DTEND;VALUE=DATE:20260502
+SUMMARY:DEADLINE: Register for NSCA account
+DESCRIPTION:Create account at NSCA.com if not done already
+CATEGORIES:CSCS Admin
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260515
+DTEND;VALUE=DATE:20260516
+SUMMARY:DEADLINE: Register for CSCS Exam
+DESCRIPTION:Register on NSCA.com\, pay exam fee\, upload CPR/AED cert\nThis gives you 120 days to schedule
+CATEGORIES:CSCS Admin
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260509
+DTEND;VALUE=DATE:20260510
+SUMMARY:DEADLINE: Get CPR/AED Certification
+DESCRIPTION:Take CPR/AED class with hands-on skills assessment\nAmerican Heart Association or Red Cross\n3-4 hours in person
+CATEGORIES:CSCS Admin
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260509
+DTEND;VALUE=DATE:20260510
+SUMMARY:DEADLINE: Request Official Transcripts
+DESCRIPTION:Request from university registrar\nSend to Exams@NSCA.com or mail to NSCA\nMust show degree conferred
+CATEGORIES:CSCS Admin
+END:VEVENT
+END:VCALENDAR
