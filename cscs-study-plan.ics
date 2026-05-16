@@ -218,8 +218,8 @@ END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260519
 DTEND;VALUE=DATE:20260520
-SUMMARY:CSCS: Ch 14-15 - Warm-Up & Flexibility
-DESCRIPTION:Watch: Warm-Up & Flexibility videos (45 min)\nKey concepts: dynamic vs static stretching\, PNF\, CNS activation\nTextbook Ch 14-15
+SUMMARY:CSCS: CPR/AED (10 AM Manhattan) + Ch 13
+DESCRIPTION:10:00 AM - 12:15 PM: Staying Alive CPR\, 336 W 37th St\, Manhattan (online module done)\nAfternoon: Watch Ch 13 videos\nRead textbook Ch 13: testing terminology\, validity\, reliability
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
