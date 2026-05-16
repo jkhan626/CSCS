@@ -176,43 +176,43 @@ END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260513
 DTEND;VALUE=DATE:20260514
-SUMMARY:CSCS: Ch 9 - Sport Psychology
-DESCRIPTION:Watch: Sport Psychology video lectures (60 min)\nKey concepts: self-determination theory\, goal orientation\, arousal regulation\, imagery\nTextbook Ch 10 (5th ed) = Ch 9 (4th ed)\nPocket Prep: 15 questions
+SUMMARY:CSCS: Ch 9 finish + Ch 10 start (DONE)
+DESCRIPTION:Completed: Ch 9 Sport Psychology finish\, Ch 10 Basic Nutrition start
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260514
 DTEND;VALUE=DATE:20260515
-SUMMARY:CSCS: Ch 12 - Research & Statistics
-DESCRIPTION:Watch: Research Methods video (45 min)\nKey concepts: PICOT\, reliability vs validity\, basic statistics\nTextbook Ch 12
+SUMMARY:CSCS: Ch 10 - Basic Nutrition (DONE)
+DESCRIPTION:Completed: Ch 10 continued\, quizzes
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260515
 DTEND;VALUE=DATE:20260516
-SUMMARY:CSCS: Scientific Foundations Full Review
-DESCRIPTION:Review ALL Scientific Foundations notes\nPocket Prep: 40 questions (all SF domains)\nClaude session: full SF practice exam\nIdentify top 5 weak areas
+SUMMARY:CSCS: Ch 10 continued (DONE)
+DESCRIPTION:Completed: Ch 10 study continued
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260516
 DTEND;VALUE=DATE:20260517
-SUMMARY:CSCS: SF Practice Exam (Timed)
-DESCRIPTION:Take full timed practice exam - Scientific Foundations\n95 questions in 90 minutes\nReview all incorrect answers\nScore analysis by domain
+SUMMARY:CSCS: Ch 10 finish + Ch 11 complete (DONE)
+DESCRIPTION:Completed: Finished Ch 10 quizzes\, watched Ch 11 videos\, completed Ch 11
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260517
 DTEND;VALUE=DATE:20260518
-SUMMARY:CSCS: Ch 13 - Testing & Evaluation
-DESCRIPTION:Watch: Testing & Evaluation videos (60 min)\nKey concepts: test selection\, common tests (1RM\, Wingate\, VO2max\, T-test)\nTextbook Ch 13\nPRACTICAL DEEP DIVE BEGINS
+SUMMARY:CSCS: Ch 12 - Performance-Enhancing Substances
+DESCRIPTION:Watch Ch 12 videos\nRead textbook: creatine\, caffeine\, EPO\, banned substances\nClaude session: Ch 12 tutoring\nTake Ch 12 quiz
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260518
 DTEND;VALUE=DATE:20260519
-SUMMARY:CSCS: Ch 13b - Testing Protocols
-DESCRIPTION:Watch: Fitness Testing Protocols videos (60 min)\nMemorize specific test protocols\nPractice interpreting test results\nPocket Prep: 20 questions
+SUMMARY:CSCS: Full SF Review (Ch 1-12)
+DESCRIPTION:Review all Scientific Foundations notes and weak areas\nPocket Prep: 40 SF questions\nClaude session: comprehensive SF review quiz
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
