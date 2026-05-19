@@ -502,6 +502,40 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+        /* HIT LISTS */
+        .hl-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+        .hl-select { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 14px; flex: 1; min-width: 200px; cursor: pointer; }
+        .hl-nav-btns { display: flex; align-items: center; gap: 8px; }
+        .hl-btn { background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 10px 18px; font-size: 14px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+        .hl-btn:hover { background: var(--accent-dim); border-color: var(--accent); }
+        .hl-btn:active { transform: scale(0.97); }
+        .hl-counter { color: var(--text-dim); font-size: 14px; min-width: 50px; text-align: center; }
+        .hl-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; min-height: 400px; position: relative; touch-action: pan-y; user-select: none; transition: opacity 0.2s; }
+        .hl-domain-tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .hl-domain-exsci { background: rgba(78,168,238,0.15); color: #4ea8ee; }
+        .hl-domain-psych { background: rgba(162,155,254,0.15); color: #a29bfe; }
+        .hl-domain-nutr { background: rgba(46,204,113,0.15); color: #2ecc71; }
+        .hl-domain-progd { background: rgba(255,159,67,0.15); color: #ff9f43; }
+        .hl-domain-extech { background: rgba(255,107,157,0.15); color: #ff6b9d; }
+        .hl-domain-progimp { background: rgba(0,212,170,0.15); color: #00d4aa; }
+        .hl-domain-orgadm { background: rgba(255,215,0,0.15); color: #ffd700; }
+        .hl-title { font-size: 22px; font-weight: 700; margin-bottom: 20px; color: var(--text); }
+        .hl-bullets { list-style: none; padding: 0; }
+        .hl-bullets li { padding: 8px 0 8px 20px; position: relative; font-size: 15px; line-height: 1.5; color: var(--text); border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .hl-bullets li:last-child { border-bottom: none; }
+        .hl-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+        .hl-trap { margin-top: 20px; padding: 14px 18px; background: rgba(248,113,113,0.08); border-left: 3px solid var(--red); border-radius: 0 8px 8px 0; }
+        .hl-trap-label { color: var(--red); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .hl-trap-text { color: var(--red); font-size: 14px; opacity: 0.9; }
+        .hl-trap.hidden { display: none; }
+        .hl-swipe-hint { text-align: center; color: var(--text-dim); font-size: 12px; margin-top: 12px; }
+        @media (max-width: 600px) {
+            .hl-card { padding: 20px; min-height: 350px; }
+            .hl-title { font-size: 18px; }
+            .hl-bullets li { font-size: 14px; padding: 6px 0 6px 18px; }
+            .hl-btn { padding: 8px 12px; font-size: 13px; }
+        }
     </style>
 </head>
 <body>
@@ -513,6 +547,7 @@
     <button class="nav-tab" data-tab="quiz">Practice Quiz</button>
     <button class="nav-tab" data-tab="checklist">Admin Checklist</button>
     <button class="nav-tab" data-tab="resources">Resources</button>
+    <button class="nav-tab" data-tab="hitlists">Hit Lists</button>
     <div class="nav-right">
         <button onclick="cloudSave().then(()=>alert('Saved to cloud')).catch(e=>alert('Save error: '+e))" style="background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);padding:4px 8px;border-radius:4px;font-size:11px;cursor:pointer;">Sync</button>
         <span id="sync-status" style="font-size: 11px;"></span>
@@ -675,6 +710,25 @@
             <h2>Study Milestones</h2>
             <div id="study-checklist"></div>
         </div>
+    </div>
+
+    <!-- HIT LISTS -->
+    <div class="section" id="sec-hitlists">
+        <div class="hl-header">
+            <select id="hl-chapter-select" class="hl-select"></select>
+            <div class="hl-nav-btns">
+                <button class="hl-btn" id="hl-prev" onclick="hlPrev()">&#8592; Prev</button>
+                <span class="hl-counter" id="hl-counter">1 / 4</span>
+                <button class="hl-btn" id="hl-next" onclick="hlNext()">Next &#8594;</button>
+            </div>
+        </div>
+        <div class="hl-card" id="hl-card">
+            <div class="hl-domain-tag" id="hl-domain"></div>
+            <h2 class="hl-title" id="hl-title"></h2>
+            <ul class="hl-bullets" id="hl-bullets"></ul>
+            <div class="hl-trap" id="hl-trap"></div>
+        </div>
+        <div class="hl-swipe-hint">Swipe or use arrow keys to navigate</div>
     </div>
 
     <!-- RESOURCES -->
@@ -1843,6 +1897,174 @@ renderResources();
 updateChapterScores();
 // Load cloud state and merge with local
 cloudLoad();
+// ============================================================
+// HIT LISTS
+// ============================================================
+const HIT_LIST_DATA = [
+{ch:1,title:'Structure and Function of Body Systems',domain:'Exercise Science',domainClass:'exsci',slides:[
+{t:'MUSCLE FIBER TYPES',b:['Type I (slow-twitch): slow contraction, high oxidative, fatigue resistant','Type IIa (fast-twitch): moderate speed, oxidative AND glycolytic','Type IIx (fast-twitch): fastest contraction, highest force, fatigues fast','"IIb" = outdated rodent term → effectively IIx in humans','Fiber type distribution is largely GENETIC'],trap:'IIb is NOT a current human classification — if offered as answer, it\'s wrong'},
+{t:'SLIDING FILAMENT THEORY',b:['Actin (thin) + myosin (thick) slide past each other','Cross-bridge cycle: attach → rotate → detach → reattach','ATP required for DETACHMENT (no ATP = rigor mortis)','Ca²⁺ from sarcoplasmic reticulum triggers contraction','Troponin binds Ca²⁺ → tropomyosin shifts → exposes binding sites'],trap:'ATP releases the cross-bridge, not forms it'},
+{t:'NEUROMUSCULAR SYSTEM',b:['Motor unit = 1 motor neuron + ALL fibers it innervates','All-or-none: every fiber contracts or none do','Size principle: Type I first → Type II as force increases','Muscle spindles → LENGTH → stretch reflex','GTOs → TENSION → autogenic inhibition','Nociceptors → PAIN (free nerve endings)'],trap:'Spindles = LENGTH, GTOs = TENSION — they swap these constantly'},
+{t:'CARDIOVASCULAR & BONE',b:['Cardiac output = stroke volume × heart rate','Arteries = AWAY from heart, Veins = TO heart','Systolic = contraction pressure, Diastolic = relaxation','Tendons: MUSCLE to BONE | Ligaments: BONE to BONE','Wolff\'s law: bone adapts to loads placed on it','Osteoblasts BUILD, Osteoclasts BREAK DOWN (Clasts Crash)'],trap:'Tendons = muscle-to-bone, Ligaments = bone-to-bone — classic swap'},
+]},
+{ch:2,title:'Biomechanics of Resistance Exercise',domain:'Exercise Science',domainClass:'exsci',slides:[
+{t:'ANATOMICAL PLANES',b:['Sagittal: left/right → flexion/extension (squat, curl)','Frontal: front/back → abduction/adduction (lateral raise)','Transverse: top/bottom → rotation (bench press, wood chop)'],trap:'Lateral raise = FRONTAL. Bench press = TRANSVERSE.'},
+{t:'LEVER SYSTEMS',b:['1st class: fulcrum in middle (seesaw, skull on spine)','2nd class: load in middle (wheelbarrow, calf raise)','3rd class: effort in middle (bicep curl — MOST COMMON)','Mechanical advantage = effort arm ÷ resistance arm'],trap:'3rd class = MOST COMMON in body — when in doubt, pick 3rd'},
+{t:'FORCE, WORK, POWER, VELOCITY',b:['Force = mass × acceleration','Work = force × displacement (no movement = no work)','Power = force × velocity = work ÷ time','Velocity = displacement ÷ time (NO force component)','Concentric: ↑velocity = ↓force | Power max at ~30-60% 1RM','Eccentric: force INCREASES with velocity (opposite)'],trap:'VELOCITY has no force term. POWER does.'},
+]},
+{ch:3,title:'Bioenergetics of Exercise and Training',domain:'Exercise Science',domainClass:'exsci',slides:[
+{t:'THREE ENERGY SYSTEMS',b:['Phosphagen (ATP-PC): 0-6 sec, highest power, no O₂','Glycolysis: ~6 sec - 2 min, moderate power, produces lactate','Oxidative: 2+ min, lowest power, highest capacity, requires O₂','ALL THREE always active — one just DOMINATES','As duration ↑, intensity must ↓'],trap:'Systems OVERLAP — "primary" not "only" system'},
+{t:'GLYCOLYSIS & OXIDATIVE DETAILS',b:['Fast glycolysis: 2 ATP per glucose (blood), 3 from glycogen','Lactate is NOT waste — recycled as fuel (Cori cycle)','~38 ATP from one glucose via full oxidation','At REST: body uses FAT | High intensity: CARBS','W:R ratios — Phosph 1:12-1:20, Glyc 1:3-1:5, Oxid 1:1-1:3'],trap:'"Lactic acid causes soreness" = FALSE. DOMS = mechanical damage.'},
+]},
+{ch:4,title:'Endocrine Responses to Resistance Exercise',domain:'Exercise Science',domainClass:'exsci',slides:[
+{t:'ANABOLIC vs CATABOLIC HORMONES',b:['ANABOLIC: Testosterone, Growth Hormone, IGF-1, Insulin','CATABOLIC: Cortisol (breaks down protein for energy)','Testosterone/cortisol ratio: ↓ = overtraining signal','Steroid hormones: cross membrane, INTRACELLULAR receptors','Peptide hormones: bind SURFACE receptors'],trap:'Acute cortisol = normal. CHRONIC elevation = the problem.'},
+{t:'TRAINING FOR HORMONAL RESPONSE',b:['TESTOSTERONE: heavy (85-95% 1RM), large muscles, moderate rest','GH: 10RM loads (~75%), HIGH volume, SHORT rest (60-90 sec)','Key: testosterone protocol ≠ GH protocol','Males ~10x more testosterone than females','Females gain strength via NEURAL adaptations'],trap:'GH (moderate load, short rest) ≠ testosterone (heavy, longer rest)'},
+]},
+{ch:5,title:'Adaptations to Anaerobic Training',domain:'Exercise Science',domainClass:'exsci',slides:[
+{t:'NEURAL vs MUSCULAR ADAPTATIONS',b:['First 4-8 weeks: strength gains are primarily NEURAL','Increased motor unit recruitment and firing rate','Hypertrophy begins after 8-12+ weeks','IIx → IIa fiber shift with BOTH resistance AND aerobic','Hyperplasia: controversial, minimal evidence in humans'],trap:'New lifter gets stronger in 3 weeks? = NEURAL, not hypertrophy'},
+{t:'OVERTRAINING, DETRAINING & INTERFERENCE',b:['Overreaching: short-term, days-weeks recovery','Overtraining: MONTHS to recover — never planned','Detraining: strength loss after ~2-3 weeks inactivity','IIa shifts BACK to IIx with detraining','Concurrent training: endurance may blunt strength gains'],trap:'Planned overreaching = intentional. Overtraining = NEVER planned.'},
+]},
+{ch:6,title:'Adaptations to Aerobic Endurance Training',domain:'Exercise Science',domainClass:'exsci',slides:[
+{t:'CV & RESPIRATORY ADAPTATIONS',b:['↑ Stroke volume, ↓ Resting HR (more efficient)','Resting cardiac output stays SAME (↓HR × ↑SV)','MAX cardiac output INCREASES','VT: ventilation rises faster than O₂ (O₂ still RISING)','VO₂max: ~50% genetic, can improve 15-20%'],trap:'Resting cardiac output does NOT change with training'},
+{t:'METABOLIC ADAPTATIONS & ALTITUDE',b:['↑ Mitochondria, ↑ oxidative enzymes, ↑ fat utilization','Altitude BENEFIT: ↑ RBC via EPO response','Altitude RISK: dehydration + ↓ training intensity','~5% VO₂max decline per 3,000 ft above 1,900 ft','"Live high, train low" = ideal strategy'],trap:'Altitude = trade-off — more RBC but less training intensity'},
+]},
+{ch:7,title:'Age-Related Differences',domain:'Exercise Science',domainClass:'exsci',slides:[
+{t:'YOUTH & OLDER ADULT TRAINING',b:['Children CAN safely strength train with supervision','Youth gains = NEURAL (low testosterone)','No 1RM until Tanner Stage 5 (full maturity)','Sarcopenia: muscle loss accelerates after 50-60','Resistance training = BEST intervention for sarcopenia','Type II fibers lost MORE than Type I with aging'],trap:'"Children should not strength train" = FALSE'},
+]},
+{ch:8,title:'Sex-Related Differences',domain:'Exercise Science',domainClass:'exsci',slides:[
+{t:'SEX DIFFERENCES, TRIAD & ACL',b:['Males ~10x more testosterone → greater hypertrophy','Triad: low energy + menstrual dysfunction + low bone density','RED-S: expanded triad — applies to BOTH sexes','Root cause: LOW ENERGY AVAILABILITY','ACL injury 2-8x higher in females → neuromuscular prevention','S&C: recognize and REFER — do not diagnose/treat'],trap:'RED-S applies to MEN too, not just women'},
+]},
+{ch:9,title:'Psychological Foundations of Performance',domain:'Sport Psychology',domainClass:'psych',slides:[
+{t:'AROUSAL, ANXIETY & STRESS',b:['Arousal: general activation (not good or bad)','State anxiety: temporary | Trait anxiety: stable personality','Eustress AND distress BOTH produce arousal','Inverted-U: moderate arousal = best performance','IZOF: optimal zone varies by INDIVIDUAL'],trap:'"Only eustress produces arousal" = FALSE — both do'},
+{t:'MOTIVATION & GOAL SETTING',b:['Intrinsic (for itself) vs Extrinsic (external rewards)','Self-determination: autonomy + competence + relatedness','Task-oriented (mastery) vs ego-oriented (beating others)','SMART: Specific, Measurable, Achievable, Realistic, Time-bound','Outcome → Performance → Process goals'],trap:'Motivation = CLASSIFICATION. Reinforcement = PROCESS.'},
+{t:'TECHNIQUES & MENTAL HEALTH',b:['Positive reinforcement: ADD pleasant → INCREASE behavior','Negative reinforcement: REMOVE unpleasant → INCREASE behavior','NOT punishment — punishment DECREASES behavior','Imagery, self-talk, attentional focus, pre-performance routines','Depression, eating disorders → REFER OUT (outside scope)'],trap:'Negative reinforcement ≠ punishment. Both increase behavior.'},
+]},
+{ch:10,title:'Basic Nutritional Factors Affecting Health',domain:'Nutrition',domainClass:'nutr',slides:[
+{t:'MACROS, CALORIES & PROTEIN',b:['Carbs: 4 kcal/g | Protein: 4 kcal/g | Fat: 9 kcal/g | Alcohol: 7 kcal/g','Protein: 1.4-1.8 g/kg (strength), 1.2-1.4 g/kg (endurance)','Carbs: 5-6 g/kg (strength), 6-10 g/kg (endurance)','Fat-soluble: A, D, E, K | Water-soluble: C + B vitamins','Calcium, iron, zinc = MINERALS (not vitamins)'],trap:'Fat = 9 kcal/g (2x+ protein/carbs). Minerals ≠ vitamins.'},
+{t:'HYDRATION & SCOPE OF PRACTICE',b:['2% body weight loss = performance decline','Pre: 5-7 mL/kg 4 hrs before | Post: 1.5L per kg lost','Hyponatremia: LOW sodium from overdrinking — fatal risk','S&C scope: general guidelines only','REFER to RD for individualized nutrition plans'],trap:'They test OVERhydration (hyponatremia) too'},
+]},
+{ch:11,title:'Nutrition Strategies for Maximizing Performance',domain:'Nutrition',domainClass:'nutr',slides:[
+{t:'PRE / DURING / POST NUTRITION',b:['Pre (3-4 hrs): full meal | Pre (1-2 hrs): small carb snack','During <1hr: water | 1-2.5hr: 30-60g carbs/hr | >2.5hr: up to 90g/hr','Post: 1.0-1.5 g/kg carbs within 30 minutes','Post protein: 0.3-0.5 g/kg enhances recovery','Carb loading: 8-10 g/kg/day × 3 days (events >90 min only)'],trap:'Post-exercise carb window = within 30 minutes'},
+]},
+{ch:12,title:'Performance-Enhancing Substances',domain:'Nutrition',domainClass:'nutr',slides:[
+{t:'SUPPLEMENTS & BANNED SUBSTANCES',b:['Effective: creatine, caffeine (3-6 mg/kg), beta-alanine, bicarb, EAAs','NCAA banned: stimulants, anabolic agents, peptide hormones, diuretics','Beta-blockers: precision sports ONLY (rifle)','NOT banned: creatine, BCAAs, most amino acids','DSHEA: supplements NOT FDA regulated','STRICT LIABILITY: athlete responsible even if unknowing contamination'],trap:'Creatine NOT banned. Athlete ALWAYS responsible for what they ingest.'},
+]},
+{ch:13,title:'Principles of Test Selection and Administration',domain:'Program Implementation',domainClass:'progimp',slides:[
+{t:'VALIDITY vs RELIABILITY',b:['Validity: measures what it should? | Reliability: consistent results?','Must be reliable to be valid — but reliable ≠ valid','Construct > Content > Criterion > Face (weakest)','Concurrent: vs gold standard, SAME time','Convergent: high correlation, SAME construct','Discriminant: LOW correlation, DIFFERENT construct'],trap:'Reliable ≠ valid. Convergent = same construct. Concurrent = vs criterion.'},
+{t:'TEST ORDER — MEMORIZE THIS',b:['1. Non-fatiguing (height, weight, body comp, flexibility)','2. Agility (T-test, pro agility)','3. Max strength & power (vertical jump, 1RM)','4. Sprint (40-yard dash)','5. Local muscular endurance → Anaerobic capacity','6. Aerobic (1.5-mile run) — ALWAYS LAST'],trap:'Endurance ALWAYS last. "Established protocol" never hurts reliability.'},
+{t:'ENVIRONMENT & ADMINISTRATION',b:['Altitude impairs AEROBIC tests, NOT strength/power','~5% VO₂max decline per 3,000 ft above 1,900 ft','Same tester, same time of day for consistency','Salt tablets: NEVER recommended (always wrong answer)','Formative = ongoing/midtest | Summative = final/posttest'],},
+]},
+{ch:14,title:'Administration, Scoring, Interpretation of Tests',domain:'Program Implementation',domainClass:'progimp',slides:[
+{t:'STRENGTH, POWER & SPEED TESTS',b:['1RM: warm up → progressive loading → max in 3-5 attempts, 2-4 min rest','Vertical jump: lower body power (most common field test)','40-yard dash: linear speed | Pro agility (5-10-5): COD','T-test: forward → shuffle L → shuffle R → backpedal','Wingate (30 sec): anaerobic CAPACITY | Margaria: anaerobic POWER'],trap:'T-test: crossing feet during shuffle = disqualified'},
+{t:'BODY COMP, FLEXIBILITY & STATS',b:['Skinfolds: SAME technician always','DEXA = most accurate | Hydrostatic = historical gold standard','Sit-and-reach: hamstring + low back flexibility','Mean (average), Median (middle), Mode (most frequent)','Effect size: small 0.2, medium 0.5, large 0.8'],},
+]},
+{ch:15,title:'Performance Prep, Mobility, Flexibility',domain:'Exercise Technique',domainClass:'extech',slides:[
+{t:'WARM-UP & STRETCHING TYPES',b:['Static: hold 15-30 sec — use AFTER training','Dynamic: active movements through ROM — use BEFORE training','PNF: most effective for ROM (contract-relax, hold-relax)','Uses autogenic inhibition (GTO) + reciprocal inhibition','Flexibility is JOINT-SPECIFIC','Foam rolling: ↑ ROM without ↓ performance'],trap:'Static stretching BEFORE explosive activity may REDUCE performance'},
+]},
+{ch:16,title:'Exercise Technique: Free Weight & Machine',domain:'Exercise Technique',domainClass:'extech',slides:[
+{t:'SQUAT, BENCH & DEADLIFT',b:['Squat: shoulder-width+, toes out, thighs to PARALLEL minimum','Bench: 5-point contact (head, shoulders, butt, both feet)','Deadlift: neutral spine ALWAYS, bar stays on legs','Common errors: heels rise, knees cave, butt lifts, bouncing'],},
+{t:'OLYMPIC LIFTS & SPOTTING',b:['Power clean: power from HIP EXTENSION, not arms','Phases: 1st pull → transition → 2nd pull (explosive) → catch','Squat spot: behind, hands near torso/hips','Bench spot: behind head, alternated grip on bar','NEVER spot Olympic lifts (clean, snatch, jerk)'],trap:'Never spot power cleans/snatches — answer is always "don\'t"'},
+]},
+{ch:17,title:'Exercise Technique: Alternative Modes',domain:'Exercise Technique',domainClass:'extech',slides:[
+{t:'ALTERNATIVE EQUIPMENT',b:['Bands/chains: accommodating resistance (↑ through ROM)','Kettlebell swing: HIP HINGE, power from hip snap, not arms','Medicine balls: for POWER — must allow HIGH velocity','If ball too heavy to move fast → too heavy','Sleds (acceleration), tires (hip dominant), ropes (conditioning)'],},
+]},
+{ch:18,title:'Program Design for Resistance Training',domain:'Program Design',domainClass:'progd',slides:[
+{t:'NEEDS ANALYSIS & EXERCISE SELECTION',b:['Evaluate SPORT (movements, energy systems, injuries)','Evaluate ATHLETE (history, goals, training status)','Core exercises: multi-joint (squat, bench, clean)','Assistance: single-joint (curls, extensions)','Power exercises FIRST → multi-joint → single-joint'],trap:'"Core exercise" = multi-joint, NOT abs training'},
+{t:'LOAD, REPS & REST TABLE',b:['STRENGTH: ≤6 reps, ≥85% 1RM, 2-5 min rest','POWER: 1-5 reps, 75-90% 1RM, 2-5 min rest','HYPERTROPHY: 6-12 reps, 67-85%, 30-90 sec rest','ENDURANCE: ≥12 reps, ≤67%, ≤30 sec rest','2-for-2 rule: 2+ extra reps × 2 sessions → ↑ load','Load ↑: 2.5-5% upper body, 5-10% lower body'],trap:'Hypertrophy = SHORT rest. Strength = LONG rest.'},
+]},
+{ch:19,title:'Plyometric Training',domain:'Program Design',domainClass:'progd',slides:[
+{t:'SSC & PREREQUISITES',b:['SSC: eccentric → amortization (MINIMIZE!) → concentric','1.5x BW squat BEFORE depth jumps','Athletes >220 lbs: box ≤ 18 inches','STEP off box, do NOT jump off','Landing surface: grass, rubber, wood — NOT concrete'],trap:'1.5x BW squat for DEPTH JUMPS specifically'},
+{t:'VOLUME & PROGRAMMING',b:['Volume in CONTACTS: beginner 80-100, inter 100-120, adv 120-140','Box heights: 6-42 in, beginners at 12 inches','Rest: 5-10 sec between reps, 2-3 min between sets','Do plyo AFTER warm-up but BEFORE strength training','2-3 sessions/week on non-consecutive days'],trap:'Plyometrics BEFORE resistance training, not after'},
+]},
+{ch:20,title:'Speed and Agility Training',domain:'Program Design',domainClass:'progd',slides:[
+{t:'SPEED & AGILITY',b:['Speed = stride length × stride frequency','Acceleration (0-30m): forward lean, short strides','Most team sports won in ACCELERATION phase','COD: pre-planned | Agility: REACTIVE (decision-making)','Resisted sprints: no more than 10% speed decrease','Contact under center of mass — in front = BRAKING'],trap:'Heel strike in front = braking effect'},
+]},
+{ch:21,title:'Aerobic Endurance Training Design',domain:'Program Design',domainClass:'progd',slides:[
+{t:'TRAINING METHODS & KARVONEN',b:['LSD (base), Tempo (threshold), HIIT (near max), Fartlek (speed play)','Karvonen: (HRmax - HRrest) × %intensity + HRrest','Example: HRmax=190, HRrest=60, 70% → 151 bpm','10% rule: ↑ weekly volume by no more than 10%','Off-season: build base | In-season: MAINTAIN'],trap:'Know the Karvonen formula — they WILL make you calculate it'},
+]},
+{ch:22,title:'Periodization',domain:'Program Design',domainClass:'progd',slides:[
+{t:'HIERARCHY & PHASES',b:['Macrocycle → Mesocycle (3-6 wk) → Microcycle (1 wk) → Session','Preparatory: hypertrophy → strength → power','Competition: maintain | Transition: active rest','Off-season = preparatory | In-season = competition'],},
+{t:'LINEAR vs UNDULATING & TAPERING',b:['LINEAR: volume ↓ as intensity ↑ over macrocycle','UNDULATING (DUP): varies within each WEEK','Taper: reduce volume 60-90%, MAINTAIN intensity','In-season: 1-2 strength sessions/week to maintain','Functional overreaching → taper → supercompensation'],trap:'Linear = volume DOWN, intensity UP. Taper = cut volume, KEEP intensity.'},
+]},
+{ch:23,title:'Rehab, Reconditioning, Medical Issues',domain:'Program Implementation',domainClass:'progimp',slides:[
+{t:'HEALING, INJURIES & EMERGENCIES',b:['Inflammatory (0-4 days) → Fibroblastic (4d-6wk) → Remodeling (3wk-2yr)','SPRAIN = LIGAMENT | STRAIN = MUSCLE/TENDON','Closed kinetic chain preferred in rehab (foot fixed = squat)','Return-to-play: strength within 10% of uninjured side','Heat STROKE (dry, confused) = 911 | Heat exhaustion (sweating) = serious','S&C role: reconditioning only — REFER for diagnosis/treatment'],trap:'SPRAIN = ligament, STRAIN = muscle/tendon — constant swap question'},
+]},
+{ch:24,title:'Overreaching, Overtraining, Recovery',domain:'Program Implementation',domainClass:'progimp',slides:[
+{t:'CONTINUUM & RECOVERY',b:['FOR (planned, days) → NFOR (unplanned, weeks) → OTS (months)','Signs: ↓ performance, fatigue, mood, ↑ resting HR, illness','SLEEP = #1 recovery tool (7-9 hours)','Deload every 3-5 weeks: ↓ volume 50-70%, maintain intensity','Jet lag: east harder than west, ~1 day per time zone'],trap:'Sleep is always the BEST recovery answer'},
+]},
+{ch:25,title:'Facility Design, Layout, Organization',domain:'Organization & Admin',domainClass:'orgadm',slides:[
+{t:'SPACE & EQUIPMENT REQUIREMENTS',b:['100 sq ft per athlete minimum','Equipment spacing: 3 feet minimum between racks','Ceiling: 12-14 feet | Mirrors: 20 inches off floor','Platforms: 8 × 8 ft | Flooring: rubber (NEVER concrete)','Staff ratio: 1 per 10-20 athletes','Document ALL maintenance — inspection logs required'],trap:'100 sq ft per athlete, 3 ft between equipment — memorize these'},
+]},
+{ch:26,title:'Facility Policies, Procedures, Legal Issues',domain:'Organization & Admin',domainClass:'orgadm',slides:[
+{t:'EAP, LIABILITY & SCOPE',b:['Written EAP: posted, practiced annually, AED within 3-5 min','Negligence: duty + breach + causation + damages','Waivers ≠ protection against gross negligence','CAN: design programs, teach technique, assess fitness','CANNOT: diagnose, prescribe, treat, counsel','Supervision negligence = #1 source of lawsuits'],trap:'Scope of practice = free points. Diagnose/treat/prescribe → always wrong.'},
+]},
+];
+
+let hlChapterIdx = 0;
+let hlSlideIdx = 0;
+
+function hlInit() {
+    const sel = document.getElementById('hl-chapter-select');
+    sel.innerHTML = HIT_LIST_DATA.map((ch, i) =>
+        `<option value="${i}">Ch ${ch.ch} — ${ch.title}</option>`
+    ).join('');
+    sel.addEventListener('change', () => { hlChapterIdx = parseInt(sel.value); hlSlideIdx = 0; hlRender(); });
+    hlRender();
+}
+
+function hlRender() {
+    const ch = HIT_LIST_DATA[hlChapterIdx];
+    const slide = ch.slides[hlSlideIdx];
+    document.getElementById('hl-domain').textContent = ch.domain;
+    document.getElementById('hl-domain').className = 'hl-domain-tag hl-domain-' + ch.domainClass;
+    document.getElementById('hl-title').textContent = slide.t;
+    document.getElementById('hl-bullets').innerHTML = slide.b.map(b => `<li>${b}</li>`).join('');
+    const trapEl = document.getElementById('hl-trap');
+    if (slide.trap) {
+        trapEl.classList.remove('hidden');
+        trapEl.innerHTML = `<div class="hl-trap-label">Exam Trap</div><div class="hl-trap-text">${slide.trap}</div>`;
+    } else {
+        trapEl.classList.add('hidden');
+    }
+    document.getElementById('hl-counter').textContent = `${hlSlideIdx + 1} / ${ch.slides.length}`;
+    document.getElementById('hl-chapter-select').value = hlChapterIdx;
+}
+
+function hlNext() {
+    const ch = HIT_LIST_DATA[hlChapterIdx];
+    if (hlSlideIdx < ch.slides.length - 1) { hlSlideIdx++; }
+    else if (hlChapterIdx < HIT_LIST_DATA.length - 1) { hlChapterIdx++; hlSlideIdx = 0; }
+    hlRender();
+}
+
+function hlPrev() {
+    if (hlSlideIdx > 0) { hlSlideIdx--; }
+    else if (hlChapterIdx > 0) { hlChapterIdx--; hlSlideIdx = HIT_LIST_DATA[hlChapterIdx].slides.length - 1; }
+    hlRender();
+}
+
+// Swipe support
+(function() {
+    let startX = 0;
+    const card = document.getElementById('hl-card');
+    if (!card) return;
+    card.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive: true});
+    card.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) { diff > 0 ? hlNext() : hlPrev(); }
+    }, {passive: true});
+})();
+
+// Arrow key support
+document.addEventListener('keydown', e => {
+    if (document.getElementById('sec-hitlists')?.classList.contains('active')) {
+        if (e.key === 'ArrowRight') hlNext();
+        if (e.key === 'ArrowLeft') hlPrev();
+    }
+});
+
+hlInit();
+
 </script>
 
 </body>
