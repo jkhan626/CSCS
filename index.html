@@ -661,13 +661,14 @@
                     </optgroup>
                     <optgroup label="Practical / Applied (5th Ed)">
                         <option value="ch13">Ch 13-14 - Test Selection, Admin & Interpretation</option>
-                        <option value="ch14">Ch 15 - Performance Prep, Mobility & Flexibility</option>
+                        <option value="ch15">Ch 15 - Performance Prep, Mobility & Flexibility</option>
                         <option value="ch16">Ch 16-17 - Exercise Technique (Free Weight, Machine, Alt)</option>
-                        <option value="ch17">Ch 19 - Plyometric Training</option>
-                        <option value="ch18">Ch 20 - Speed & Agility Training</option>
-                        <option value="ch19">Ch 18 & 22 - Program Design & Periodization</option>
+                        <option value="ch18">Ch 18 - Program Design for Resistance Training</option>
+                        <option value="ch19">Ch 19 - Plyometric Training</option>
+                        <option value="ch20">Ch 20 - Speed & Agility Training</option>
                         <option value="ch21">Ch 21 - Aerobic Endurance & Metabolic Training</option>
-                        <option value="ch22">Ch 23 - Rehab, Reconditioning & Medical</option>
+                        <option value="ch22">Ch 22 - Periodization</option>
+                        <option value="ch23">Ch 23 - Rehab, Reconditioning & Medical</option>
                         <option value="ch24">Ch 24 - Overreaching, Overtraining & Recovery</option>
                         <option value="ch25">Ch 25-26 - Facility Design & Legal Issues</option>
                     </optgroup>
@@ -1039,10 +1040,10 @@ const quizQuestions = [
     { ch: 'ch13', q: 'The Wingate Anaerobic Test measures:', options: ['Maximal aerobic capacity', 'Anaerobic power and capacity', 'Muscular endurance'], correct: 1, explain: 'The Wingate test (30-second all-out cycle sprint against resistance) measures peak anaerobic power, mean anaerobic power, and fatigue index. It assesses the phosphagen and glycolytic energy systems.' },
 
     // ===== CH 14-15: WARM-UP, FLEXIBILITY & MOBILITY =====
-    { ch: 'ch14', q: 'Static stretching before explosive performance has been shown to:', options: ['Improve power and sprint performance', 'Temporarily decrease power and strength output', 'Have no effect on performance'], correct: 1, explain: 'Static stretching before explosive activities can acutely reduce power, strength, and sprint performance by decreasing muscle-tendon stiffness and neural activation. Dynamic warm-ups are preferred before performance. Static stretching is better post-exercise or as a separate session.' },
-    { ch: 'ch14', q: 'PNF stretching works primarily through:', options: ['The stretch reflex increasing muscle activation', 'Autogenic inhibition from Golgi tendon organs', 'Increased blood flow to the muscle'], correct: 1, explain: 'PNF (contract-relax) stretching: the isometric contraction of the target muscle stimulates GTOs, which trigger autogenic inhibition (reflexive relaxation), allowing a greater stretch. PNF is generally considered the most effective stretching method for increasing ROM.' },
-    { ch: 'ch14', q: 'A proper warm-up before training should include:', options: ['Static stretching followed by sport-specific movements', 'General aerobic activity followed by dynamic movements specific to the training session', 'Maximal effort sprints to activate the nervous system'], correct: 1, explain: 'Warm-up order: (1) general aerobic activity (5-10 min to raise body temp), (2) dynamic stretching/movement prep specific to the session, (3) sport-specific movements with progressive intensity. This increases blood flow, muscle temperature, nerve conduction, and ROM.' },
-    { ch: 'ch14', q: 'Dynamic stretching is preferred before performance because it:', options: ['Maximally lengthens muscles for injury prevention', 'Activates muscles, increases heart rate, and prepares movement patterns', 'Is easier to perform than static stretching'], correct: 1, explain: 'Dynamic stretching involves active movements through full ROM that mimic the upcoming activity. It increases muscle temperature, neural activation, and movement-specific preparation without the acute performance decrements associated with prolonged static stretching.' },
+    { ch: 'ch15', q: 'Static stretching before explosive performance has been shown to:', options: ['Improve power and sprint performance', 'Temporarily decrease power and strength output', 'Have no effect on performance'], correct: 1, explain: 'Static stretching before explosive activities can acutely reduce power, strength, and sprint performance by decreasing muscle-tendon stiffness and neural activation. Dynamic warm-ups are preferred before performance. Static stretching is better post-exercise or as a separate session.' },
+    { ch: 'ch15', q: 'PNF stretching works primarily through:', options: ['The stretch reflex increasing muscle activation', 'Autogenic inhibition from Golgi tendon organs', 'Increased blood flow to the muscle'], correct: 1, explain: 'PNF (contract-relax) stretching: the isometric contraction of the target muscle stimulates GTOs, which trigger autogenic inhibition (reflexive relaxation), allowing a greater stretch. PNF is generally considered the most effective stretching method for increasing ROM.' },
+    { ch: 'ch15', q: 'A proper warm-up before training should include:', options: ['Static stretching followed by sport-specific movements', 'General aerobic activity followed by dynamic movements specific to the training session', 'Maximal effort sprints to activate the nervous system'], correct: 1, explain: 'Warm-up order: (1) general aerobic activity (5-10 min to raise body temp), (2) dynamic stretching/movement prep specific to the session, (3) sport-specific movements with progressive intensity. This increases blood flow, muscle temperature, nerve conduction, and ROM.' },
+    { ch: 'ch15', q: 'Dynamic stretching is preferred before performance because it:', options: ['Maximally lengthens muscles for injury prevention', 'Activates muscles, increases heart rate, and prepares movement patterns', 'Is easier to perform than static stretching'], correct: 1, explain: 'Dynamic stretching involves active movements through full ROM that mimic the upcoming activity. It increases muscle temperature, neural activation, and movement-specific preparation without the acute performance decrements associated with prolonged static stretching.' },
 
     // ===== CH 16: RESISTANCE TRAINING TECHNIQUE =====
     { ch: 'ch16', q: 'During the back squat, the most common error increasing injury risk is:', options: ['Knees caving inward (valgus)', 'Looking straight ahead', 'Descending to parallel'], correct: 0, explain: 'Knee valgus significantly increases stress on the ACL and medial knee structures. Cue: "Push your knees out over your toes" or "spread the floor with your feet."' },
@@ -1054,25 +1055,25 @@ const quizQuestions = [
     { ch: 'ch16', q: 'For the bench press, proper foot position is:', options: ['Feet up on the bench to isolate the chest', 'Feet flat on the floor, creating a stable base', 'Feet elevated on a step for increased ROM'], correct: 1, explain: 'Feet flat on the floor provides a stable base for force production and allows leg drive. The 5 points of contact: head, upper back, and glutes on bench; both feet on floor. Feet on bench is sometimes used for rehab but reduces stability and load capacity.' },
 
     // ===== CH 17: PLYOMETRICS =====
-    { ch: 'ch17', q: 'The stretch-shortening cycle (SSC) consists of:', options: ['Concentric → isometric → eccentric phases', 'Eccentric → amortization → concentric phases', 'Isometric → eccentric → concentric phases'], correct: 1, explain: 'SSC: (1) eccentric phase (stretch/loading), (2) amortization phase (transition — should be as short as possible), (3) concentric phase (explosive shortening). A shorter amortization phase = greater use of stored elastic energy = more power output.' },
-    { ch: 'ch17', q: 'Before beginning a plyometric program, an athlete should be able to:', options: ['Squat 1.5x body weight', 'Perform 5 clap push-ups', 'Demonstrate adequate strength base (e.g., squat 1.5x BW for lower body plyo)'], correct: 2, explain: 'NSCA recommends a strength base before plyometrics: squat ≥1.5x body weight for high-intensity lower body plyometrics. For upper body: bench press ≥1.0x BW. Athletes should also demonstrate proper landing mechanics and joint stability.' },
-    { ch: 'ch17', q: 'Depth jumps are classified as:', options: ['Low-intensity plyometric exercise', 'Moderate-intensity plyometric exercise', 'High-intensity plyometric exercise'], correct: 2, explain: 'Depth jumps (stepping off a box and immediately jumping upon landing) are high-intensity plyometrics due to the high eccentric forces at ground contact. They require a significant strength base and should be progressed to gradually. Box height typically 30-42 inches.' },
-    { ch: 'ch17', q: 'Proper landing mechanics during plyometric exercises include:', options: ['Landing on the heels with locked knees', 'Landing on the balls of the feet with flexion at ankles, knees, and hips', 'Landing flat-footed with minimal knee bend'], correct: 1, explain: 'Proper landing: ball of foot contact first → heel → flex ankles, knees, and hips to absorb force. Avoid knee valgus, stiff/locked knees, and excessive forward lean. Good landing mechanics must be taught BEFORE progressing plyometric intensity.' },
+    { ch: 'ch19', q: 'The stretch-shortening cycle (SSC) consists of:', options: ['Concentric → isometric → eccentric phases', 'Eccentric → amortization → concentric phases', 'Isometric → eccentric → concentric phases'], correct: 1, explain: 'SSC: (1) eccentric phase (stretch/loading), (2) amortization phase (transition — should be as short as possible), (3) concentric phase (explosive shortening). A shorter amortization phase = greater use of stored elastic energy = more power output.' },
+    { ch: 'ch19', q: 'Before beginning a plyometric program, an athlete should be able to:', options: ['Squat 1.5x body weight', 'Perform 5 clap push-ups', 'Demonstrate adequate strength base (e.g., squat 1.5x BW for lower body plyo)'], correct: 2, explain: 'NSCA recommends a strength base before plyometrics: squat ≥1.5x body weight for high-intensity lower body plyometrics. For upper body: bench press ≥1.0x BW. Athletes should also demonstrate proper landing mechanics and joint stability.' },
+    { ch: 'ch19', q: 'Depth jumps are classified as:', options: ['Low-intensity plyometric exercise', 'Moderate-intensity plyometric exercise', 'High-intensity plyometric exercise'], correct: 2, explain: 'Depth jumps (stepping off a box and immediately jumping upon landing) are high-intensity plyometrics due to the high eccentric forces at ground contact. They require a significant strength base and should be progressed to gradually. Box height typically 30-42 inches.' },
+    { ch: 'ch19', q: 'Proper landing mechanics during plyometric exercises include:', options: ['Landing on the heels with locked knees', 'Landing on the balls of the feet with flexion at ankles, knees, and hips', 'Landing flat-footed with minimal knee bend'], correct: 1, explain: 'Proper landing: ball of foot contact first → heel → flex ankles, knees, and hips to absorb force. Avoid knee valgus, stiff/locked knees, and excessive forward lean. Good landing mechanics must be taught BEFORE progressing plyometric intensity.' },
 
     // ===== CH 18: SPEED, AGILITY & SPRINT =====
-    { ch: 'ch18', q: 'During the acceleration phase of sprinting, body lean should be:', options: ['Upright with head up', 'Forward, approximately 45 degrees', 'Backward to generate ground reaction force'], correct: 1, explain: 'During acceleration (first 10-30m), the body should lean forward at ~45 degrees with a positive shin angle to maximize horizontal force application. As the athlete transitions to maximal velocity, the torso gradually becomes more upright.' },
-    { ch: 'ch18', q: 'The difference between agility and change of direction (COD) is:', options: ['There is no difference; they are the same', 'Agility includes a reactive/cognitive component; COD is pre-planned', 'COD is more sport-specific than agility'], correct: 1, explain: 'Change of direction (COD) = pre-planned movements (e.g., cone drills). Agility = reactive, involving perception and decision-making in response to a stimulus (e.g., reacting to an opponent). True agility requires both physical ability AND cognitive processing.' },
-    { ch: 'ch18', q: 'Maximal velocity sprinting mechanics differ from acceleration in that maximal velocity involves:', options: ['Greater forward body lean and longer ground contact times', 'More upright posture, higher knee lift, and shorter ground contact times', 'Identical mechanics at higher speeds'], correct: 1, explain: 'At max velocity: more upright posture, higher knee lift (thigh nearly parallel to ground), shorter ground contact times, emphasis on vertical force application. Stride frequency plateaus and stride length is maximized. Acceleration: forward lean, positive shin angle, longer ground contact, emphasis on horizontal force.' },
+    { ch: 'ch20', q: 'During the acceleration phase of sprinting, body lean should be:', options: ['Upright with head up', 'Forward, approximately 45 degrees', 'Backward to generate ground reaction force'], correct: 1, explain: 'During acceleration (first 10-30m), the body should lean forward at ~45 degrees with a positive shin angle to maximize horizontal force application. As the athlete transitions to maximal velocity, the torso gradually becomes more upright.' },
+    { ch: 'ch20', q: 'The difference between agility and change of direction (COD) is:', options: ['There is no difference; they are the same', 'Agility includes a reactive/cognitive component; COD is pre-planned', 'COD is more sport-specific than agility'], correct: 1, explain: 'Change of direction (COD) = pre-planned movements (e.g., cone drills). Agility = reactive, involving perception and decision-making in response to a stimulus (e.g., reacting to an opponent). True agility requires both physical ability AND cognitive processing.' },
+    { ch: 'ch20', q: 'Maximal velocity sprinting mechanics differ from acceleration in that maximal velocity involves:', options: ['Greater forward body lean and longer ground contact times', 'More upright posture, higher knee lift, and shorter ground contact times', 'Identical mechanics at higher speeds'], correct: 1, explain: 'At max velocity: more upright posture, higher knee lift (thigh nearly parallel to ground), shorter ground contact times, emphasis on vertical force application. Stride frequency plateaus and stride length is maximized. Acceleration: forward lean, positive shin angle, longer ground contact, emphasis on horizontal force.' },
 
     // ===== CH 19-20: PROGRAM DESIGN & PERIODIZATION =====
-    { ch: 'ch19', q: 'The first step in designing a training program is:', options: ['Selecting exercises', 'Conducting a needs analysis', 'Determining training volume'], correct: 1, explain: 'Needs analysis comes first: (1) evaluate the sport demands (movement patterns, energy systems, common injuries), (2) assess the athlete (training history, injury history, current fitness, goals). Everything else flows from this analysis.' },
-    { ch: 'ch19', q: 'Which exercise should be performed FIRST in a session?', options: ['Bicep curl', 'Power clean', 'Leg extension'], correct: 1, explain: 'Exercise order: (1) power/explosive (clean, snatch, jump), (2) core multi-joint (squat, bench, deadlift), (3) assistance/single-joint (curls, extensions). Power exercises need maximal neural drive and should be done fresh.' },
-    { ch: 'ch19', q: 'For maximal strength, appropriate rest between sets is:', options: ['30 seconds to 1 minute', '2-5 minutes', '5-8 minutes'], correct: 1, explain: 'Strength (≥85% 1RM, 1-5 reps): 2-5 min rest. Hypertrophy (67-85% 1RM, 6-12 reps): 30-90 sec. Endurance (≤67% 1RM, 12+ reps): ≤30 sec. Power: 2-5 min. Longer rest = more PCr recovery = higher quality sets.' },
-    { ch: 'ch19', q: 'An athlete\'s 1RM squat is 300 lbs. For hypertrophy at 75% 1RM, the load is:', options: ['200 lbs', '225 lbs', '250 lbs'], correct: 1, explain: '300 x 0.75 = 225 lbs. Hypertrophy range: 67-85% 1RM for 6-12 reps with 30-90 sec rest.' },
-    { ch: 'ch19', q: 'During in-season training, the primary goal is to:', options: ['Maximize strength and power gains', 'Maintain fitness gained during off-season', 'Increase training volume to peak'], correct: 1, explain: 'In-season: maintain strength/power with reduced volume and frequency. Intensity is maintained but total training load decreases to manage competition fatigue. Off-season: build. Preseason: convert. In-season: maintain.' },
-    { ch: 'ch19', q: 'Undulating periodization differs from linear in that it:', options: ['Varies training variables within each week or session', 'Progressively increases intensity over months', 'Uses the same rep scheme throughout'], correct: 0, explain: 'Undulating (nonlinear) varies variables daily or weekly (e.g., Mon = strength 3x5, Wed = hypertrophy 3x10, Fri = power 5x3). Linear progressively increases intensity while decreasing volume over weeks/months. Both are effective; undulating may better suit athletes with unpredictable schedules.' },
-    { ch: 'ch19', q: 'A mesocycle typically lasts:', options: ['1 week', '2-6 weeks', '1 year'], correct: 1, explain: 'Microcycle = ~1 week. Mesocycle = 2-6 weeks (a training phase/block with a specific goal). Macrocycle = an entire training year or season. Periodization organizes training across these time frames.' },
-    { ch: 'ch19', q: 'For power development, the recommended load range is:', options: ['30-60% 1RM for speed-strength, 80-90% 1RM for strength-speed', 'Less than 30% 1RM', 'Greater than 95% 1RM'], correct: 0, explain: 'Power = force x velocity. Training for power uses a range of loads: lighter loads (30-60% 1RM) develop speed-strength (high velocity), heavier loads (80-90% 1RM) develop strength-speed (high force). Both zones are used in periodized power programs.' },
+    { ch: 'ch18', q: 'The first step in designing a training program is:', options: ['Selecting exercises', 'Conducting a needs analysis', 'Determining training volume'], correct: 1, explain: 'Needs analysis comes first: (1) evaluate the sport demands (movement patterns, energy systems, common injuries), (2) assess the athlete (training history, injury history, current fitness, goals). Everything else flows from this analysis.' },
+    { ch: 'ch18', q: 'Which exercise should be performed FIRST in a session?', options: ['Bicep curl', 'Power clean', 'Leg extension'], correct: 1, explain: 'Exercise order: (1) power/explosive (clean, snatch, jump), (2) core multi-joint (squat, bench, deadlift), (3) assistance/single-joint (curls, extensions). Power exercises need maximal neural drive and should be done fresh.' },
+    { ch: 'ch18', q: 'For maximal strength, appropriate rest between sets is:', options: ['30 seconds to 1 minute', '2-5 minutes', '5-8 minutes'], correct: 1, explain: 'Strength (≥85% 1RM, 1-5 reps): 2-5 min rest. Hypertrophy (67-85% 1RM, 6-12 reps): 30-90 sec. Endurance (≤67% 1RM, 12+ reps): ≤30 sec. Power: 2-5 min. Longer rest = more PCr recovery = higher quality sets.' },
+    { ch: 'ch18', q: 'An athlete\'s 1RM squat is 300 lbs. For hypertrophy at 75% 1RM, the load is:', options: ['200 lbs', '225 lbs', '250 lbs'], correct: 1, explain: '300 x 0.75 = 225 lbs. Hypertrophy range: 67-85% 1RM for 6-12 reps with 30-90 sec rest.' },
+    { ch: 'ch22', q: 'During in-season training, the primary goal is to:', options: ['Maximize strength and power gains', 'Maintain fitness gained during off-season', 'Increase training volume to peak'], correct: 1, explain: 'In-season: maintain strength/power with reduced volume and frequency. Intensity is maintained but total training load decreases to manage competition fatigue. Off-season: build. Preseason: convert. In-season: maintain.' },
+    { ch: 'ch22', q: 'Undulating periodization differs from linear in that it:', options: ['Varies training variables within each week or session', 'Progressively increases intensity over months', 'Uses the same rep scheme throughout'], correct: 0, explain: 'Undulating (nonlinear) varies variables daily or weekly (e.g., Mon = strength 3x5, Wed = hypertrophy 3x10, Fri = power 5x3). Linear progressively increases intensity while decreasing volume over weeks/months. Both are effective; undulating may better suit athletes with unpredictable schedules.' },
+    { ch: 'ch22', q: 'A mesocycle typically lasts:', options: ['1 week', '2-6 weeks', '1 year'], correct: 1, explain: 'Microcycle = ~1 week. Mesocycle = 2-6 weeks (a training phase/block with a specific goal). Macrocycle = an entire training year or season. Periodization organizes training across these time frames.' },
+    { ch: 'ch18', q: 'For power development, the recommended load range is:', options: ['30-60% 1RM for speed-strength, 80-90% 1RM for strength-speed', 'Less than 30% 1RM', 'Greater than 95% 1RM'], correct: 0, explain: 'Power = force x velocity. Training for power uses a range of loads: lighter loads (30-60% 1RM) develop speed-strength (high velocity), heavier loads (80-90% 1RM) develop strength-speed (high force). Both zones are used in periodized power programs.' },
 
     // ===== CH 21: AEROBIC ENDURANCE TRAINING =====
     { ch: 'ch21', q: 'The Karvonen formula calculates target heart rate using:', options: ['Age-predicted max HR only', 'Heart rate reserve (HRmax - HRrest) and desired intensity', 'Resting heart rate and blood pressure'], correct: 1, explain: 'Karvonen: THR = [(HRmax - HRrest) x %intensity] + HRrest. Example: HRmax = 190, HRrest = 60, intensity = 70%. THR = [(190-60) x 0.70] + 60 = 91 + 60 = 151 bpm. This accounts for individual fitness level via resting HR.' },
@@ -1080,21 +1081,21 @@ const quizQuestions = [
     { ch: 'ch21', q: 'Interval training for aerobic conditioning uses work-to-rest ratios of approximately:', options: ['1:12 to 1:20', '1:3 to 1:5', '1:1 to 1:3'], correct: 2, explain: 'Aerobic interval training: 1:1 to 1:3 work:rest (e.g., 3 min hard, 3-9 min recovery). Glycolytic intervals: 1:3 to 1:5. Phosphagen intervals: 1:12 to 1:20. The work:rest ratio determines which energy system is primarily stressed.' },
 
     // ===== CH 22-23: REHAB & AGE-SPECIFIC TRAINING =====
-    { ch: 'ch22', q: 'During the return-to-play process, the S&C coach should:', options: ['Independently decide when the athlete is ready to return', 'Collaborate with the interdisciplinary team (athletic trainer, physician, PT)', 'Wait until the athlete feels completely pain-free before any training'], correct: 1, explain: 'Return-to-play is a collaborative process involving the sports medicine team (physician, AT, PT) and the S&C coach. The S&C coach designs the reconditioning program within the medical team\'s guidelines. The S&C coach does NOT make independent return-to-play decisions.' },
-    { ch: 'ch22', q: 'Resistance training for older adults has been shown to:', options: ['Be unsafe and increase fall risk', 'Increase strength, bone density, balance, and functional capacity', 'Only be effective for adults under 65'], correct: 1, explain: 'Resistance training is safe and highly beneficial for older adults at any age. Benefits include: increased strength, improved bone density (reduced osteoporosis risk), better balance (reduced fall risk), improved functional capacity, and enhanced quality of life.' },
+    { ch: 'ch23', q: 'During the return-to-play process, the S&C coach should:', options: ['Independently decide when the athlete is ready to return', 'Collaborate with the interdisciplinary team (athletic trainer, physician, PT)', 'Wait until the athlete feels completely pain-free before any training'], correct: 1, explain: 'Return-to-play is a collaborative process involving the sports medicine team (physician, AT, PT) and the S&C coach. The S&C coach designs the reconditioning program within the medical team\'s guidelines. The S&C coach does NOT make independent return-to-play decisions.' },
+    { ch: 'ch23', q: 'Resistance training for older adults has been shown to:', options: ['Be unsafe and increase fall risk', 'Increase strength, bone density, balance, and functional capacity', 'Only be effective for adults under 65'], correct: 1, explain: 'Resistance training is safe and highly beneficial for older adults at any age. Benefits include: increased strength, improved bone density (reduced osteoporosis risk), better balance (reduced fall risk), improved functional capacity, and enhanced quality of life.' },
 
     // ===== CH 17: PLYOMETRICS (more questions) =====
-    { ch: 'ch17', q: 'The recommended plyometric volume for a beginner athlete is:', options: ['60-80 foot contacts per session', '80-100 foot contacts per session', '120-140 foot contacts per session'], correct: 1, explain: 'Beginner: 80-100 contacts. Intermediate: 100-120. Advanced: 120-140. Volume is measured in foot contacts (each time a foot hits the ground counts as one contact).' },
-    { ch: 'ch17', q: 'An athlete weighing 240 lbs wants to perform depth jumps. The maximum box height should be:', options: ['30 inches (76 cm)', '18 inches (46 cm)', '42 inches (107 cm)'], correct: 1, explain: 'Athletes over 220 lbs (100 kg) should NOT perform depth jumps from a box higher than 18 inches (46 cm) due to the excessive ground reaction forces at landing. This is a textbook-specific rule that appears on the exam.' },
-    { ch: 'ch17', q: 'The work-to-rest ratio for plyometric training is:', options: ['1:1 to 1:3', '1:5 to 1:10', '1:12 to 1:20'], correct: 1, explain: 'Plyometric work:rest = 1:5 to 1:10 (e.g., 10 seconds of work = 50-100 seconds rest). Full recovery between sets is essential because plyometrics train the phosphagen system and require maximal effort.' },
-    { ch: 'ch17', q: 'Complex training combines:', options: ['Aerobic and anaerobic exercises in the same session', 'A heavy resistance exercise followed by a biomechanically similar plyometric exercise', 'Upper body and lower body plyometrics alternating'], correct: 1, explain: 'Complex training pairs a heavy lift (e.g., heavy squats) with a biomechanically similar plyometric exercise (e.g., jump squats). It uses post-activation potentiation (PAP) — the heavy load enhances subsequent explosive performance. Rest 3-4 minutes between the pair.' },
-    { ch: 'ch17', q: 'The amortization phase of the stretch-shortening cycle should be:', options: ['As long as possible to maximize energy storage', 'As short as possible to maximize power output', 'Equal in duration to the eccentric phase'], correct: 1, explain: 'The amortization phase is the transition between eccentric (stretch) and concentric (shortening). A longer amortization = more elastic energy dissipated as heat = LESS power. Keeping it short maximizes the use of stored elastic energy and the stretch reflex contribution.' },
+    { ch: 'ch19', q: 'The recommended plyometric volume for a beginner athlete is:', options: ['60-80 foot contacts per session', '80-100 foot contacts per session', '120-140 foot contacts per session'], correct: 1, explain: 'Beginner: 80-100 contacts. Intermediate: 100-120. Advanced: 120-140. Volume is measured in foot contacts (each time a foot hits the ground counts as one contact).' },
+    { ch: 'ch19', q: 'An athlete weighing 240 lbs wants to perform depth jumps. The maximum box height should be:', options: ['30 inches (76 cm)', '18 inches (46 cm)', '42 inches (107 cm)'], correct: 1, explain: 'Athletes over 220 lbs (100 kg) should NOT perform depth jumps from a box higher than 18 inches (46 cm) due to the excessive ground reaction forces at landing. This is a textbook-specific rule that appears on the exam.' },
+    { ch: 'ch19', q: 'The work-to-rest ratio for plyometric training is:', options: ['1:1 to 1:3', '1:5 to 1:10', '1:12 to 1:20'], correct: 1, explain: 'Plyometric work:rest = 1:5 to 1:10 (e.g., 10 seconds of work = 50-100 seconds rest). Full recovery between sets is essential because plyometrics train the phosphagen system and require maximal effort.' },
+    { ch: 'ch19', q: 'Complex training combines:', options: ['Aerobic and anaerobic exercises in the same session', 'A heavy resistance exercise followed by a biomechanically similar plyometric exercise', 'Upper body and lower body plyometrics alternating'], correct: 1, explain: 'Complex training pairs a heavy lift (e.g., heavy squats) with a biomechanically similar plyometric exercise (e.g., jump squats). It uses post-activation potentiation (PAP) — the heavy load enhances subsequent explosive performance. Rest 3-4 minutes between the pair.' },
+    { ch: 'ch19', q: 'The amortization phase of the stretch-shortening cycle should be:', options: ['As long as possible to maximize energy storage', 'As short as possible to maximize power output', 'Equal in duration to the eccentric phase'], correct: 1, explain: 'The amortization phase is the transition between eccentric (stretch) and concentric (shortening). A longer amortization = more elastic energy dissipated as heat = LESS power. Keeping it short maximizes the use of stored elastic energy and the stretch reflex contribution.' },
 
     // ===== CH 18: SPEED & AGILITY (more questions) =====
-    { ch: 'ch18', q: 'When using a weighted sled for resisted sprinting, the load should NOT decrease sprint speed by more than:', options: ['5%', '10%', '25%'], correct: 1, explain: 'Sled load should not decrease speed by more than 10%. Heavier loads alter sprint mechanics too much, making the training less specific to actual sprinting. The purpose is to overload acceleration while maintaining similar movement patterns.' },
-    { ch: 'ch18', q: 'The work-to-rest ratio for speed development is:', options: ['1:1 to 1:3', '1:3 to 1:5', '1:12 to 1:20'], correct: 2, explain: 'Speed training uses the phosphagen system and requires full recovery: work:rest = 1:12 to 1:20. This ensures maximum quality on each sprint rep. Compare: agility = 1:4 to 1:8, glycolytic = 1:3 to 1:5, aerobic = 1:1 to 1:3.' },
-    { ch: 'ch18', q: 'Reactive agility differs from planned change-of-direction in that reactive agility:', options: ['Uses only pre-planned movements', 'Requires responding to an unpredictable stimulus', 'Is performed at lower intensities'], correct: 1, explain: 'Planned COD = pre-determined direction changes (closed skill, like a cone drill). Reactive agility = responding to unpredictable stimuli (open skill, like reacting to an opponent). True sport agility requires both physical ability AND cognitive/perceptual processing.' },
-    { ch: 'ch18', q: 'Assisted (overspeed) sprinting is used to develop:', options: ['Acceleration ability', 'Stride frequency (leg turnover speed)', 'Maximal strength'], correct: 1, explain: 'Assisted sprinting (towing, slight downhill <3 degrees) trains the neuromuscular system at supramaximal speeds to increase stride frequency. Resisted sprinting (sleds, hills) develops acceleration and stride length. Both are used but with caution due to injury risk.' },
+    { ch: 'ch20', q: 'When using a weighted sled for resisted sprinting, the load should NOT decrease sprint speed by more than:', options: ['5%', '10%', '25%'], correct: 1, explain: 'Sled load should not decrease speed by more than 10%. Heavier loads alter sprint mechanics too much, making the training less specific to actual sprinting. The purpose is to overload acceleration while maintaining similar movement patterns.' },
+    { ch: 'ch20', q: 'The work-to-rest ratio for speed development is:', options: ['1:1 to 1:3', '1:3 to 1:5', '1:12 to 1:20'], correct: 2, explain: 'Speed training uses the phosphagen system and requires full recovery: work:rest = 1:12 to 1:20. This ensures maximum quality on each sprint rep. Compare: agility = 1:4 to 1:8, glycolytic = 1:3 to 1:5, aerobic = 1:1 to 1:3.' },
+    { ch: 'ch20', q: 'Reactive agility differs from planned change-of-direction in that reactive agility:', options: ['Uses only pre-planned movements', 'Requires responding to an unpredictable stimulus', 'Is performed at lower intensities'], correct: 1, explain: 'Planned COD = pre-determined direction changes (closed skill, like a cone drill). Reactive agility = responding to unpredictable stimuli (open skill, like reacting to an opponent). True sport agility requires both physical ability AND cognitive/perceptual processing.' },
+    { ch: 'ch20', q: 'Assisted (overspeed) sprinting is used to develop:', options: ['Acceleration ability', 'Stride frequency (leg turnover speed)', 'Maximal strength'], correct: 1, explain: 'Assisted sprinting (towing, slight downhill <3 degrees) trains the neuromuscular system at supramaximal speeds to increase stride frequency. Resisted sprinting (sleds, hills) develops acceleration and stride length. Both are used but with caution due to injury risk.' },
 
     // ===== CH 21: AEROBIC ENDURANCE (more questions) =====
     { ch: 'ch21', q: 'A 25-year-old athlete has a resting HR of 65 bpm. Using the Karvonen formula, what is the target HR at 75% intensity?', options: ['148 bpm', '163 bpm', '150 bpm'], correct: 1, explain: 'HRmax = 220 - 25 = 195. HRR = 195 - 65 = 130. THR = (130 x 0.75) + 65 = 97.5 + 65 = 162.5, rounded to 163 bpm. Remember: THR = (HRR x %intensity) + HRrest.' },
@@ -1297,7 +1298,7 @@ function updateDashboard() {
     // Video queue - shows all unlocked but unwatched videos
     const unwatched = getUnwatchedVideos();
     const videoQueueDiv = document.getElementById('video-queue');
-    const chNames = { ch1:'Ch 1',ch2:'Ch 2',ch3:'Ch 3',ch4:'Ch 4',ch5:'Ch 5',ch6:'Ch 6',ch7:'Ch 7',ch8:'Ch 8',ch9:'Ch 9',ch10:'Ch 10',ch11:'Ch 11',ch12:'Ch 12',ch13:'Ch 13-14',ch14:'Ch 15',ch16:'Ch 16-17',ch17:'Ch 19',ch18:'Ch 20',ch19:'Ch 18 & 22',ch21:'Ch 21',ch22:'Ch 23',ch24:'Ch 24',ch25:'Ch 25-26' };
+    const chNames = { ch1:'Ch 1',ch2:'Ch 2',ch3:'Ch 3',ch4:'Ch 4',ch5:'Ch 5',ch6:'Ch 6',ch7:'Ch 7',ch8:'Ch 8',ch9:'Ch 9',ch10:'Ch 10',ch11:'Ch 11',ch12:'Ch 12',ch13:'Ch 13-14',ch15:'Ch 15',ch16:'Ch 16-17',ch18:'Ch 18',ch19:'Ch 19',ch20:'Ch 20',ch21:'Ch 21',ch22:'Ch 22',ch23:'Ch 23',ch24:'Ch 24',ch25:'Ch 25-26' };
     // Get recently watched (for undo)
     const watched = [];
     videoSchedule.forEach(vs => {
@@ -1471,7 +1472,7 @@ let answered = false;
 function loadQuiz() {
     const sel = document.getElementById('quiz-domain').value;
     const sfChapters = ['ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10','ch11','ch12'];
-    const paChapters = ['ch13','ch14','ch16','ch17','ch18','ch19','ch21','ch22','ch24','ch25'];
+    const paChapters = ['ch13','ch15','ch16','ch18','ch19','ch20','ch21','ch22','ch23','ch24','ch25'];
 
     if (sel === 'all') {
         quizPool = [...quizQuestions].sort(() => Math.random() - 0.5);
@@ -1743,7 +1744,7 @@ const chapterVideos = {
         { title: 'Ch 12 Summary: Test Selection', url: 'https://www.youtube.com/watch?v=Joe8-V2uo2c' },
         { title: 'Ch 13 Summary: Test Administration & Scoring', url: 'https://www.youtube.com/watch?v=enD6YGWNHjQ' },
     ],
-    ch14: [
+    ch15: [
         { title: 'CSCS Ch 15/16 Exercise Technique (Show Up Fitness)', url: 'https://www.youtube.com/watch?v=2seQdU8Axlg' },
     ],
     ch16: [
@@ -1751,24 +1752,22 @@ const chapterVideos = {
         { title: 'CSCS Exercise Technique Video Breakdown', url: 'https://www.youtube.com/watch?v=1jgVqvEnvj8' },
         { title: 'CSCS Exercise Technique: Speed and Agility', url: 'https://www.youtube.com/watch?v=vda-hKgnEec' },
     ],
-    ch17: [
-        { title: 'What are Plyometrics?', url: 'https://www.youtube.com/watch?v=v6HRpVecPuA' },
-        { title: 'Plyometric Programming Guidelines', url: 'https://www.youtube.com/watch?v=YyapIa_LbRU' },
-        { title: 'Ch 18 Summary: Plyometric Training', url: 'https://www.youtube.com/watch?v=KmhWTXghAfc' },
-    ],
     ch18: [
-        { title: 'Speed & Agility Technique and Programming', url: 'https://www.youtube.com/watch?v=qfGrGDoLQYc' },
-        { title: 'RFD, Impulse & Stride Characteristics', url: 'https://www.youtube.com/watch?v=6nsV6N8erlc' },
-        { title: 'Ch 19 Summary: Speed & Agility', url: 'https://www.youtube.com/watch?v=Ad_628Pt0ok' },
-    ],
-    ch19: [
         { title: 'Exercise Order', url: 'https://www.youtube.com/watch?v=_cs56HmyqC8' },
         { title: 'Training Load & Repetitions', url: 'https://www.youtube.com/watch?v=lqNKJPNNzBg' },
         { title: 'Volume & Rest Periods', url: 'https://www.youtube.com/watch?v=HgCqnDA6cio' },
         { title: 'Ch 17 Summary: Program Design', url: 'https://www.youtube.com/watch?v=0Hr04YIvwlc' },
         { title: 'Complete Guide to RT Program Design (Full Lecture)', url: 'https://www.youtube.com/watch?v=342ALAEwapQ' },
-        { title: 'Periodization: Macro, Meso & Microcycles', url: 'https://www.youtube.com/watch?v=iFu_uB0S-go' },
-        { title: 'Ch 21 Summary: Periodization', url: 'https://www.youtube.com/watch?v=iwQQczM9Nkk' },
+    ],
+    ch19: [
+        { title: 'What are Plyometrics?', url: 'https://www.youtube.com/watch?v=v6HRpVecPuA' },
+        { title: 'Plyometric Programming Guidelines', url: 'https://www.youtube.com/watch?v=YyapIa_LbRU' },
+        { title: 'Ch 18 Summary: Plyometric Training', url: 'https://www.youtube.com/watch?v=KmhWTXghAfc' },
+    ],
+    ch20: [
+        { title: 'Speed & Agility Technique and Programming', url: 'https://www.youtube.com/watch?v=qfGrGDoLQYc' },
+        { title: 'RFD, Impulse & Stride Characteristics', url: 'https://www.youtube.com/watch?v=6nsV6N8erlc' },
+        { title: 'Ch 19 Summary: Speed & Agility', url: 'https://www.youtube.com/watch?v=Ad_628Pt0ok' },
     ],
     ch21: [
         { title: 'Programming for Aerobic Endurance', url: 'https://www.youtube.com/watch?v=2OJhTTrIM24' },
@@ -1776,6 +1775,10 @@ const chapterVideos = {
         { title: 'Ch 20 Summary: Aerobic Endurance', url: 'https://www.youtube.com/watch?v=rgRNvEcfs7I' },
     ],
     ch22: [
+        { title: 'Periodization: Macro, Meso & Microcycles', url: 'https://www.youtube.com/watch?v=iFu_uB0S-go' },
+        { title: 'Ch 21 Summary: Periodization', url: 'https://www.youtube.com/watch?v=iwQQczM9Nkk' },
+    ],
+    ch23: [
         { title: 'Ch 22 Summary: Rehabilitation', url: 'https://www.youtube.com/watch?v=cL5z9PiNRJw' },
     ],
     ch24: [
@@ -1801,10 +1804,9 @@ const videoSchedule = [
     { date: '2026-05-15', ch: 'ch11' },
     { date: '2026-05-16', ch: 'ch12' },
     { date: '2026-05-19', ch: 'ch13' },
-    { date: '2026-05-21', ch: 'ch14' },
+    { date: '2026-05-21', ch: 'ch15' },
     { date: '2026-05-22', ch: 'ch16' },
-    { date: '2026-05-23', ch: 'ch17' },
-    { date: '2026-05-28', ch: 'ch18' },
+    { date: '2026-05-25', ch: 'ch18' },
     { date: '2026-05-29', ch: 'ch19' },
     { date: '2026-05-31', ch: 'ch20' },
     { date: '2026-06-01', ch: 'ch21' },
@@ -1859,13 +1861,14 @@ function updateChapterScores() {
         ch11: 'Ch 11 - Nutrition Strategies',
         ch12: 'Ch 12 - Performance-Enhancing Substances',
         ch13: 'Ch 13-14 - Testing & Evaluation',
-        ch14: 'Ch 15 - Performance Prep & Flexibility',
+        ch15: 'Ch 15 - Performance Prep, Mobility & Flexibility',
         ch16: 'Ch 16-17 - Exercise Technique',
-        ch17: 'Ch 19 - Plyometric Training',
-        ch18: 'Ch 20 - Speed & Agility',
-        ch19: 'Ch 18 & 22 - Program Design & Periodization',
+        ch18: 'Ch 18 - Program Design for Resistance Training',
+        ch19: 'Ch 19 - Plyometric Training',
+        ch20: 'Ch 20 - Speed & Agility',
         ch21: 'Ch 21 - Aerobic Endurance',
-        ch22: 'Ch 23 - Rehab & Reconditioning',
+        ch22: 'Ch 22 - Periodization',
+        ch23: 'Ch 23 - Rehab & Reconditioning',
         ch24: 'Ch 24 - Overtraining & Recovery',
         ch25: 'Ch 25-26 - Facility & Legal',
     };
