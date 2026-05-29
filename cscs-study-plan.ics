@@ -274,71 +274,71 @@ END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260527
 DTEND;VALUE=DATE:20260528
-SUMMARY:CSCS: Program Design Practice Day
-DESCRIPTION:Claude session: program design scenarios\nDesign programs for: football lineman\, soccer midfielder\, swimmer\nPractice needs analysis\nPocket Prep: 25 questions
+SUMMARY:CSCS: Ch 18c - Program Design (continued)
+DESCRIPTION:Continue Ch 18: load assignment\, %1RM\, volume\, rest periods by goal\nPractice program design scenarios with Claude\nRe-read the master load/reps/sets/rest table
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260528
 DTEND;VALUE=DATE:20260529
-SUMMARY:CSCS: Ch 21 - Aerobic Endurance Training
-DESCRIPTION:Watch: Endurance Training Design video (45 min)\nKey concepts: Karvonen method\, heart rate zones\, interval training\nTextbook Ch 21
+SUMMARY:CSCS: Ch 18 finish + Quizzes (16\, 17\, 18\, 22)
+DESCRIPTION:Finish reading Ch 18 (Program Design - the big one)\nTake practice quizzes: Ch 16\, 17\, 18\, and 22\nCh 18 videos still pending - watch tomorrow AM on the commute\nReview missed quiz questions with Claude
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260529
 DTEND;VALUE=DATE:20260530
-SUMMARY:CSCS: Ch 22-23 - Rehab & Age-Specific
-DESCRIPTION:Watch: Return to Play & Youth Training videos (60 min)\nKey concepts: rehab progressions\, youth/older adult guidelines\nTextbook Ch 22-23
+SUMMARY:CSCS: Ch 18 videos (AM) + Ch 19 Plyometrics Pt 1
+DESCRIPTION:AM commute: watch remaining Ch 18 videos\nLight evening (busy after work) - keep it short\nCh 19 Pt 1: stretch-shortening cycle (eccentric\, amortization\, concentric)\nPlyometric prerequisites and safety: strength base\, landing technique
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260530
 DTEND;VALUE=DATE:20260531
-SUMMARY:CSCS: Program Design Review
-DESCRIPTION:Review all program design notes\nPractice: 3 program design scenarios with Claude\nPocket Prep: 30 questions\nCreate cheat sheets for rep ranges\, rest periods
+SUMMARY:CSCS: Ch 19 Plyometrics Pt 2 + quiz
+DESCRIPTION:Program variables: intensity levels\, volume (foot contacts by level)\nFrequency and recovery (48-72h)\, depth jump box height and progression\nIntegrating plyometrics with resistance training\nTake Ch 19 quiz
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260531
 DTEND;VALUE=DATE:20260601
-SUMMARY:CSCS: Ch 24 - Overtraining & Recovery (NEW)
-DESCRIPTION:Watch: Overtraining & Recovery videos (45 min)\nKey concepts: functional vs nonfunctional overreaching\, OTS\nThis chapter is NEW in 5th edition!\nTextbook Ch 24
+SUMMARY:CSCS: Ch 20 - Speed and Agility
+DESCRIPTION:Watch Ch 20 videos\nSprint mechanics: stride frequency x stride length\, acceleration vs max velocity\nCOD vs agility\, resisted/assisted methods\nClaude session + take Ch 20 quiz
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260601
 DTEND;VALUE=DATE:20260602
-SUMMARY:CSCS: Ch 25-26 - Facility & Admin
-DESCRIPTION:Watch: Facility & Admin videos (45 min)\nKey concepts: facility layout\, emergency procedures\, scope of practice\, liability\nTextbook Ch 25-26
+SUMMARY:CSCS: Ch 21 - Aerobic Endurance Training
+DESCRIPTION:Watch Ch 21 videos\nKarvonen formula\, LSD\, intervals\, fartlek\, HIIT\n%HRR = %VO2max\, training methods\nClaude session + take Ch 21 quiz
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260602
 DTEND;VALUE=DATE:20260603
-SUMMARY:CSCS: Organization & Admin Deep Review
-DESCRIPTION:Pocket Prep: 20 questions (Org & Admin)\nClaude session: Org & Admin scenario quiz\nReview legal concepts\, standard of care
+SUMMARY:CSCS: Ch 22 - Periodization
+DESCRIPTION:Watch Ch 22 videos\nLinear\, undulating (DUP)\, block; macro/meso/microcycles\nPhases: hypertrophy to basic strength to strength/power to peaking to active rest\nClaude session + take Ch 22 quiz
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260603
 DTEND;VALUE=DATE:20260604
-SUMMARY:CSCS: Full Practical/Applied Review
-DESCRIPTION:Review ALL Practical/Applied notes\nFocus on program design tables\, exercise technique cues\nPocket Prep: 40 questions\nClaude session: comprehensive review
+SUMMARY:CSCS: Ch 23 - Rehabilitation and Reconditioning
+DESCRIPTION:Watch Ch 23 videos\nTissue healing phases\, return to play\, allied health team\nClaude session + take Ch 23 quiz
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260604
 DTEND;VALUE=DATE:20260605
-SUMMARY:CSCS: Practical/Applied Practice Exam
-DESCRIPTION:Full timed practice exam - Practical/Applied\n125 questions in 150 minutes\nReview all incorrect answers\nScore analysis by domain
+SUMMARY:CSCS: Ch 24 - Overtraining and Recovery (NEW)
+DESCRIPTION:Watch Ch 24 videos\nGAS\, functional vs nonfunctional overreaching\, OTS\nRecovery methods and monitoring\nThis chapter is NEW in 5th edition\nClaude session + take Ch 24 quiz
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260605
 DTEND;VALUE=DATE:20260606
-SUMMARY:CSCS: Weak Areas Deep Dive
-DESCRIPTION:Deep review of weakest 2-3 domains from practice exam\nRe-watch relevant video lectures\nClaude session: targeted drilling\nPocket Prep: 25 focused questions
+SUMMARY:CSCS: Ch 25-26 - Facility and Legal (last chapters!)
+DESCRIPTION:Watch Ch 25-26 videos\nSpace requirements\, equipment\, negligence (4 elements)\, EAP\, scope of practice\nAll textbook content complete after today\nClaude session + take Ch 25-26 quiz
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
