@@ -640,6 +640,38 @@
 
     <!-- QUIZ -->
     <div class="section" id="sec-quiz">
+        <div class="card" id="mock-launcher-card">
+            <h2>🎯 Mock Exams</h2>
+            <p style="font-size: 14px; color: var(--text-dim); margin-bottom: 14px;">Timed, exam-style simulation — <strong>no feedback until you finish</strong>, just like the real thing. Questions are drawn to the real blueprint weights. Aim for 70%+ as a readiness proxy (the actual exam is scaled-scored).</p>
+            <button class="btn btn-primary" onclick="startMock('sf')">Start SF Mock — 95 Q · 90 min</button>
+            <div style="font-size: 12px; color: var(--text-dim); margin-top: 10px;">PA mock (125 Q · 150 min) unlocks once you finish the book (Ch 21–26).</div>
+            <div id="mock-history" style="margin-top: 16px;"></div>
+        </div>
+
+        <div class="card" id="mock-runner" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h2 id="mock-title" style="margin: 0;">Mock Exam</h2>
+                <div id="mock-timer" style="font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums;">90:00</div>
+            </div>
+            <div class="progress-bar" style="margin-bottom: 16px;"><div class="progress-fill" id="mock-progress" style="width: 0%;"></div></div>
+            <div id="mock-body">
+                <div class="quiz-question" id="mock-q"></div>
+                <div id="mock-options"></div>
+                <div class="quiz-nav" style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+                    <span id="mock-count" style="font-size: 13px; color: var(--text-dim);"></span>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-secondary" id="mock-prev" onclick="mockNav(-1)">Previous</button>
+                        <button class="btn btn-primary" id="mock-next" onclick="mockNav(1)">Next</button>
+                    </div>
+                </div>
+                <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); text-align: right;">
+                    <button class="btn btn-secondary" onclick="mockFinish(false)">Finish Exam</button>
+                </div>
+            </div>
+            <div id="mock-results" style="display: none;"></div>
+        </div>
+
+        <div id="practice-cards">
         <div class="card">
             <div class="quiz-header">
                 <h2>Practice Quiz</h2>
@@ -698,6 +730,7 @@
             <h2>Chapter Quiz Scores</h2>
             <div id="chapter-scores" style="font-size: 13px;"></div>
         </div>
+        </div><!-- /practice-cards -->
     </div>
 
     <!-- CHECKLIST -->
@@ -1124,6 +1157,36 @@ const quizQuestions = [
     { ch: 'ch25', q: 'The CSCS scope of practice includes all EXCEPT:', options: ['Designing strength and conditioning programs', 'Diagnosing injuries and prescribing rehabilitation', 'Providing general nutrition information'], correct: 1, explain: 'A CSCS does NOT diagnose injuries, prescribe rehab, provide medical advice, counsel on mental health, or create individualized meal plans. They DO design S&C programs, teach exercise technique, provide general nutrition info, and refer athletes to appropriate professionals when needed.' },
     { ch: 'ch25', q: 'An assumption of risk waiver:', options: ['Eliminates all legal liability for the S&C professional', 'Documents that the participant understands the inherent risks of the activity', 'Is not legally relevant in negligence cases'], correct: 1, explain: 'An assumption of risk waiver documents that the participant acknowledges and accepts inherent risks. It does NOT eliminate liability for negligence, gross negligence, or reckless conduct. Proper supervision, instruction, equipment maintenance, and emergency procedures are still required regardless of waivers.' },
     { ch: 'ch25', q: 'The recommended professional-to-athlete supervision ratio for a weight room is:', options: ['1:1', '1:10', '1:20-25'], correct: 2, explain: 'NSCA recommends approximately 1 qualified supervisor per 20-25 athletes in the weight room, though ratios may need to be lower for less experienced athletes, youth populations, or when complex exercises (Olympic lifts) are being performed.' },
+
+    // ===== MOCK EXAM SUPPLEMENT: extra Sport Psychology (ch9) to support blueprint-weighted SF mock =====
+    { ch: 'ch9', q: 'According to the inverted-U hypothesis, performance is optimized at:', options: ['The lowest possible level of arousal', 'A moderate level of arousal', 'The highest possible level of arousal'], correct: 1, explain: 'The inverted-U hypothesis states performance improves as arousal rises to an optimal (moderate) point, then declines as arousal keeps increasing. Both too little and too much arousal impair performance.' },
+    { ch: 'ch9', q: 'Drive theory proposes that for a well-learned skill, increasing arousal will:', options: ['Decrease performance linearly', 'Increase performance in a roughly linear fashion', 'Have no effect on performance'], correct: 1, explain: 'Drive theory predicts a linear relationship: as arousal increases, performance of the dominant (well-learned) response increases. It holds best for simple/mastered skills; for complex skills, high arousal elicits errors.' },
+    { ch: 'ch9', q: 'A wrestler who feels intense nervousness only in the moments before a match is experiencing:', options: ['Trait anxiety', 'State anxiety', 'Somatic trait anxiety'], correct: 1, explain: 'State anxiety is a temporary, situation-specific emotional response (right before competing). Trait anxiety is a stable personality disposition to perceive many situations as threatening.' },
+    { ch: 'ch9', q: 'Racing thoughts and worry about a competition\'s outcome are signs of:', options: ['Somatic anxiety', 'Cognitive anxiety', 'Physiological arousal'], correct: 1, explain: 'Cognitive anxiety = the mental component (worry, negative thoughts). Somatic anxiety = the physical component (sweaty palms, racing heart, muscle tension).' },
+    { ch: 'ch9', q: 'According to Bandura, the MOST powerful source of self-efficacy is:', options: ['Verbal persuasion from a coach', 'Previous performance accomplishments', 'Watching a teammate succeed'], correct: 1, explain: 'Past performance accomplishments (mastery experiences) are the strongest source of self-efficacy. Vicarious experience, verbal persuasion, and physiological/emotional states have weaker effects.' },
+    { ch: 'ch9', q: 'Self-determination theory identifies three basic psychological needs: autonomy, relatedness, and:', options: ['Competence', 'Recognition', 'Arousal'], correct: 0, explain: 'Self-determination theory holds intrinsic motivation is fostered when three needs are met: autonomy (choice/control), competence (mastery), and relatedness (connection to others).' },
+    { ch: 'ch9', q: 'An athlete who trains primarily because she enjoys the process and satisfaction of improving shows:', options: ['Extrinsic motivation', 'Intrinsic motivation', 'Amotivation'], correct: 1, explain: 'Intrinsic motivation comes from internal sources — enjoyment, satisfaction, pursuit of mastery. Extrinsic motivation comes from external rewards. Over-reliance on extrinsic rewards can undermine intrinsic motivation.' },
+    { ch: 'ch9', q: 'Which type of goal is LEAST within an athlete\'s personal control?', options: ['Process goal', 'Performance goal', 'Outcome goal'], correct: 2, explain: 'Outcome goals (e.g., winning) depend on opponents and factors outside the athlete\'s control. Performance goals (personal standards) and process goals (technique execution) are more controllable and should be the primary focus.' },
+    { ch: 'ch9', q: 'Focusing on "keeping my elbows high during the clean" is an example of a:', options: ['Process goal', 'Outcome goal', 'Subjective goal'], correct: 0, explain: 'Process goals target the specific actions/techniques executed during performance. They are fully controllable and direct attention to execution rather than results.' },
+    { ch: 'ch9', q: 'Nideffer\'s model describes attentional focus along two dimensions: width (broad–narrow) and:', options: ['Direction (internal–external)', 'Duration (short–long)', 'Intensity (high–low)'], correct: 0, explain: 'Attentional focus varies by width (broad vs narrow) and direction (internal vs external). A QB scanning the field uses broad-external focus; a golfer lining up a putt uses narrow-external focus.' },
+    { ch: 'ch9', q: 'Performing imagery from a first-person perspective, "seeing" through your own eyes, is called:', options: ['External imagery', 'Internal imagery', 'Kinesthetic dissociation'], correct: 1, explain: 'Internal imagery = first-person view (looking out through your own eyes), often paired with kinesthetic feel. External imagery = third-person view (watching yourself as if on video).' },
+    { ch: 'ch9', q: 'The three phases of a psychological skills training (PST) program are education, acquisition, and:', options: ['Practice', 'Evaluation', 'Competition'], correct: 0, explain: 'PST proceeds through education (why skills matter), acquisition (learning the techniques), and practice (rehearsing until automatic and integrating into competition).' },
+    { ch: 'ch9', q: 'A coach praises an athlete immediately after a well-executed lift to increase the chance it recurs. This is:', options: ['Positive reinforcement', 'Negative reinforcement', 'Punishment'], correct: 0, explain: 'Positive reinforcement = adding a desirable stimulus (praise) to increase a behavior. Negative reinforcement removes an aversive stimulus to increase behavior. Punishment decreases a behavior.' },
+    { ch: 'ch9', q: 'An athlete with a strong TASK (mastery) goal orientation judges success primarily by:', options: ['Beating other competitors', 'Self-improvement and effort', 'External rewards received'], correct: 1, explain: 'Task/mastery orientation defines success as personal improvement, effort, and mastery. Ego orientation defines success as outperforming others. Task orientation is linked to more adaptive motivation.' },
+    { ch: 'ch9', q: 'The Individualized Zones of Optimal Functioning (IZOF) model suggests that:', options: ['All athletes perform best at moderate arousal', 'Each athlete has a personal band of arousal/anxiety for best performance', 'Anxiety always harms performance'], correct: 1, explain: 'IZOF (Hanin) proposes each athlete has an individualized optimal zone of pre-competition anxiety/arousal — low for some, high for others. Performance suffers outside that personal zone.' },
+    { ch: 'ch9', q: 'Replacing "Don\'t miss this lift" with "Drive through the floor" is an example of:', options: ['Negative reinforcement', 'Positive/instructional self-talk', 'Somatic relaxation'], correct: 1, explain: 'Instructional/positive self-talk directs attention to what TO do (technique cues) rather than what to avoid, improving focus, confidence, and performance versus negative self-talk.' },
+    { ch: 'ch9', q: 'Progressive muscle relaxation and diaphragmatic breathing are used primarily to:', options: ['Increase arousal before competition', 'Reduce somatic (physical) anxiety/arousal', 'Improve muscular strength'], correct: 1, explain: 'These are arousal-reduction techniques targeting the somatic component — lowering muscle tension and heart rate. "Psych-up" strategies are used instead when an athlete needs to raise arousal.' },
+    { ch: 'ch9', q: 'In attribution theory, attributing a loss to "bad luck" is classified as:', options: ['Internal and stable', 'External and unstable', 'Internal and controllable'], correct: 1, explain: 'Attributions vary by locus (internal/external), stability, and controllability. Luck is external (outside the athlete) and unstable (changes situation to situation). Effort is internal and controllable.' },
+    { ch: 'ch9', q: 'A consistent pre-performance routine before each lift or free throw mainly helps by:', options: ['Increasing trait anxiety', 'Providing consistency and focusing attention', 'Eliminating the need for physical practice'], correct: 1, explain: 'A pre-performance routine creates consistency, directs attention to relevant cues, and helps regulate arousal — reducing the influence of distractions and pressure on well-learned skills.' },
+    { ch: 'ch9', q: 'Under high pressure, "choking" in a well-learned skill is often explained by the athlete:', options: ['Shifting to conscious control of an automatic skill', 'Having too little arousal', 'Lacking physical preparation'], correct: 0, explain: 'Choking commonly occurs when pressure causes conscious monitoring/control of a skill that should be automatic ("paralysis by analysis"), disrupting smooth execution. Routines and external focus help prevent it.' },
+
+    // ===== MOCK EXAM SUPPLEMENT: extra Nutrition (ch10-12) =====
+    { ch: 'ch10', q: 'How many kilocalories are provided per gram of dietary fat?', options: ['4 kcal/g', '7 kcal/g', '9 kcal/g'], correct: 2, explain: 'Fat provides 9 kcal/g — more than twice carbohydrate or protein (4 kcal/g each). Alcohol provides 7 kcal/g. This is why fat is energy-dense.' },
+    { ch: 'ch10', q: 'Compared with the general RDA of ~0.8 g/kg/day, the protein needs of strength/power athletes are:', options: ['Lower', 'About the same', 'Higher (roughly 1.2–2.0 g/kg/day)'], correct: 2, explain: 'Strength/power athletes need more protein than sedentary people — commonly ~1.2–2.0 g/kg/day — to support muscle repair and remodeling. Intakes far beyond needs offer no added benefit.' },
+    { ch: 'ch11', q: 'To maximize the RATE of muscle glycogen resynthesis immediately after exhaustive exercise, consume:', options: ['Low-glycemic carbohydrates only', 'High-glycemic carbohydrate soon after exercise', 'Protein with no carbohydrate'], correct: 1, explain: 'Glycogen resynthesis is fastest when high-glycemic carbohydrate is taken soon after exercise, when muscle is most insulin-sensitive. Adding protein aids recovery, but carbohydrate timing/type drives glycogen replenishment.' },
+    { ch: 'ch11', q: 'The female athlete triad consists of low energy availability, menstrual dysfunction, and:', options: ['Iron-deficiency anemia', 'Reduced bone mineral density', 'Chronic dehydration'], correct: 1, explain: 'The triad links low energy availability (inadequate intake relative to expenditure), menstrual dysfunction (e.g., amenorrhea), and low bone mineral density (risk of stress fractures/osteoporosis).' },
+    { ch: 'ch12', q: 'A common creatine monohydrate loading protocol is approximately:', options: ['~20 g/day for 5–7 days, then 3–5 g/day', '~5 g once per week', '~50 g/day for 14 days'], correct: 0, explain: 'A typical loading phase is ~20 g/day (4 doses) for 5–7 days to saturate muscle creatine, then ~3–5 g/day maintenance. Loading can be skipped by taking ~3–5 g/day for several weeks.' },
+    { ch: 'ch12', q: 'Caffeine\'s primary ergogenic mechanism is:', options: ['Acting as a central nervous system adenosine receptor antagonist', 'Directly increasing muscle protein synthesis', 'Buffering hydrogen ions within the muscle'], correct: 0, explain: 'Caffeine blocks adenosine receptors, reducing perceived effort and increasing alertness (ergogenic dose ~3–6 mg/kg). Buffering aids are different: sodium bicarbonate (blood) and beta-alanine (via muscle carnosine).' },
 ];
 
 // Resources data
@@ -1176,11 +1239,20 @@ async function cloudLoad() {
                     const l = (local.chapterStats || {})[ch] || { total: 0, correct: 0 };
                     state.chapterStats[ch] = { total: Math.max(c.total, l.total), correct: Math.max(c.correct, l.correct) };
                 }
+                // Merge mock-exam benchmark history (append-only) from both cloud and local, de-duplicated
+                const mockSeen = new Set();
+                state.mockResults = [...(cloud.mockResults || []), ...(local.mockResults || [])].filter(r => {
+                    const k = `${r.type}|${r.date}|${r.correct}|${r.total}|${r.secondsUsed}`;
+                    if (mockSeen.has(k)) return false;
+                    mockSeen.add(k);
+                    return true;
+                });
                 localStorage.setItem('cscs-study-state', JSON.stringify(state));
                 updateDashboard();
                 renderCalendar();
                 renderChecklists();
                 updateChapterScores();
+                renderMockHistory();
             }
         }
     } catch (e) { /* offline, use local */ }
@@ -1629,6 +1701,207 @@ function showReview() {
 }
 
 // ============================================================
+// MOCK EXAM (timed, exam-style — no feedback until finish)
+// ============================================================
+const MOCK_CONFIG = {
+    sf: {
+        name: 'Scientific Foundations',
+        minutes: 90,
+        domains: [
+            { key: 'exsci', label: 'Exercise Science', chapters: ['ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8'], count: 57 },
+            { key: 'psych', label: 'Sport Psychology', chapters: ['ch9'], count: 24 },
+            { key: 'nutr',  label: 'Nutrition',        chapters: ['ch10','ch11','ch12'], count: 14 },
+        ],
+    },
+};
+
+let mock = null;
+let mockTimer = null;
+
+function startMock(type) {
+    const cfg = MOCK_CONFIG[type];
+    if (!cfg) { alert('That mock exam is not available yet.'); return; }
+
+    // Build a blueprint-weighted, randomized pool
+    let pool = [];
+    const shortfall = [];
+    cfg.domains.forEach(d => {
+        const avail = quizQuestions.filter(q => d.chapters.includes(q.ch)).sort(() => Math.random() - 0.5);
+        if (avail.length < d.count) shortfall.push(`${d.label}: ${avail.length} of ${d.count}`);
+        avail.slice(0, d.count).forEach(q => pool.push({ ...q, dom: d.key }));
+    });
+    if (shortfall.length) {
+        if (!confirm('Heads up — the question bank is a little short in:\n' + shortfall.join('\n') + '\n\nStart anyway with what is available?')) return;
+    }
+    pool = pool.sort(() => Math.random() - 0.5);
+    mock = { type, cfg, pool, idx: 0, answers: new Array(pool.length).fill(null), secondsLeft: cfg.minutes * 60 };
+
+    document.getElementById('mock-launcher-card').style.display = 'none';
+    document.getElementById('practice-cards').style.display = 'none';
+    document.getElementById('mock-runner').style.display = '';
+    document.getElementById('mock-body').style.display = '';
+    document.getElementById('mock-results').style.display = 'none';
+    document.getElementById('mock-title').textContent = cfg.name + ' Mock Exam';
+
+    if (mockTimer) clearInterval(mockTimer);
+    mockTimer = setInterval(mockTick, 1000);
+    mockRenderTimer();
+    mockShow();
+    window.scrollTo(0, 0);
+}
+
+function mockTick() {
+    if (!mock) return;
+    mock.secondsLeft--;
+    mockRenderTimer();
+    if (mock.secondsLeft <= 0) mockFinish(true);
+}
+
+function mockRenderTimer() {
+    const m = Math.floor(mock.secondsLeft / 60);
+    const s = mock.secondsLeft % 60;
+    const el = document.getElementById('mock-timer');
+    el.textContent = m + ':' + s.toString().padStart(2, '0');
+    el.style.color = mock.secondsLeft <= 300 ? 'var(--red)' : 'var(--text)';
+}
+
+function mockShow() {
+    const q = mock.pool[mock.idx];
+    const total = mock.pool.length;
+    const labels = ['A', 'B', 'C'];
+    const sel = mock.answers[mock.idx];
+    document.getElementById('mock-q').textContent = (mock.idx + 1) + '. ' + q.q;
+    document.getElementById('mock-options').innerHTML = q.options.map((opt, i) =>
+        `<button class="quiz-option${sel === i ? ' selected' : ''}" onclick="mockSelect(${i})">${labels[i]}. ${opt}</button>`
+    ).join('');
+    const answeredCount = mock.answers.filter(a => a !== null).length;
+    document.getElementById('mock-count').textContent = `Question ${mock.idx + 1} of ${total} · ${answeredCount} answered`;
+    document.getElementById('mock-progress').style.width = Math.round(((mock.idx + 1) / total) * 100) + '%';
+    document.getElementById('mock-prev').disabled = mock.idx === 0;
+    document.getElementById('mock-next').disabled = mock.idx === total - 1;
+}
+
+function mockSelect(i) {
+    mock.answers[mock.idx] = i;
+    mockShow();
+}
+
+function mockNav(dir) {
+    mock.idx = Math.max(0, Math.min(mock.pool.length - 1, mock.idx + dir));
+    mockShow();
+}
+
+function mockFinish(auto) {
+    const unanswered = mock.answers.filter(a => a === null).length;
+    if (!auto && !confirm('Submit your exam?' + (unanswered ? `\n\nYou have ${unanswered} unanswered question(s) — they will be marked incorrect.` : ''))) return;
+    if (mockTimer) { clearInterval(mockTimer); mockTimer = null; }
+
+    const dom = {};
+    mock.cfg.domains.forEach(d => dom[d.key] = { label: d.label, correct: 0, total: 0 });
+    let correct = 0;
+    mock.pool.forEach((q, i) => {
+        dom[q.dom].total++;
+        if (mock.answers[i] === q.correct) { correct++; dom[q.dom].correct++; }
+    });
+    const total = mock.pool.length;
+    const pct = Math.round((correct / total) * 100);
+    const secondsUsed = mock.cfg.minutes * 60 - Math.max(0, mock.secondsLeft);
+
+    if (!state.mockResults) state.mockResults = [];
+    state.mockResults.push({
+        type: mock.type, name: mock.cfg.name, date: new Date().toISOString().slice(0, 10),
+        pct, correct, total, secondsUsed,
+        domains: Object.fromEntries(mock.cfg.domains.map(d => [d.key, { correct: dom[d.key].correct, total: dom[d.key].total }])),
+    });
+    saveState();
+
+    mockRenderResults(pct, correct, total, dom, secondsUsed, auto);
+    renderMockHistory();
+    window.scrollTo(0, 0);
+}
+
+function mockRenderResults(pct, correct, total, dom, secondsUsed, auto) {
+    document.getElementById('mock-body').style.display = 'none';
+    const res = document.getElementById('mock-results');
+    res.style.display = '';
+    const pass = pct >= 70;
+    const color = pass ? 'var(--green)' : pct >= 60 ? 'var(--yellow)' : 'var(--red)';
+    const mm = Math.floor(secondsUsed / 60), ss = secondsUsed % 60;
+    let html = `<div style="text-align: center; padding: 10px 0 20px;">
+        <div style="font-size: 13px; color: var(--text-dim);">${mock.cfg.name} Mock Exam${auto ? ' · time expired' : ''}</div>
+        <div style="font-size: 48px; font-weight: 800; color: ${color};">${pct}%</div>
+        <div style="font-size: 15px; color: var(--text-dim);">${correct} / ${total} correct · ${mm}m ${ss}s used</div>
+        <div style="margin-top: 8px; font-weight: 700; color: ${color};">${pass ? 'PASS ZONE (70%+)' : 'BELOW 70% — keep drilling'}</div>
+        <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">The real exam is scaled-scored; treat 70%+ here as a readiness proxy, not a guarantee.</div>
+    </div>
+    <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px;">By domain</div>`;
+    mock.cfg.domains.forEach(d => {
+        const c = dom[d.key].correct, t = dom[d.key].total;
+        const p = t ? Math.round((c / t) * 100) : 0;
+        const bc = p >= 70 ? 'var(--green)' : p >= 50 ? 'var(--yellow)' : 'var(--red)';
+        html += `<div style="margin-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between; font-size: 13px;"><span>${d.label}</span><span style="color: ${bc};">${c}/${t} (${p}%)</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width: ${p}%; background: ${bc};"></div></div>
+        </div>`;
+    });
+    html += `<div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="btn btn-primary" onclick="mockReview()">Review all ${total} answers</button>
+        <button class="btn btn-secondary" onclick="exitMock()">Back to Practice</button>
+    </div>`;
+    res.innerHTML = html;
+}
+
+function mockReview() {
+    const res = document.getElementById('mock-results');
+    const labels = ['A', 'B', 'C'];
+    let html = '<div style="font-size: 15px; font-weight: 700; margin-bottom: 12px;">Answer Review</div>';
+    mock.pool.forEach((q, i) => {
+        const sel = mock.answers[i];
+        const ok = sel === q.correct;
+        const icon = ok ? '<span style="color: var(--green);">&#10003;</span>' : '<span style="color: var(--red);">&#10007;</span>';
+        html += `<div style="padding: 12px; margin-bottom: 8px; background: var(--surface2); border-radius: 8px; border-left: 3px solid ${ok ? 'var(--green)' : 'var(--red)'};">
+            <div style="font-size: 13px; margin-bottom: 6px;">${icon} <strong>Q${i + 1}.</strong> ${q.q}</div>`;
+        q.options.forEach((opt, j) => {
+            let st = 'font-size: 12px; padding: 2px 0; color: var(--text-dim);';
+            if (j === q.correct) st += ' color: var(--green); font-weight: 600;';
+            if (j === sel && !ok) st += ' color: var(--red); text-decoration: line-through;';
+            html += `<div style="${st}">${labels[j]}. ${opt}${j === sel ? ' (your answer)' : ''}</div>`;
+        });
+        if (sel === null) html += '<div style="font-size: 11px; color: var(--yellow); margin-top: 4px;">Left blank</div>';
+        html += `<div style="font-size: 11px; color: var(--text-dim); margin-top: 6px; padding: 6px; background: var(--bg); border-radius: 4px;">${q.explain}</div></div>`;
+    });
+    html += '<div style="margin-top: 12px;"><button class="btn btn-secondary" onclick="exitMock()">Back to Practice</button></div>';
+    res.innerHTML = html;
+    window.scrollTo(0, 0);
+}
+
+function exitMock() {
+    if (mockTimer) { clearInterval(mockTimer); mockTimer = null; }
+    mock = null;
+    document.getElementById('mock-runner').style.display = 'none';
+    document.getElementById('mock-launcher-card').style.display = '';
+    document.getElementById('practice-cards').style.display = '';
+    renderMockHistory();
+}
+
+function renderMockHistory() {
+    const el = document.getElementById('mock-history');
+    if (!el) return;
+    const hist = (state.mockResults || []).slice().reverse();
+    if (!hist.length) {
+        el.innerHTML = '<div style="font-size: 12px; color: var(--text-dim);">No mock exams taken yet — your benchmark history will show here.</div>';
+        return;
+    }
+    el.innerHTML = '<div style="font-size: 12px; font-weight: 600; color: var(--text-dim); margin-bottom: 6px;">BENCHMARK HISTORY</div>' +
+        hist.map(r => {
+            const c = r.pct >= 70 ? 'var(--green)' : r.pct >= 60 ? 'var(--yellow)' : 'var(--red)';
+            return `<div style="display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; border-bottom: 1px solid var(--border);">
+                <span>${r.name} · ${r.date}</span><span style="color: ${c}; font-weight: 600;">${r.pct}% (${r.correct}/${r.total})</span>
+            </div>`;
+        }).join('');
+}
+
+// ============================================================
 // CHECKLIST
 // ============================================================
 function renderChecklists() {
@@ -1899,6 +2172,7 @@ loadQuiz();
 renderChecklists();
 renderResources();
 updateChapterScores();
+renderMockHistory();
 // Load cloud state and merge with local
 cloudLoad();
 // ============================================================
