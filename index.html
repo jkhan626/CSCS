@@ -1392,8 +1392,10 @@ function saveState() {
     cloudSave();
 }
 
-// Initial save to push pre-checked items to cloud
-setTimeout(() => { cloudSave(); }, 1000);
+// NOTE: the initial seed-save now runs AFTER cloudLoad() resolves (see INIT below),
+// not on a fixed timer. A fixed-timer save could fire before the cloud fetch finished
+// and overwrite newer cloud data with stale local state (this previously reverted
+// completed days). Chaining it after the load guarantees we merge first, then save.
 
 // ============================================================
 // NAVIGATION
@@ -2272,8 +2274,10 @@ renderChecklists();
 renderResources();
 updateChapterScores();
 renderMockHistory();
-// Load cloud state and merge with local
-cloudLoad();
+// Load cloud state and merge with local FIRST, then seed any local-only pre-checked
+// items. Chaining the save after the load prevents a slow network fetch from letting
+// the initial save clobber newer cloud data (which previously reverted completed days).
+cloudLoad().then(() => { cloudSave(); });
 // ============================================================
 // HIT LISTS
 // ============================================================
