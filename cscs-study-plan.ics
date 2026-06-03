@@ -316,8 +316,8 @@ END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260603
 DTEND;VALUE=DATE:20260604
-SUMMARY:CSCS: Ch 22 — Periodization
-DESCRIPTION:Watch Ch 22 videos\nRead textbook Ch 22: linear\, undulating (DUP)\, block\; macro/meso/micro\nPhases: hypertrophy to basic strength to strength/power to peaking to active rest\nClaude session + take Ch 22 quiz
+SUMMARY:CSCS: Ch 21 vids + Ch 22 — Finish Ch 21 videos (AM) + Periodization
+DESCRIPTION:AM commute: finish the remaining Ch 21 videos\nWatch Ch 22 videos\nRead textbook Ch 22: linear\, undulating (DUP)\, block\; macro/meso/micro\nPhases: hypertrophy to basic strength to strength/power to peaking to active rest\nClaude session + take Ch 22 quiz
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
