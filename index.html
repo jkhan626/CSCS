@@ -640,49 +640,8 @@
 
     <!-- QUIZ -->
     <div class="section" id="sec-quiz">
-        <div class="card" id="mock-launcher-card">
-            <h2>🎯 Mock Exams</h2>
-            <p style="font-size: 14px; color: var(--text-dim); margin-bottom: 14px;">Timed, exam-style simulation — <strong>no feedback until you finish</strong>, just like the real thing. Questions are drawn to the real blueprint weights. Aim for 70%+ as a readiness proxy (the actual exam is scaled-scored).</p>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <button class="btn btn-primary" onclick="startMock('sf')">Start SF Mock — 95 Q · 90 min</button>
-                <button class="btn btn-primary" onclick="startMock('pa')">Start PA Mock — 125 Q · 150 min</button>
-            </div>
-            <div style="font-size: 12px; color: var(--text-dim); margin-top: 8px;">Tip: take the PA mock once you've finished the book (through Ch 26) for the truest read.</div>
-            <details style="margin-top: 14px; background: var(--surface2); border-radius: 8px; padding: 10px 12px;">
-                <summary style="cursor: pointer; font-size: 13px; font-weight: 600;">ℹ️ How the real CSCS exam works</summary>
-                <div style="font-size: 12px; color: var(--text-dim); line-height: 1.55; margin-top: 8px;">
-                    <strong style="color: var(--text);">Two sections in one sitting</strong>, with a 15-minute break between them. On-screen 4-function calculator. Every question has 3 choices (A, B, C).<br><br>
-                    <strong style="color: var(--text);">Section 1 — Scientific Foundations:</strong> 95 questions, <strong>1.5 hours</strong> (90 min). Exercise Science 60% · Sport Psychology 25% · Nutrition 15%.<br><br>
-                    <strong style="color: var(--text);">Section 2 — Practical / Applied:</strong> 125 questions, <strong>2.5 hours</strong> (150 min). Program Design 40% · Exercise Technique 25% · Program Implementation 20% · Organization & Admin 15%. Includes 30–40 video/image questions.<br><br>
-                    <strong style="color: var(--text);">Scored vs. unscored:</strong> not every question counts — 80 of the 95 (SF) and 110 of the 125 (PA) are scored; the rest are unscored pilot items you can't pick out.<br><br>
-                    <strong style="color: var(--text);">Passing:</strong> a <strong>scaled score of 70 or higher on EACH section</strong>. The two sections are scored separately and you must pass both. The scaled 70 is NOT a raw percentage — treat 70%+ on these mocks as a readiness proxy, not a guarantee.
-                </div>
-            </details>
-            <div id="mock-history" style="margin-top: 16px;"></div>
-        </div>
+        <!-- Mock Exams feature removed June 5, 2026 — Jamal switched to Pocket Prep + the NSCA official practice exam -->
 
-        <div class="card" id="mock-runner" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <h2 id="mock-title" style="margin: 0;">Mock Exam</h2>
-                <div id="mock-timer" style="font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums;">90:00</div>
-            </div>
-            <div class="progress-bar" style="margin-bottom: 16px;"><div class="progress-fill" id="mock-progress" style="width: 0%;"></div></div>
-            <div id="mock-body">
-                <div class="quiz-question" id="mock-q"></div>
-                <div id="mock-options"></div>
-                <div class="quiz-nav" style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
-                    <span id="mock-count" style="font-size: 13px; color: var(--text-dim);"></span>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-secondary" id="mock-prev" onclick="mockNav(-1)">Previous</button>
-                        <button class="btn btn-primary" id="mock-next" onclick="mockNav(1)">Next</button>
-                    </div>
-                </div>
-                <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); text-align: right;">
-                    <button class="btn btn-secondary" onclick="mockFinish(false)">Finish Exam</button>
-                </div>
-            </div>
-            <div id="mock-results" style="display: none;"></div>
-        </div>
 
         <div id="practice-cards">
         <div class="card">
@@ -875,9 +834,9 @@ function generateStudyPlan() {
         { d: '2026-06-04', tag: 'practical', label: 'Ch 23', topic: 'Rehabilitation, Reconditioning, and Medical Issues', phase: 'Practical', sessions: ['Watch Ch 23 videos', 'Read textbook Ch 23: tissue healing phases, return to play, allied health team', 'Claude session + take Ch 23 quiz'] },
         { d: '2026-06-05', tag: 'practical', label: 'Ch 24', topic: 'Overreaching, Overtraining, and Recovery', phase: 'Practical', sessions: ['Watch Ch 24 videos', 'Read textbook Ch 24: GAS, functional vs nonfunctional overreaching, OTS', 'Recovery methods and monitoring', 'Claude session + take Ch 24 quiz'] },
         { d: '2026-06-06', tag: 'practical', label: 'Ch 25-26', topic: 'Facility Design + Policies, Procedures, Legal — last chapters!', phase: 'Practical', sessions: ['Watch Ch 25-26 videos', 'Read textbook Ch 25-26: space requirements, equipment, negligence (4 elements), EAP, scope', 'Claude session + take Ch 25-26 quiz', 'All textbook content complete after today!'] },
-        { d: '2026-06-07', tag: 'quiz', label: 'Practice Exam', topic: 'Timed SF practice exam (95 Qs / 90 min)', phase: 'Review', sessions: ['Take full timed SF practice exam', 'Review all incorrect answers', 'Identify weak SF domains'] },
+        { d: '2026-06-07', tag: 'quiz', label: 'Pocket Prep (SF)', topic: 'Pocket Prep — Scientific Foundations focus', phase: 'Review', sessions: ['Pocket Prep: timed Scientific Foundations sets (Exercise Science, Sport Psych, Nutrition)', 'Review every missed question + explanation', 'Note weak SF domains for targeted review'] },
         { d: '2026-06-08', tag: 'review', label: 'SF Weak Areas', topic: 'Review SF weak areas from practice exam', phase: 'Review', sessions: ['Deep review of weakest SF domains', 'Re-watch relevant videos', 'Claude session: targeted drilling'] },
-        { d: '2026-06-09', tag: 'quiz', label: 'Practice Exam', topic: 'Timed PA practice exam (125 Qs / 150 min)', phase: 'Review', sessions: ['Take full timed PA practice exam', 'Review all incorrect answers', 'Identify weak PA domains'] },
+        { d: '2026-06-09', tag: 'quiz', label: 'Pocket Prep (PA)', topic: 'Pocket Prep — Practical/Applied focus', phase: 'Review', sessions: ['Pocket Prep: timed Practical/Applied sets (Program Design, Technique, Testing, Admin)', 'Review every missed question + explanation', 'Note weak PA domains for targeted review'] },
         { d: '2026-06-10', tag: 'review', label: 'PA Weak Areas', topic: 'Review PA weak areas from practice exam', phase: 'Review', sessions: ['Deep review of weakest PA domains', 'Program design scenario practice', 'Claude session: targeted drilling'] },
         { d: '2026-06-11', tag: 'review', label: 'Video Prep', topic: 'Exercise technique video/image question prep', phase: 'Review', sessions: ['Watch exercise technique videos — focus on identifying errors', 'Review spotting positions, Olympic lift phases, common errors', 'Claude session: error identification practice'] },
         { d: '2026-06-12', tag: 'review', label: 'Normative Data', topic: 'Memorize key normative data + percentile tables', phase: 'Review', sessions: ['Review 60th percentile values for all major tests', 'Study body fat % by sport', 'Practice test result interpretation scenarios'] },
@@ -887,7 +846,7 @@ function generateStudyPlan() {
         { d: '2026-06-16', tag: 'review', label: 'Technique', topic: 'Exercise Technique deep dive (25% of PA)', phase: 'Review', sessions: ['Olympic lifts: clean, snatch, jerk — phases and common errors', 'Spotting techniques for all major lifts', 'HKPropel exercise technique videos'] },
         { d: '2026-06-17', tag: 'review', label: 'Testing', topic: 'Testing & Program Implementation review', phase: 'Review', sessions: ['Test selection, order, validity, reliability', 'Normative data interpretation', 'Work:rest ratios for all energy systems'] },
         { d: '2026-06-18', tag: 'review', label: 'Psych + Nutr', topic: 'Sport Psychology + Nutrition review', phase: 'Review', sessions: ['SDT, arousal, goal setting, scope of practice', 'Macro calculations, hydration, pre/post nutrition', 'Pocket Prep: 20 questions'] },
-        { d: '2026-06-19', tag: 'quiz', label: 'FULL Practice', topic: 'Complete timed practice exam (BOTH sections)', phase: 'Review', sessions: ['SF: 95 Qs / 90 min', '15 min break', 'PA: 125 Qs / 150 min', 'Review all results'] },
+        { d: '2026-06-19', tag: 'quiz', label: 'NSCA Practice Exam', topic: 'NSCA Official Practice Exam — full, both sections (the real benchmark)', phase: 'Review', sessions: ['Take the NSCA official practice exam under test conditions', 'SF, then 15-min break, then PA', 'Review all results — this score drives the final-weeks plan'] },
         { d: '2026-06-20', tag: 'review', label: 'Exam Analysis', topic: 'Analyze full practice exam + adjust review plan', phase: 'Review', sessions: ['Score analysis by domain', 'Create priority list for final 4 weeks', 'Claude session: review missed concepts'] },
         { d: '2026-06-21', tag: 'rest', label: 'Rest', topic: 'Rest day', phase: 'Review', sessions: ['Rest', 'Light Pocket Prep if desired'] },
         { d: '2026-06-22', tag: 'review', label: 'Weak Areas', topic: 'Targeted weak area drilling', phase: 'Review', sessions: ['Focus on domains below 75% from practice exam', 'Claude session: targeted tutoring', 'Pocket Prep: 20 targeted questions'] },
@@ -899,7 +858,7 @@ function generateStudyPlan() {
         { d: '2026-06-28', tag: 'review', label: 'PA Drill', topic: 'Practical/Applied intensive drill', phase: 'Review', sessions: ['Program Design scenarios', 'Exercise technique review', 'Testing protocols', 'Pocket Prep: 40 PA questions'] },
         { d: '2026-06-29', tag: 'rest', label: 'Rest', topic: 'Rest day', phase: 'Review', sessions: ['Rest', 'Light review only'] },
         { d: '2026-06-30', tag: 'review', label: 'Formulas', topic: 'Key formulas and calculations review', phase: 'Review', sessions: ['Karvonen, %1RM, caloric calculations, work:rest ratios', '%HRR = %VO2max, MET conversions', 'Claude session: calculation practice'] },
-        { d: '2026-07-01', tag: 'quiz', label: 'FINAL Practice', topic: 'Final full practice exam — test conditions', phase: 'Final Review', sessions: ['Simulate test center: no phone, timed, no notes', 'Both sections', 'Score and review'] },
+        { d: '2026-07-01', tag: 'quiz', label: 'FINAL (Pocket Prep)', topic: 'Final timed simulation — Pocket Prep under test conditions', phase: 'Final Review', sessions: ['Simulate test center: no phone, timed, no notes', 'Long mixed Pocket Prep set across both sections', 'Score and review — final confidence check'] },
         { d: '2026-07-02', tag: 'review', label: 'Exam Review', topic: 'Review final practice exam results', phase: 'Final Review', sessions: ['Review all missed questions', 'Create 1-page cheat sheet per domain', 'Claude session: last deep review'] },
         { d: '2026-07-03', tag: 'review', label: 'Weak Areas', topic: 'Final weak area targeting', phase: 'Final Review', sessions: ['Deep dive on remaining weak areas from final practice', 'Claude session: rapid-fire Q&A'] },
         { d: '2026-07-04', tag: 'rest', label: 'Rest', topic: 'July 4th — rest and enjoy', phase: 'Final Review', sessions: ['Rest', 'Optional: skim cheat sheets'] },
@@ -1328,20 +1287,11 @@ async function cloudLoad() {
                     const l = (local.chapterStats || {})[ch] || { total: 0, correct: 0 };
                     state.chapterStats[ch] = { total: Math.max(c.total, l.total), correct: Math.max(c.correct, l.correct) };
                 }
-                // Merge mock-exam benchmark history (append-only) from both cloud and local, de-duplicated
-                const mockSeen = new Set();
-                state.mockResults = [...(cloud.mockResults || []), ...(local.mockResults || [])].filter(r => {
-                    const k = `${r.type}|${r.date}|${r.correct}|${r.total}|${r.secondsUsed}`;
-                    if (mockSeen.has(k)) return false;
-                    mockSeen.add(k);
-                    return true;
-                });
                 localStorage.setItem('cscs-study-state', JSON.stringify(state));
                 updateDashboard();
                 renderCalendar();
                 renderChecklists();
                 updateChapterScores();
-                renderMockHistory();
             }
         }
     } catch (e) { /* offline, use local */ }
@@ -2273,7 +2223,6 @@ loadQuiz();
 renderChecklists();
 renderResources();
 updateChapterScores();
-renderMockHistory();
 // Load cloud state and merge with local FIRST, then seed any local-only pre-checked
 // items. Chaining the save after the load prevents a slow network fetch from letting
 // the initial save clobber newer cloud data (which previously reverted completed days).
