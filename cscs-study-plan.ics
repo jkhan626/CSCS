@@ -344,8 +344,8 @@ END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260607
 DTEND;VALUE=DATE:20260608
-SUMMARY:CSCS: Practice Exam — Timed SF practice exam (95 Qs / 90 min)
-DESCRIPTION:Take full timed SF practice exam\nReview all incorrect answers\nIdentify weak SF domains
+SUMMARY:CSCS: Pocket Prep (SF) — Scientific Foundations focus
+DESCRIPTION:Pocket Prep: timed Scientific Foundations sets (Exercise Science\, Sport Psych\, Nutrition)\nReview every missed question + explanation\nNote weak SF domains
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
@@ -358,8 +358,8 @@ END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260609
 DTEND;VALUE=DATE:20260610
-SUMMARY:CSCS: Practice Exam — Timed PA practice exam (125 Qs / 150 min)
-DESCRIPTION:Take full timed PA practice exam\nReview all incorrect answers\nIdentify weak PA domains
+SUMMARY:CSCS: Pocket Prep (PA) — Practical/Applied focus
+DESCRIPTION:Pocket Prep: timed Practical/Applied sets (Program Design\, Technique\, Testing\, Admin)\nReview every missed question + explanation\nNote weak PA domains
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
@@ -428,8 +428,8 @@ END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260619
 DTEND;VALUE=DATE:20260620
-SUMMARY:CSCS: FULL Practice — Complete timed practice exam (BOTH sections)
-DESCRIPTION:SF: 95 Qs / 90 min\n15 min break\nPA: 125 Qs / 150 min\nReview all results
+SUMMARY:CSCS: NSCA Practice Exam — full\, both sections (the real benchmark)
+DESCRIPTION:Take the NSCA official practice exam under test conditions\nSF\, then 15-min break\, then PA\nReview all results — this score drives the final-weeks plan
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
@@ -512,8 +512,8 @@ END:VEVENT
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260701
 DTEND;VALUE=DATE:20260702
-SUMMARY:CSCS: FINAL Practice — Final full practice exam — test conditions
-DESCRIPTION:Simulate test center: no phone\, timed\, no notes\nBoth sections\nScore and review
+SUMMARY:CSCS: FINAL (Pocket Prep) — final timed simulation under test conditions
+DESCRIPTION:Simulate test center: no phone\, timed\, no notes\nLong mixed Pocket Prep set across both sections\nScore and review — final confidence check
 CATEGORIES:CSCS Study
 END:VEVENT
 BEGIN:VEVENT
